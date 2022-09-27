@@ -1,0 +1,60 @@
+stages:
+  - quality
+.tags-default: &tags-default
+  tags:
+    - devops
+
+.only-default: &only-default
+  only:
+    - dev
+
+PHP Stan:
+  image: lyni/phpqa:8.0
+  stage: quality
+  <<: *tags-default
+  script:
+    - git fetch origin
+    - git branch
+    - cd src && composer i -n
+    - phpstan analyse app --level 0
+
+PHP Security:
+  image: lyni/phpqa:8.0
+  stage: quality
+  <<: *tags-default
+  script:
+    - git fetch origin
+    - git branch
+    - cd src && composer i -n
+    - local-php-security-checker
+
+PHP Copy/Paste Detector:
+  image: lyni/phpqa:8.0
+  stage: quality
+  <<: *tags-default
+  script:
+    - git fetch origin
+    - git branch
+    - cd src && composer i -n
+    - phpcpd app
+
+PHP Magic Number:
+  image: lyni/phpqa:8.0
+  stage: quality
+  <<: *tags-default
+  script:
+    - git fetch origin
+    - git branch
+    - cd src && composer i -n
+    - phpmnd app --ignore-numbers=2,-1 --ignore-funcs=round,sleep --exclude=tests --progress \
+      --extensions=default_parameter,-return,argument
+
+PHP CS:
+  image: lyni/phpqa:8.0
+  stage: quality
+  <<: *tags-default
+  script:
+    - git fetch origin
+    - git branch
+    - cd src && composer i -n
+    - phpcs --standard=PSR12 app
