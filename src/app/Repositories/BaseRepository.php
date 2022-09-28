@@ -49,7 +49,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
                 $sortType = 'ASC';
 
                 if (substr($sort, 0, 1) === '-') {
-                    $field    = substr($sort, 1, strlen($sort) - 2);
+                    $field    = substr($sort, 1, strlen($sort) - 1);
                     $sortType = 'DESC';
                 }
 
