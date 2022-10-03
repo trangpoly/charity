@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 abstract class BaseRepository implements BaseRepositoryInterface
 {
-    const PAGE_LIMIT = 10;
+    protected const PAGE_LIMIT = 10;
 
     /**
      * @var \App\Models\BaseModel | \Illuminate\Database\Eloquent\Builder
