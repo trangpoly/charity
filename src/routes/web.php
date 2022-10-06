@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Client\Auth\AuthController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,10 +29,15 @@ Route::get('/my-app', function () {
 
 require __DIR__.'/auth.php';
 
+
 route::name('charity.')->prefix('charity')->group(function () {
 
     Route::get('/register', [AuthController::class, 'showFormRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'generateOtp'])->name('register.auth');
     Route::get('register/verify', [AuthController::class, 'showFormOtpVerify'])->name('register.verify');
     Route::post('register/verify', [AuthController::class, 'checkOtp'])->name('register.verify.check-otp');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
 });
