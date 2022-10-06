@@ -53,12 +53,13 @@ class AuthService
                 ];
 
                 $this->authRepository->register($data);
-                dd('Register successfully');
+
+                return false;
             } else {
-                dd('OTP was expired, resend OTP');
+                return true;
             }
         } else {
-            dd('OTP Invalid !');
+            return true;
         }
     }
 }
