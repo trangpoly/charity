@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('verification_otps', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->integer('otp')->unique();
             $table->integer('phone_number');
             $table->timestamp('expires_at');

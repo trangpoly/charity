@@ -19,15 +19,8 @@
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6">
-                    {{ $header }}
-                </div>
-            </header>
-
             <!-- Page Content -->
-            <main style="min-height: calc(100vh - 413px)">
+            <main style="min-height: calc(100vh - 342px)">
                 {{ $slot }}
             </main>
 
@@ -35,7 +28,6 @@
             <footer class="bg-lime-200 pt-5 px-10">
                 @include('layouts.footer')
             </footer>
-            
         </div>
         <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     </body>

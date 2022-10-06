@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\VerificationOtp;
+use App\Services\Client\AuthService;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public $model;
+    public $authService;
 
-    public function __construct(VerificationOtp $model)
+    public function __construct(AuthService $authService)
     {
-        $this->model = $model;
+        $this->authService = $authService;
     }
 
     public function showFormRegister()
@@ -20,50 +22,21 @@ class AuthController extends Controller
         return view('client.auth.register');
     }
 
-    public function register(Request $request)
-    {
-        $validatePhoneNumber = $request->validate([
-            'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/'
-        ]);
-
-        if ($validatePhoneNumber)
-        {
-            $data = [
-                'phone_number' => (int) $request->phone_number,
-                'otp' => random_int(100000, 999999),
-                'expires_at' => now()->addMinutes(10),
-            ];
-
-            $this->model->create($data);
-
-            return redirect()->route('charity.register.verify');
-        }
-    }
-
     public function showFormOtpVerify()
     {
         return view('client.auth.phone-otp-verify');
     }
 
+    public function generateOtp(Request $request)
+    {
+        $status = $this->authService->generateOtp($request);
+        $msg = $status ? 'Gửi OTP thất bại !' : 'OTP xác nhận đã được gửi vào số điện thoại của bạn !';
+
+        return redirect()->route('charity.register.verify')->with(['msg' => $msg, 'status' => $status]);
+    }
+
     public function checkOtp(Request $request)
     {
-        $inputOtp = $request->otp;
-
-        if ($this->model->where('otp', $inputOtp)) {
-            $dataRegister = $this->model->where('otp', $inputOtp)->first();
-            $expiresOtp = $dataRegister->expires_at;
-            $otpYearCalc = now()->diffInYears($expiresOtp);
-            $otpMonthCalc = now()->diffInMonths($expiresOtp);
-            $otpDayCalc = now()->diffInDays($expiresOtp);
-            $otpMinutesCalc = now()->diffInMinutes($expiresOtp);
-
-            if ($otpYearCalc == 0 && $otpMonthCalc == 0 && $otpDayCalc == 0 && $otpMinutesCalc < 10) {
-                dd('Register successfully');
-            } else {
-                dd('Otp was expired, Resend otp ?');
-            }
-        } else {
-            dd('failed');
-        }
+        $status = $this->authService->checkOtp($request);
     }
 }
