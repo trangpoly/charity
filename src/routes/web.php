@@ -28,6 +28,6 @@ Route::get('/my-app', function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });
