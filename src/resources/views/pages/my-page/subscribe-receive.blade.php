@@ -1,10 +1,12 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-3xl text-gray-800">
-            {{ __('Tài khoản') }}
-        </h2>
-    </x-slot>
-    <div class="flex max-w-7xl mx-auto mt-10">
+    <header class="bg-white shadow">
+        <div class="max-w-8xl mx-auto py-6">
+            <h2 class="font-semibold text-3xl text-gray-800">
+                Tài khoản
+            </h2>
+        </div>
+    </header>
+    <div class="flex max-w-8xl mx-auto mt-10">
         <div class="w-4/12  border border-gray-300 h-fit">
             <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
                 <div class="w-full flex  border-b border-lime-500">
@@ -61,13 +63,14 @@
                     </a>
                 </div>
                 <div
-                    class="text-gray-500 hover:font-semibold border-b-4 border-white hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
+                    class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
+
                     <a href="">
                         Đã nhận
                     </a>
                 </div>
                 <div
-                    class="text-gray-500 hover:font-semibold border-b-4 border-white hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
+                    class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
                     <a href="">
                         Đã hủy
                     </a>
@@ -79,7 +82,7 @@
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u41.jpg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                             alt="">
                     </div>
-                    <div class="w-6/12 ml-10">
+                    <div class="w-6/12 ml-10 relative">
                         <h2 class="font-semibold text-3xl text-slate-800">Ổi sạch Di Trạch</h2>
                         <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
                             <div class="flex py-2 space-x-4">
@@ -123,7 +126,8 @@
                                 class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">HỦY
                                 ĐĂNG KÍ</button>
                         </form>
-
+                        <img class="absolute top-0 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
+                        <img class="absolute top-8 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u68.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
                     </div>
                 </div>
                 <div class="w-full flex border border-gray-300 rounded-md p-10 mt-10">
