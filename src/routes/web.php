@@ -22,6 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/my-app', function () {
+    return view('pages.my-page.subscribe-receive');
+})->middleware(['auth'])->name('my-page.subscribe-receive');
+
 require __DIR__.'/auth.php';
 
 route::name('charity.')->prefix('charity')->group(function () {
