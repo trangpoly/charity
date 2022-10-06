@@ -17,8 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/home', function () {
+    return view('pages.home');
+})->middleware(['auth'])->name('home');
+
+Route::get('/my-app', function () {
+    return view('pages.my-page.subscribe-receive');
+})->middleware(['auth'])->name('my-page.subscribe-receive');
 
 require __DIR__.'/auth.php';

@@ -10,24 +10,28 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+
         <!-- Scripts -->
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
 
             <!-- Page Content -->
-            <main>
+            <main style="min-height: calc(100vh - 342px)">
                 {{ $slot }}
             </main>
+
+            <!-- Page Footer -->
+            <footer class="bg-lime-200 pt-5 px-10">
+            @include('layouts.footer')
+            </footer>
+            
         </div>
+        <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     </body>
 </html>
