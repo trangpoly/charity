@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
@@ -28,6 +29,8 @@ Route::get('/home', function () {
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
 })->name('my-page.subscribe-receive');
+
+Route::get('/product/{id}', [ProductController::class, 'getProduct'] )->middleware(['auth'])->name('web.client.product.detail');
 
 require __DIR__.'/auth.php';
 
