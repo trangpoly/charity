@@ -4,6 +4,7 @@ namespace App\Services\Client;
 
 use App\Repositories\Client\AuthRepository;
 use App\Repositories\Client\AuthRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -50,6 +51,7 @@ class AuthService
             if ($otpYearCalc == 0 && $otpMonthCalc == 0 && $otpDayCalc == 0 && $otpMinutesCalc < 10) {
                 $data = [
                     'phone_number' => $dataRegister->phone_number,
+                    'password' => Hash::make('ABCD9876'),
                 ];
 
                 $this->authRepository->register($data);

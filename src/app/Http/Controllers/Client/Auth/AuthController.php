@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Client\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\VerificationOtp;
+use App\Http\Controllers\BaseController;
+use App\Http\Requests\Client\Auth\FormRegisterRequest;
 use App\Services\Client\AuthService;
 use Illuminate\Http\Request;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     public $authService;
 
@@ -27,7 +26,7 @@ class AuthController extends Controller
         return view('client.auth.phone-otp-verify');
     }
 
-    public function generateOtp(Request $request)
+    public function generateOtp(FormRegisterRequest $request)
     {
         $status = $this->authService->generateOtp($request);
         $msg = $status ? 'Gửi OTP thất bại !' : 'OTP xác nhận đã được gửi vào số điện thoại của bạn !';
@@ -38,5 +37,8 @@ class AuthController extends Controller
     public function checkOtp(Request $request)
     {
         $status = $this->authService->checkOtp($request);
+        $msg = $status ? 'Đăng ký không thành công ! Hãy chắc chắn bạn làm đúng các bước theo hướng dẫn' : 'Đăng ký thành công';
+
+        return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);
     }
 }

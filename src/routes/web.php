@@ -21,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('pages.home');
-})->middleware(['auth'])->name('home');
+})->name('home');
 
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
@@ -30,12 +30,12 @@ Route::get('/my-app', function () {
 require __DIR__.'/auth.php';
 
 
-route::name('charity.')->prefix('charity')->group(function () {
+route::prefix('charity')->group(function () {
 
-    Route::get('/register', [AuthController::class, 'showFormRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'generateOtp'])->name('register.auth');
-    Route::get('register/verify', [AuthController::class, 'showFormOtpVerify'])->name('register.verify');
-    Route::post('register/verify', [AuthController::class, 'checkOtp'])->name('register.verify.check-otp');
+    Route::get('/register', [AuthController::class, 'showFormRegister'])->name('charity.register');
+    Route::post('/register', [AuthController::class, 'generateOtp'])->name('charity.register.auth');
+    Route::get('/register', [AuthController::class, 'showFormOtpVerify'])->name('charity.register.verify');
+    Route::post('/register', [AuthController::class, 'checkOtp'])->name('charity.register.verify.check-otp');
 });
 
 Route::prefix('admin')->group(function () {
