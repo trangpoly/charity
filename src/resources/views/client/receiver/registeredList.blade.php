@@ -127,7 +127,6 @@
                                 ĐĂNG KÍ</button>
                         </form>
                         <img class="absolute top-0 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
-                        <img class="absolute top-8 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u68.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
                     </div>
                 </div>
                 <div class="w-full flex border border-gray-300 rounded-md p-10 mt-10">

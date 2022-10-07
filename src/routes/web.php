@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Client\ClientController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,10 +25,18 @@ Route::get('/home', function () {
 
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
-})->middleware(['auth'])->name('my-page.subscribe-receive');
+})->name('my-page.subscribe-receive');
 
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
+});
+
+Route::prefix('client')->group(function () {
+    Route::prefix('receiver')->group(function () {
+        Route::get('receivedList', [ClientController::class, 'receivedList'])->name('web.admin.receivedList');
+        Route::get('registeredList', [ClientController::class, 'registeredList'])->name('web.admin.registeredList');
+        Route::get('canceledList', [ClientController::class, 'canceledList'])->name('web.admin.canceledList');
+    });
 });
