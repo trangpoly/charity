@@ -39,10 +39,8 @@ Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
 });
 
-Route::prefix('client')->group(function () {
-    Route::prefix('receiver')->group(function () {
-        Route::get('receivedList', [ClientController::class, 'receivedList'])->name('web.admin.receivedList');
-        Route::get('registeredList', [ClientController::class, 'registeredList'])->name('web.admin.registeredList');
-        Route::get('canceledList', [ClientController::class, 'canceledList'])->name('web.admin.canceledList');
-    });
+Route::prefix('receiver')->group(function () {
+    Route::get('receivedlist', [ClientController::class, 'received_list'])->name('web.admin.receivedList');
+    Route::get('registeredlist', [ClientController::class, 'registered_list'])->name('web.admin.registeredList');
+    Route::get('canceledlist', [ClientController::class, 'canceled_list'])->name('web.admin.canceledList');
 });
