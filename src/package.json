@@ -16,6 +16,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@moesaid/cleopatra": "^1.1.1",
         "sass": "^1.55.0"
     }
 }
