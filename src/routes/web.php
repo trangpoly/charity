@@ -65,14 +65,3 @@ Route::prefix('giver')->group(function () {
     })->name('web.client.giver.subscribe-giver');
 });
 
-Route::prefix('receiver')->group(function () {
-    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
-});
-
-Route::prefix('receiver')->group(function () {
-    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
-});
