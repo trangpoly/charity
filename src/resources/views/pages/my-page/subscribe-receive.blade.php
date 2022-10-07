@@ -46,7 +46,7 @@
             </div>
             <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
                 <div class="w-full flex">
-                    <p class="w-11/12 py-10">Đăng xuất</p>
+                    <a href="{{ route('web.logout') }}" class="w-11/12 py-10">Đăng xuất</a>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
                         <path
                             d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />

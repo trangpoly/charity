@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,13 @@ Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('
 Route::get('/register/verify', [RegisterUserController::class, 'showFormOtpVerify'])->name('web.register.verify');
 Route::post('/register/verify', [RegisterUserController::class, 'checkOTP'])->name('web.register.verify.check-otp');
 
+Route::get('/login', [AuthSessionController::class, 'showFormLogin'])->name('web.login.show');
+Route::post('/login', [AuthSessionController::class, 'generateOtp'])->name('web.login.auth');
+Route::get('/login/otp-verify', [AuthSessionController::class, 'otpVerify'])->name('web.login.otp-verify');
+Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name('web.login.store');
+
+Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
+
 Route::prefix('admin')->group(function () {
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard')->middleware('auth');
 });
