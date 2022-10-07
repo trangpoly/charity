@@ -23,6 +23,10 @@ class RegisteredUserController extends Controller
         return view('auth.register');
     }
 
+    public function showFormOTP()
+    {
+        return view('auth.phone-otp-verify');
+    }
     /**
      * Handle an incoming registration request.
      *
