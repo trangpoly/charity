@@ -18,7 +18,7 @@ class ProductController extends BaseController
     public function getProduct($id)
     {
         $product = $this->productService->getProduct($id);
-        
+
         return view('pages.product.detail')->with('product', $product);
     }
 }

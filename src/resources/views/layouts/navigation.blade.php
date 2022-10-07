@@ -1,9 +1,9 @@
 <nav x-data="{ open: false }" class="bg-white border-b-2 border-gray-200">
     <!-- Primary Navigation Menu -->
-    <div class="flex max-w-7xl mx-auto h-24 items-center">
+    <div class="flex max-w-8xl mx-auto h-24 items-center">
         <!-- Logo -->
         <div class="w-4/12 items-center">
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('home') }}">
                 <x-application-logo class="block h-10 max-w-fit" />
             </a>
         </div>
@@ -82,7 +82,7 @@
         </div>
         <!-- drawer component -->
         <div id="drawer-contact"
-            class="fixed w-11/12 z-40 h-screen p-4 overflow-y-auto bg-white left-0 top-0 bg-lime-800 pt-10"
+            class="fixed w-11/12 z-40 h-screen p-4 overflow-y-auto bg-white left-0 top-0 bg-lime-800 pt-10 lg:hidden"
             tabindex="-1" aria-labelledby="drawer-contact-label" aria-hidden="true">
             <button type="button" data-drawer-dismiss="drawer-contact" aria-controls="drawer-contact"
                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">

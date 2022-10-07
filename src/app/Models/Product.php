@@ -12,6 +12,6 @@ class Product extends BaseModel
 
     public function images()
     {
-        return $this->hasMany(Product_image::class, 'product_id', 'id');
+        return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 }
