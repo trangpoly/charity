@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Models\VerificationOtp;
+use App\Repositories\Client\RegisterUserRepository;
+use App\Repositories\Client\RegisterUserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(ProductRepositoryInterface::class, ProductRepository::class);
+        $this->app->bind(RegisterUserRepositoryInterface::class, RegisterUserRepository::class);
     }
 }
