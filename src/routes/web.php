@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
+use App\Http\Controllers\Client\ReceiverController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,7 +41,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('receiver')->group(function () {
-    Route::get('receivedlist', [ClientController::class, 'received_list'])->name('web.admin.receivedList');
-    Route::get('registeredlist', [ClientController::class, 'registered_list'])->name('web.admin.registeredList');
-    Route::get('canceledlist', [ClientController::class, 'canceled_list'])->name('web.admin.canceledList');
+    Route::get('receivedlist', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
+    Route::get('registeredlist', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
+    Route::get('canceledlist', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
 });
