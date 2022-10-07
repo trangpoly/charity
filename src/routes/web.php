@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,7 @@ Route::get('/dashboard', function () {
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
 })->middleware(['auth'])->name('my-page.subscribe-receive');
+
+Route::get('/product-detail/{id}', [ProductController::class, 'getProduct'] )->middleware(['auth'])->name('web.client.product.detail');
 
 require __DIR__.'/auth.php';
