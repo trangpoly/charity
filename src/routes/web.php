@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Client\Auth\AuthController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Client\Auth\RegisterUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,18 +25,14 @@ Route::get('/home', function () {
 
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
-})->middleware(['auth'])->name('my-page.subscribe-receive');
+})->name('my-page.subscribe-receive');
 
 require __DIR__.'/auth.php';
 
-
-route::prefix('charity')->group(function () {
-
-    Route::get('/register', [AuthController::class, 'showFormRegister'])->name('charity.register');
-    Route::post('/register', [AuthController::class, 'generateOtp'])->name('charity.register.auth');
-    Route::get('/register', [AuthController::class, 'showFormOtpVerify'])->name('charity.register.verify');
-    Route::post('/register', [AuthController::class, 'checkOtp'])->name('charity.register.verify.check-otp');
-});
+Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
+Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');
+Route::get('/register/verify', [RegisterUserController::class, 'showFormOtpVerify'])->name('web.register.verify');
+Route::post('/register/verify', [RegisterUserController::class, 'checkOTP'])->name('web.register.verify.check-otp');
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');

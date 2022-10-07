@@ -5,7 +5,7 @@
                 class="text-xl text-center font-bold font-[Merriweather] leading-tight tracking-tight text-gray-800 md:text-2xl">
                 Đăng ký tài khoản
             </h1>
-            <form class="space-y-4 md:space-y-6" action="{{ route('charity.register.verify.check-otp') }}" method="POST">
+            <form class="space-y-4 md:space-y-6" action="{{ route('web.register.verify.check-otp') }}" method="POST">
                 @csrf
 
                 <div>

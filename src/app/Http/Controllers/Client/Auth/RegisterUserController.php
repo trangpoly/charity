@@ -4,39 +4,39 @@ namespace App\Http\Controllers\Client\Auth;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Client\Auth\FormRegisterRequest;
-use App\Services\Client\AuthService;
+use App\Services\Client\RegisterUserService;
 use Illuminate\Http\Request;
 
-class AuthController extends BaseController
+class RegisterUserController extends BaseController
 {
-    public $authService;
+    public $registerUserService;
 
-    public function __construct(AuthService $authService)
+    public function __construct(RegisterUserService $registerUserService)
     {
-        $this->authService = $authService;
+        $this->registerUserService = $registerUserService;
     }
 
     public function showFormRegister()
     {
-        return view('client.auth.register');
+        return view('auth.register');
     }
 
     public function showFormOtpVerify()
     {
-        return view('client.auth.phone-otp-verify');
+        return view('auth.phone-otp-verify');
     }
 
-    public function generateOtp(FormRegisterRequest $request)
+    public function generateOTP(FormRegisterRequest $request)
     {
-        $status = $this->authService->generateOtp($request);
+        $status = $this->registerUserService->generateOTP($request);
         $msg = $status ? 'Gửi OTP thất bại !' : 'OTP xác nhận đã được gửi vào số điện thoại của bạn !';
 
-        return redirect()->route('charity.register.verify')->with(['msg' => $msg, 'status' => $status]);
+        return redirect()->route('web.register.verify')->with(['msg' => $msg, 'status' => $status]);
     }
 
-    public function checkOtp(Request $request)
+    public function checkOTP(Request $request)
     {
-        $status = $this->authService->checkOtp($request);
+        $status = $this->registerUserService->checkOTP($request);
         $msg = $status ? 'Đăng ký không thành công ! Hãy chắc chắn bạn làm đúng các bước theo hướng dẫn' : 'Đăng ký thành công';
 
         return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);

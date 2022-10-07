@@ -2,20 +2,19 @@
 
 namespace App\Services\Client;
 
-use App\Repositories\Client\AuthRepository;
-use App\Repositories\Client\AuthRepositoryInterface;
+use App\Repositories\Client\RegisterUserRepositoryInterface;
 use Illuminate\Support\Facades\Hash;
 
-class AuthService
+class RegisterUserService
 {
-    protected $authRepository;
+    protected $registerUserRepository;
 
-    public function __construct(AuthRepositoryInterface $authRepository)
+    public function __construct(RegisterUserRepositoryInterface $registerUserRepository)
     {
-        $this->authRepository = $authRepository;
+        $this->registerUserRepository = $registerUserRepository;
     }
 
-    public function generateOtp($request)
+    public function generateOTP($request)
     {
         $validatePhoneNumber = $request->validate([
             'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/'
@@ -28,7 +27,7 @@ class AuthService
                 'expires_at' => now()->addMinutes(10),
             ];
 
-            $this->authRepository->generateOtp($data);
+            $this->registerUserRepository->generateOTP($data);
 
             return false;
         } else {
@@ -36,12 +35,12 @@ class AuthService
         }
     }
 
-    public function checkOtp($request)
+    public function checkOTP($request)
     {
-        $inputOtp = $request->otp;
+        $inputOTP = $request->otp;
 
-        if (! $this->authRepository->checkOtp($inputOtp)) {
-            $dataRegister = $this->authRepository->getData($inputOtp);
+        if (! $this->registerUserRepository->checkOTP($inputOTP)) {
+            $dataRegister = $this->registerUserRepository->getData($inputOTP);
             $expiresOtp = $dataRegister->expires_at;
             $otpYearCalc = now()->diffInYears($expiresOtp);
             $otpMonthCalc = now()->diffInMonths($expiresOtp);
@@ -54,7 +53,8 @@ class AuthService
                     'password' => Hash::make('ABCD9876'),
                 ];
 
-                $this->authRepository->register($data);
+                $this->registerUserRepository->register($data);
+                $this->registerUserRepository->deleteOTP($inputOTP);
 
                 return false;
             } else {
