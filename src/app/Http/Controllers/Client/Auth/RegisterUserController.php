@@ -37,7 +37,7 @@ class RegisterUserController extends BaseController
     public function checkOTP(Request $request)
     {
         $status = $this->registerUserService->checkOTP($request);
-        $msg = $status ? 'Đăng ký không thành công ! Hãy chắc chắn bạn làm đúng các bước theo hướng dẫn' : 'Đăng ký thành công';
+        $msg = $status ? 'Đăng ký thất bại !' : 'Đăng ký thành công';
 
         return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);
     }
