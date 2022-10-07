@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
+use App\Http\Controllers\Client\ReceiverController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,4 +38,10 @@ Route::post('/register/verify', [RegisterUserController::class, 'checkOTP'])->na
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
+});
+
+Route::prefix('receiver')->group(function () {
+    Route::get('receivedlist', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
+    Route::get('registeredlist', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
+    Route::get('canceledlist', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
 });

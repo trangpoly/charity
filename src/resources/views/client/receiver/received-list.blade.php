@@ -84,7 +84,7 @@
                     </div>
                     <div class="w-6/12 ml-10 relative">
                         <h2 class="font-semibold text-3xl text-slate-800">Ổi sạch Di Trạch</h2>
-                        <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
+                        <div class="mt-5 text-lg text-slate-700 pb-10">
                             <div class="flex py-2 space-x-4">
                                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                     width="25px" alt="">
@@ -121,13 +121,12 @@
                                 <p>Hạn sử dụng: 29/09/2022</p>
                             </div>
                         </div>
-                        <form action="" class="mt-5 w-full text-center">
-                            <button
-                                class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">HỦY
-                                ĐĂNG KÍ</button>
-                        </form>
-                        <img class="absolute top-0 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
-                        <img class="absolute top-8 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u68.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
+                        <a href="#" class="rounded-md py-2 px-8 text-blue-500 font-semibold text-lg hover:text-lime-700"> Bấm vào
+                            đây để nhận thêm sản phẩm!
+                        </a>
+                        <img class="absolute top-0 right-0"
+                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
+                            width="30px" alt="">
                     </div>
                 </div>
                 <div class="w-full flex border border-gray-300 rounded-md p-10 mt-10">
@@ -137,7 +136,7 @@
                     </div>
                     <div class="w-6/12 ml-10">
                         <h2 class="font-semibold text-3xl text-slate-800">Ổi sạch Di Trạch</h2>
-                        <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
+                        <div class="mt-5 text-lg text-slate-700 pb-10 ">
                             <div class="flex py-2 space-x-4">
                                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                     width="25px" alt="">
@@ -174,12 +173,9 @@
                                 <p>Hạn sử dụng: 29/09/2022</p>
                             </div>
                         </div>
-                        <form action="" class="mt-5 w-full text-center">
-                            <button
-                                class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">HỦY
-                                ĐĂNG KÍ</button>
-                        </form>
-
+                        <a href="#" class="rounded-md py-2 px-8 text-blue-500 font-semibold text-lg hover:text-lime-700"> Bấm vào
+                            đây để nhận thêm sản phẩm!
+                        </a>
                     </div>
                 </div>
             </div>
