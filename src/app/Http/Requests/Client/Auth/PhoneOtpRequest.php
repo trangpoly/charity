@@ -4,7 +4,7 @@ namespace App\Http\Requests\Client\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FormRegisterRequest extends FormRequest
+class PhoneOtpRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
