@@ -26,14 +26,7 @@ class RegisteredUserController extends Controller
     {
         return view('auth.phone-otp-verify');
     }
-    /**
-     * Handle an incoming registration request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
+
     public function store(Request $request)
     {
         $request->validate([
