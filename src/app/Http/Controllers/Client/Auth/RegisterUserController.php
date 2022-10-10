@@ -27,7 +27,6 @@ class RegisterUserController extends BaseController
     }
 
     public function generateOTP(PhoneOtpRequest $request)
-
     {
         $status = $this->registerUserService->generateOTP($request);
         $msg = $status ? 'Gửi OTP thất bại !' : 'OTP xác nhận đã được gửi vào số điện thoại của bạn !';
