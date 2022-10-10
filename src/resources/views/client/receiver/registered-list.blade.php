@@ -121,21 +121,25 @@
                                 <p>Hạn sử dụng: 29/09/2022</p>
                             </div>
                         </div>
-<<<<<<< HEAD:src/resources/views/client/receiver/received-list.blade.php
+
+                        <form action="" class="mt-5 w-full text-center">
+                            <button
+                                class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">
+                                ĐĂNG KÝ LẠI</button>
+                        </form>
+                        <img class="absolute top-0 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
                         <a href="#" class="rounded-md py-2 px-8 text-blue-500 font-semibold text-lg hover:text-lime-700"> Bấm vào
                             đây để nhận thêm sản phẩm!
                         </a>
                         <img class="absolute top-0 right-0"
                             src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
                             width="30px" alt="">
-=======
                         <form action="" class="mt-5 w-full text-center">
                             <button
                                 class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">HỦY
                                 ĐĂNG KÍ</button>
                         </form>
                         <img class="absolute top-0 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2" width="30px" alt="">
->>>>>>> develop:src/resources/views/client/receiver/registered-list.blade.php
                     </div>
                 </div>
                 <div class="w-full flex border border-gray-300 rounded-md p-10 mt-10">

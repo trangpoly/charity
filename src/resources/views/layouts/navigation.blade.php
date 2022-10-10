@@ -61,15 +61,27 @@
                     <p class="mt-3">Thông báo</p>
                 </a>
             </div>
+            @if (Auth::user())
             <div class="w-1/4 text-gray-500 hover:text-black">
-                <a href="{{ route('web.admin.receivedList') }}">
+                <a href="{{ route('web.client.received') }}">
                     <div class="h-6">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u170.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                             class="m-auto" alt="">
                     </div>
-                    <p class="mt-3">Tài khoản</p>
+                    <p class="mt-3">{{ Auth::user()->phone_number }}</p>
                 </a>
             </div>
+            @else
+            <div class="w-1/4 text-gray-500 hover:text-black">
+                <a href="{{ route('web.login.show') }}">
+                    <div class="h-6">
+                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u8.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                            class="m-auto" alt="">
+                    </div>
+                    <p class="mt-3">Đăng Nhập</p>
+                </a>
+            </div>
+            @endif
         </div>
         <!-- Settings Dropdown -->
         <div class="lg:hidden sm:w-3/12">
@@ -78,7 +90,6 @@
                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u8.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                     height="30px" class="m-auto" alt="">
             </button>
-
         </div>
         <!-- drawer component -->
         <div id="drawer-contact"
@@ -116,7 +127,6 @@
                     <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/input_otp__login_/u5.svg?pageId=cb3eaa6f-36ec-4b13-8994-f53fdbe69b29"
                         width="20px" height="20px" alt="">
                 </div>
-
             </form>
             <div class="w-11/12 m-auto mt-10 text-xl text-gray-300 font-normal">
                 <div class="h-16">
