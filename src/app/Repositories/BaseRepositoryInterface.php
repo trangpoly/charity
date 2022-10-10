@@ -10,5 +10,5 @@ interface BaseRepositoryInterface
 
     public function update($id, $attribute);
 
-    public function paginate(array $options = [], $limit);
+    public function paginate();
 }

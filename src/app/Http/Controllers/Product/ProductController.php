@@ -26,6 +26,6 @@ class ProductController extends BaseController
     {
         $productList = $this->productService->list();
 
-        return view('admin.product.list',['productList' => $productList]);
+        return view('admin.product.list', ['productList' => $productList]);
     }
 }
