@@ -9,4 +9,6 @@ interface BaseRepositoryInterface
     public function create($attribute);
 
     public function update($id, $attribute);
+
+    public function paginate();
 }

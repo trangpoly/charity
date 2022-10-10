@@ -38,7 +38,6 @@ class RegisterUserController extends BaseController
     {
         $status = $this->registerUserService->checkOTP($request);
         $msg = $status ? 'Đăng ký thất bại !' : 'Đăng ký thành công';
-
         return redirect()->route('web.login.show')->with(['msg' => $msg, 'status' => $status]);
     }
 }
