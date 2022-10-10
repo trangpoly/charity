@@ -21,4 +21,11 @@ class ProductController extends BaseController
 
         return view('pages.product.detail')->with('product', $product);
     }
+
+    public function list()
+    {
+        $productList = $this->productService->list();
+
+        return view('admin.product.list',['productList' => $productList]);
+    }
 }

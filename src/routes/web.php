@@ -44,12 +44,14 @@ Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
 
     Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
-});
 
-Route::prefix('receiver')->group(function () {
-    Route::get('receivedlist', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registeredlist', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceledlist', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
+    Route::prefix('product')->group(function () {
+        Route::get('list', [ProductController::class, 'list'])->name('web.admin.list');
+        Route::get('create', [ProductController::class, 'create'])->name('web.admin.create');
+        Route::post('create', [ProductController::class, 'savaCreate'])->name('web.admin.saveCreate');
+        Route::get('update', [ProductController::class, 'create'])->name('web.admin.create');
+        Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.saveUpdate');
+    });
 });
 
 Route::prefix('giver')->group(function () {
@@ -59,13 +61,10 @@ Route::prefix('giver')->group(function () {
 });
 
 Route::prefix('receiver')->group(function () {
-    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
+    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
+    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.client.registered');
+    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
 });
 
-Route::prefix('receiver')->group(function () {
-    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
-});
+
+
