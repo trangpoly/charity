@@ -8,7 +8,9 @@ class ProductService extends BaseService
 {
     protected $productRepository;
 
+
     private const PAGE_LIMIT = 10;
+
 
     public function __construct(ProductRepositoryInterface $productRepository)
     {
@@ -19,6 +21,7 @@ class ProductService extends BaseService
     {
         return $this->productRepository->getProductDetail($id);
     }
+
 
     public function list(array $options = [], $limit = self::PAGE_LIMIT)
     {

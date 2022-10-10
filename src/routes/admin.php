@@ -2,9 +2,6 @@
 
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Client\Auth\AuthSessionController;
-use App\Http\Controllers\Client\Auth\RegisterUserController;
-use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +27,11 @@ Route::prefix('admin')->group(function () {
         Route::post('create', [ProductController::class, 'savaCreate'])->name('web.admin.saveCreate');
         Route::get('update', [ProductController::class, 'create'])->name('web.admin.create');
         Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.saveUpdate');
+    });
+
+    Route::prefix('categories')->group(function(){
+        Route::get('/', [CategoryController::class, 'list'])->name('web.admin.categories.list');
+        Route::get('/create', [CategoryController::class, 'create'])->name('web.admin.categories.form-create');
     });
 });
 

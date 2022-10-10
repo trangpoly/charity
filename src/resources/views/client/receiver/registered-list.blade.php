@@ -186,11 +186,6 @@
                                 <p>Hạn sử dụng: 29/09/2022</p>
                             </div>
                         </div>
-                        <form action="" class="mt-5 w-full text-center">
-                            <button
-                                class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">
-                                ĐĂNG KÝ LẠI</button>
-                        </form>
                         <a href="#" class="rounded-md py-2 px-8 text-blue-500 font-semibold text-lg hover:text-lime-700"> Bấm vào
                             đây để nhận thêm sản phẩm!
                         </a>
