@@ -19,48 +19,6 @@
                         </div>
                     </div>
                     @endforeach
-                    {{-- <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u35.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">ĐỒ ĂN TRONG NGÀY</a>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u36.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">THỰC PHẨM ĐÓNG GÓI</a>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u37.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">ĐỒ DÙNG SINH HOẠT</a>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u36.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">THỰC PHẨM ĐÓNG GÓI</a>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u37.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">ĐỒ DÙNG SINH HOẠT</a>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u36.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">THỰC PHẨM ĐÓNG GÓI</a>
-                        </div>
-                    </div>
-                    <div class="relative w-full">
-                        <img class="h-[80px] inline absolute" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u37.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69" alt="">
-                        <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">ĐỒ DÙNG SINH HOẠT</a>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
