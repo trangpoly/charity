@@ -16,23 +16,15 @@ class RegisterUserService
 
     public function generateOTP($request)
     {
-        $validatePhoneNumber = $request->validate([
-            'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/'
-        ]);
+        $data = [
+            'phone_number' => $request->phone_number,
+            'otp' => random_int(100000, 999999),
+            'expires_at' => now()->addMinutes(10),
+        ];
 
-        if ($validatePhoneNumber) {
-            $data = [
-                'phone_number' => $request->phone_number,
-                'otp' => random_int(100000, 999999),
-                'expires_at' => now()->addMinutes(10),
-            ];
+        $this->registerUserRepository->generateOTP($data);
 
-            $this->registerUserRepository->generateOTP($data);
-
-            return false;
-        } else {
-            return true;
-        }
+        return false;
     }
 
     public function checkOTP($request)
@@ -50,7 +42,7 @@ class RegisterUserService
             if ($otpYearCalc == 0 && $otpMonthCalc == 0 && $otpDayCalc == 0 && $otpMinutesCalc < 10) {
                 $data = [
                     'phone_number' => $dataRegister->phone_number,
-                    'password' => Hash::make('ABCD9876'),
+                    'password' => Hash::make('user'),
                 ];
 
                 $this->registerUserRepository->register($data);
