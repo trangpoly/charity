@@ -35,7 +35,7 @@
         <!-- Menu -->
         <div class="lg:flex w-4/12 ml-10 text-center items-center text-base text-gray-700 sm:hidden">
             <div class="w-1/4">
-                <a href="">
+                <a href="{{ route('home') }}">
                     <div class="h-6">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u6.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                             class="m-auto" alt="">
@@ -130,7 +130,7 @@
             </form>
             <div class="w-11/12 m-auto mt-10 text-xl text-gray-300 font-normal">
                 <div class="h-16">
-                    <a href="" class="flex border-b border-gray-400 space-x-6">
+                    <a href="{{ route('home') }}" class="flex border-b border-gray-400 space-x-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8" viewBox="0 0 576 512">
                             <path class="fill-gray-300"
                                 d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c.2 35.5-28.5 64.3-64 64.3H128.1c-35.3 0-64-28.7-64-64V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24zM352 224c0-35.3-28.7-64-64-64s-64 28.7-64 64s28.7 64 64 64s64-28.7 64-64zm-96 96c-44.2 0-80 35.8-80 80c0 8.8 7.2 16 16 16H384c8.8 0 16-7.2 16-16c0-44.2-35.8-80-80-80H256z" />

@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Client\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,20 +49,26 @@ Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name(
 
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
 
-Route::prefix('admin')->group(function () {
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
-    Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
+Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
+
+Route::get('/posts/create-form', function () {
+    return view('client.posts.create-form');
 });
 
 Route::prefix('receiver')->group(function () {
-    Route::get('receivedlist', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registeredlist', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceledlist', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
+    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
+    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
+    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
 });
 
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', function(){
         return view('pages.my-page.giver.subscribe-giver');
     })->name('web.client.giver.subscribe-giver');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
+    Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
 });
 
