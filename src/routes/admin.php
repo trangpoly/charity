@@ -39,7 +39,3 @@ Route::post('admin/user/create', [UserController::class, 'storeUsers'])->name('w
 Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
 Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
 Route::delete('admin/user/delete/{id}', [UserController::class, 'deleteUser'])->name('web.admin.user.delete');
-
-
-
-
