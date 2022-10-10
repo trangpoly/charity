@@ -24,8 +24,8 @@ class ProductController extends BaseController
 
     public function list()
     {
-        $productList = $this->productService->list();
+        $products = $this->productService->list();
 
-        return view('admin.product.list', ['productList' => $productList]);
+        return view('admin.product.list', ['products' => $products]);
     }
 }
