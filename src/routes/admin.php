@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +33,9 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-
-
+Route::get('admin/user', [UserController::class, 'getUsers'])->name('web.admin.user.list');
+Route::get('admin/user/create', [UserController::class, 'showCreateForm'])->name('web.admin.user.form');
+Route::post('admin/user/create', [UserController::class, 'storeUsers'])->name('web.admin.user.store');
+Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
+Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
+Route::delete('admin/user/delete/{id}', [UserController::class, 'deleteUser'])->name('web.admin.user.delete');

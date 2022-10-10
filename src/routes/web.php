@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,7 +48,6 @@ Route::get('/login/otp-verify', [AuthSessionController::class, 'otpVerify'])->na
 Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name('web.login.store');
 
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
-
 
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', function () {
