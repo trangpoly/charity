@@ -31,9 +31,9 @@ Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
 })->name('my-page.subscribe-receive');
 
-Route::get('/product/{id}', [ProductController::class, 'getProduct'] )->middleware(['auth'])->name('web.client.product.detail');
+Route::get('/product/{id}', [ProductController::class, 'getProduct'])->middleware(['auth'])->name('web.client.product.detail');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
@@ -48,20 +48,16 @@ Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name(
 
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
 
-Route::prefix('admin')->group(function () {
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
-    Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
+
+Route::prefix('giver')->group(function () {
+    Route::get('subscribe-giver', function () {
+        return view('pages.my-page.giver.subscribe-giver');
+    })->name('web.client.giver.subscribe-giver');
 });
 
 Route::prefix('receiver')->group(function () {
-    Route::get('receivedlist', [ReceiverController::class, 'receivedList'])->name('web.admin.receivedList');
-    Route::get('registeredlist', [ReceiverController::class, 'registeredList'])->name('web.admin.registeredList');
-    Route::get('canceledlist', [ReceiverController::class, 'canceledList'])->name('web.admin.canceledList');
-});
-
-Route::prefix('giver')->group(function () {
-    Route::get('subscribe-giver', function(){
-        return view('pages.my-page.giver.subscribe-giver');
-    })->name('web.client.giver.subscribe-giver');
+    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
+    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.client.registered');
+    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
 });
 
