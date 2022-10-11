@@ -14,7 +14,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function getProductDetail($id)
     {
-        return $this->model->with('images')->findOrFail($id);
+        return $this->model->with(['images', 'receivers'])->findOrFail($id);
     }
 
     public function getProducts()

@@ -27,11 +27,13 @@ class ProductFactory extends Factory
             'quantity' => 1,
             'weight_unit' => 'kg',
             'address' => fake()->address,
-            'phone' => '0123456789',
+            'phone' => fake()->phoneNumber(),
             'stock' => 1,
             'status' => 1,
             'category_id' => '97776869-558c-4dc4-b994-9667a22b9620',
-            'owner_id' => 1
+            'owner_id' => 1,
+            'category_id' => 1,
+            'owner_id' => 1,
         ];
     }
 }

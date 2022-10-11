@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Product extends BaseModel
 {
     use HasFactory;
     use Uuid;
-
 
     protected $table = 'products';
 
@@ -38,5 +36,9 @@ class Product extends BaseModel
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+    public function receivers()
+    {
+        return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
     }
 }

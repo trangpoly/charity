@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
+use App\Http\Controllers\Client\PostController;
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,7 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('pages.home');
 })->name('home');
+
 
 
 Route::get('/my-app', function () {
@@ -49,6 +51,12 @@ Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name(
 
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
 
+Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
+
+Route::get('/posts/create-form', function () {
+    return view('client.posts.create-form');
+});
+
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', function () {
 
@@ -60,4 +68,9 @@ Route::prefix('receiver')->group(function () {
     Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
     Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.client.registered');
     Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
+    Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
 });
