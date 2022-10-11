@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\BaseController;
 use App\Services\ProductService;
-use Illuminate\Http\Request;
 
 class ProductController extends BaseController
 {
@@ -18,12 +17,12 @@ class ProductController extends BaseController
     public function getProduct($id)
     {
         $product = $this->productService->getProduct($id);
+        // dd($product);
 
         return view('pages.product.detail')->with('product', $product);
     }
 
-    public function list()
-    {
+    function list() {
         $products = $this->productService->list();
 
         return view('admin.product.list', ['products' => $products]);
