@@ -27,4 +27,9 @@ class ProductService extends BaseService
     {
         return $this->productRepository->paginate($options, $limit);
     }
+
+    public function getProducts($id)
+    {
+        return $this->productRepository->getProducts($id);
+    }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
@@ -25,7 +26,15 @@ Route::get('/home', function () {
     return view('pages.home');
 })->name('home');
 
-Route::get('/product/{id}', [ProductController::class, 'getProduct'])->middleware(['auth'])->name('web.client.product.detail');
+
+Route::get('/my-app', function () {
+    return view('pages.my-page.subscribe-receive');
+})->name('my-page.subscribe-receive');
+
+Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
+Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.product.list');
+Route::get('/sub-category/{id}', [CategoryController::class, 'subCategory'])->name('web.client.product.list');
+
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');

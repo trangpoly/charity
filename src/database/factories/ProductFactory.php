@@ -30,7 +30,7 @@ class ProductFactory extends Factory
             'phone' => '0123456789',
             'stock' => 1,
             'status' => 1,
-            'category_id' => 1,
+            'category_id' => '97776869-558c-4dc4-b994-9667a22b9620',
             'owner_id' => 1
         ];
     }

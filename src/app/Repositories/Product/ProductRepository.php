@@ -16,4 +16,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->with('images')->findOrFail($id);
     }
+
+    public function getProducts()
+    {
+        return $this->model::with('category')->orderBy('name')->first();
+    }
 }

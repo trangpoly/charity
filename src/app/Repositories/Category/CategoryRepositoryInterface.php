@@ -6,4 +6,9 @@ use App\Repositories\BaseRepositoryInterface;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
+    public function getCategories($id);
+
+    public function getProducts($id);
+
+    public function productsList($id);
 }
