@@ -30,13 +30,8 @@ class CategoryService extends BaseService
         return $this->categoryRepository->create($attribute);
     }
 
-    public function getListParentCategory()
+    public function getListParentCategoryWithSub()
     {
-        return $this->categoryRepository->getListParentCategory();
-    }
-
-    public function getListSubCategory()
-    {
-        return $this->categoryRepository->getListSubCategory();
+        return $this->categoryRepository->getListParentCategoryWithSub();
     }
 }

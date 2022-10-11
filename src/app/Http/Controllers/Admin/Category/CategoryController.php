@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -18,10 +17,10 @@ class CategoryController extends BaseController
     }
     public function listCategory()
     {
-        $categories = $this->categoryService->getListSubCategory();
+        $parenCategories = $this->categoryService->getListParentCategoryWithSub();
 
         return view('admin.pages.categories.list', [
-            'categories' => $categories
+            'parenCategories' => $parenCategories
         ]);
     }
 
