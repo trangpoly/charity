@@ -17,12 +17,12 @@ class ProductController extends BaseController
     public function getProduct($id)
     {
         $product = $this->productService->getProduct($id);
-        // dd($product);
 
         return view('pages.product.detail')->with('product', $product);
     }
 
-    function list() {
+    public function list()
+    {
         $products = $this->productService->list();
 
         return view('admin.product.list', ['products' => $products]);
