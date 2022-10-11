@@ -27,7 +27,7 @@ Route::get('/home', function () {
     return view('pages.home');
 })->name('home');
 
-Route::get('/product/{id}', [ProductController::class, 'getProduct'])->middleware(['auth'])->name('web.client.product.detail');
+Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');

@@ -3,13 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 class Product extends BaseModel
 {
     use HasFactory;
     use Uuid;
-
 
     protected $table = 'products';
 
@@ -32,5 +30,10 @@ class Product extends BaseModel
     public function images()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
+    }
+
+    public function receivers()
+    {
+        return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
     }
 }
