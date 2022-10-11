@@ -115,7 +115,7 @@
                 </div>
                 <div class="text-xl mt-4 font-bold">Thông tin người đăng ký</div>
                 <div class="flex flex-wrap">
-                    @foreach ($product->users as $item)
+                    @foreach ($product->receivers as $item)
                         <div class="basis-1/2 flex flex-wrap mt-4">
                             <div class="basis-1/2 flex space-x-4">
                                 <img class="h-fit pl-2" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u108.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" alt="">

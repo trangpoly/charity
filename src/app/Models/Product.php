@@ -32,7 +32,7 @@ class Product extends BaseModel
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
-    public function users()
+    public function receivers()
     {
         return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
     }
