@@ -27,4 +27,11 @@ class ProductController extends BaseController
 
         return view('admin.product.list', ['products' => $products]);
     }
+
+    public function getProductsBySubCategory($id)
+    {
+        $products = $this->productService->getProductsBySubCategory($id);
+
+        return view('pages.product.sub-category', ['products' => $products]);
+    }
 }

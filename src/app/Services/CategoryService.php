@@ -18,13 +18,8 @@ class CategoryService extends BaseService
         return $this->categoryRepository->getCategories($id);
     }
 
-    public function getProducts($id)
+    public function getProductsBySubCategory($id)
     {
-        return $this->categoryRepository->getProducts($id);
-    }
-
-    public function productsList($id)
-    {
-        return $this->categoryRepository->productsList($id);
+        return $this->categoryRepository->getProductsBySubCategory($id);
     }
 }

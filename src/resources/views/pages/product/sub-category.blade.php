@@ -2,7 +2,8 @@
     <div class="flex max-w-8xl mx-auto mt-16 space-x-8 mb-10">
         <div class="w-8/12">
             <div class="flex">
-                <a href="#" class="font-semibold text-2xl text-lime-700 w-10/12">{{ $category->name }}</a>
+                <a href="#"
+                    class="font-semibold text-2xl text-lime-700 w-10/12">{{ $products[0]->subCategory->name }}</a>
             </div>
             <div class="flex ">
                 <div class="space-x-4 mt-8 w-10/12">
@@ -14,7 +15,7 @@
                 </div>
                 <div class="w-2/12 mt-8">
                     <p class="font-base text-xl mt-2 text-gray-700 ">Tong san pham:
-                        {{ $category->loadCount('products')->products_count }} </p>
+                        {{ count($products) }} </p>
                 </div>
             </div>
             <div class="w-full border rounded-xl border-gray-300 mt-4">
@@ -46,7 +47,6 @@
                 <div class="w-full mb-2 mr-6">
                     <p class="">
                         {{ $products->links() }}
-
                     </p>
                 </div>
             </div>

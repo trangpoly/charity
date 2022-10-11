@@ -35,7 +35,7 @@ Route::get('/my-app', function () {
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.product.list');
-Route::get('/sub-category/{id}', [CategoryController::class, 'subCategory'])->name('web.client.product.list');
+Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.product.list');
 
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');

@@ -8,5 +8,5 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 {
     public function getProductDetail($id);
 
-    public function getProducts();
+    public function getProductsBySubCategory($id);
 }

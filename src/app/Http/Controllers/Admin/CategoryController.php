@@ -29,16 +29,8 @@ class CategoryController extends Controller
     {
         $category = $this->categoryService->find($id);
 
-        $subCategory = $this->categoryService->getProducts($id);
+        $subCategory = $this->categoryService->getProductsBySubCategory($id);
 
         return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory]);
-    }
-
-    public function subCategory($id)
-    {
-        $category = $this->categoryService->productsList($id);
-
-        $products = $category->products()->paginate(4);
-        return view('pages.product.sub-category', ['category' => $category, 'products' => $products]);
     }
 }

@@ -33,12 +33,13 @@ class Product extends BaseModel
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
     }
 
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
     public function receivers()
     {
         return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
+    }
+
+    public function subCategory()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }
