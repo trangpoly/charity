@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Category;
+namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
@@ -19,7 +19,6 @@ class CategoryController extends BaseController
     public function listCategory()
     {
         $categories = $this->categoryService->getListSubCategory();
-        // dd($categories);
 
         return view('admin.pages.categories.list', [
             'categories' => $categories
@@ -31,7 +30,7 @@ class CategoryController extends BaseController
         return view('admin.pages.categories.add');
     }
 
-    public function saveAddCategory(Request $request)
+    public function storeCategory(Request $request)
     {
         $data = $request->only([
             'name',

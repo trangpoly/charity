@@ -5,7 +5,7 @@
         <div class="bg-blue-700 px-5 py-2">
             <p class="text-white font-semibold">Create Category</p>
         </div>
-        <form action="{{ route('web.admin.categories.saveAdd') }}" method="POST" class="w-8/12 ml-24 mt-5"
+        <form action="{{ route('web.admin.categories.store') }}" method="POST" class="w-8/12 ml-24 mt-5"
             enctype="multipart/form-data">
             @csrf
             <div class="flex">
@@ -73,5 +73,4 @@
                 <button type="submit" class="bg-yellow-600 text-white border border-gray-500 px-4 py-1">Submit</button>
             </div>
         </form>
-    </div>
 @endsection

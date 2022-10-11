@@ -8,7 +8,5 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
     public function getCategoryDetail($id);
 
-    public function getListParentCategory();
-
     public function getListSubCategory();
 }

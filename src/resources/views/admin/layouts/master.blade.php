@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
     @vite(['resources/css/admin.scss', 'resources/js/admin.js'])
     <title>@yield('title')</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 </head>
 <body class="bg-gray-100">
     <!-- start navbar -->

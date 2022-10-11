@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +32,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('categories')->group(function(){
         Route::get('/', [CategoryController::class, 'listCategory'])->name('web.admin.categories.list');
         Route::get('/add', [CategoryController::class, 'addCategory'])->name('web.admin.categories.add');
-        Route::post('/add', [CategoryController::class, 'saveAddCategory'])->name('web.admin.categories.saveAdd');
+        Route::post('/add', [CategoryController::class, 'storeCategory'])->name('web.admin.categories.store');
     });
 });
 
