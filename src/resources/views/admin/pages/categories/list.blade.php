@@ -34,7 +34,7 @@
                 </select>
             </form>
             <p class="px-2 text-black">items/page</p>
-            <a href="{{ route('web.admin.categories.form-create') }}"
+            <a href="{{ route('web.admin.categories.add') }}"
                 class="flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
                 <p class="text-black text-sm">Create new</p>
                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
@@ -66,316 +66,42 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            1
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple MacBook Pro 17"
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Laptop
-                        </td>
-                        <td class="py-4 px-6">
-                            $2999
-                        </td>
-                        <td class="py-4 px-6 flex space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            2
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Microsoft Surface Pro
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Laptop PC
-                        </td>
-                        <td class="py-4 px-6">
-                            $1999
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            3
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Mouse 2
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Accessories
-                        </td>
-                        <td class="py-4 px-6">
-                            $99
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            4
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple Watch
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Watches
-                        </td>
-                        <td class="py-4 px-6">
-                            $199
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            5
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple iMac
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            PC
-                        </td>
-                        <td class="py-4 px-6">
-                            $2999
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            6
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Apple AirPods
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Accessories
-                        </td>
-                        <td class="py-4 px-6">
-                            $399
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            7
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            iPad Pro
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Tablet
-                        </td>
-                        <td class="py-4 px-6">
-                            $699
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            8
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Magic Keyboard
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Accessories
-                        </td>
-                        <td class="py-4 px-6">
-                            $99
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            9
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            Smart Folio iPad Air
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Accessories
-                        </td>
-                        <td class="py-4 px-6">
-                            $79
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
-                    <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                        <td class="py-4 px-6 text-black">
-                            10
-                        </td>
-                        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            AirTag
-                        </th>
-                        <td class="py-4 px-6">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u132.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                alt="">
-                        </td>
-                        <td class="py-4 px-6">
-                            Accessories
-                        </td>
-                        <td class="py-4 px-6">
-                            $29
-                        </td>
-                        <td class="flex py-4 px-6 space-x-6">
-                            <a href="#">
-                                <img width="32px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                            <a href="#">
-                                <img width="30px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                    alt="">
-                            </a>
-                        </td>
-                    </tr>
+                    @foreach ($categories as $category)
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="py-4 px-6 text-black">
+                                {{-- {{ $loop->iteration + ($categories->currentPage() - 1) * $categories->perPage() }} --}}
+                            </td>
+                            <th scope="row"
+                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $category->name }}
+                            </th>
+                            <td class="py-4 px-6">
+                                <img src="{{ Illuminate\Support\Facades\Storage::url("images/$category->image") }}"
+                                    width="200px" alt="">
+                            </td>
+                            <td class="py-4 px-6">
+                                {{ $category->status == 0 ? 'Active' : 'Deactive' }}
+                            </td>
+                            <td class="py-4 px-6">
+                                @foreach ($category->subCategory as $item)
+                                    <p>{{ $item->name }}</p>
+                                @endforeach
+                            </td>
+                            <td class="py-4 px-6 flex space-x-6">
+                                <a href="#">
+                                    <img width="32px"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
+                                        alt="">
+                                </a>
+                                <a href="#">
+                                    <img width="30px"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
+                                        alt="">
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
             <nav class="flex justify-center py-4" aria-label="Table navigation">
