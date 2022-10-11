@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::table('categories', function (Blueprint $table) {
             $table->string('image')->nullable()->change();
             $table->string('expiration_date')->nullable();
-            $table->boolean('status')->change();
-            $table->uuid('parent_id')->nullable()->change();
         });
     }
 
