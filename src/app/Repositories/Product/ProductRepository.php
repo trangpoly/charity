@@ -4,6 +4,7 @@ namespace App\Repositories\Product;
 
 use App\Models\Product;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Carbon;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -15,5 +16,27 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getProductDetail($id)
     {
         return $this->model->with(['images', 'receivers'])->findOrFail($id);
+    }
+
+    public function getRecommend($currentProductId, $categoryId)
+    {
+        return $this->model
+            ->where('category_id', $categoryId)
+            ->where('stock', '<>', 0)
+            ->where('expiration', '>=', Carbon::now())
+            ->where('id', '<>', $currentProductId)
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
+    }
+
+    public function getNearExpiryFood()
+    {
+        return $this->model
+            ->where('stock', '<>', 0)
+            ->whereBetween('expiration', [Carbon::now()->toDateString(), Carbon::now()->adddays(3)->toDateString()])
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
     }
 }
