@@ -18,7 +18,7 @@ class ProductController extends BaseController
     {
         $product = $this->productService->getProduct($id);
         $recommend = $this->productService->getRecommend($product->id, $product->category_id);
-        $nearExpiryFood = $this->productService->getNearExpiryFood();
+        $nearExpiryFood = $this->productService->getNearExpiryFood($product->id);
 
         $data = array();
         $data['product'] = $product;

@@ -10,5 +10,5 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function getRecommend($currentProductId, $categoryId);
 
-    public function getNearExpiryFood();
+    public function getNearExpiryFood($currentProductId);
 }

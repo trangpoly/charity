@@ -23,17 +23,18 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $this->model
             ->where('category_id', $categoryId)
             ->where('stock', '<>', 0)
-            ->where('expiration', '>=', Carbon::now())
+            ->where('expiration', '>=', Carbon::now()->toDateString())
             ->where('id', '<>', $currentProductId)
             ->inRandomOrder()
             ->limit(4)
             ->get();
     }
 
-    public function getNearExpiryFood()
+    public function getNearExpiryFood($currentProductId)
     {
         return $this->model
             ->where('stock', '<>', 0)
+            ->where('id', '<>', $currentProductId)
             ->whereBetween('expiration', [Carbon::now()->toDateString(), Carbon::now()->adddays(3)->toDateString()])
             ->inRandomOrder()
             ->limit(4)

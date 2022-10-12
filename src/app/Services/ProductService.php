@@ -30,8 +30,8 @@ class ProductService extends BaseService
         return $this->productRepository->getRecommend($currentProductId, $categoryId);
     }
 
-    public function getNearExpiryFood()
+    public function getNearExpiryFood($currentProductId)
     {
-        return $this->productRepository->getNearExpiryFood();
+        return $this->productRepository->getNearExpiryFood($currentProductId);
     }
 }
