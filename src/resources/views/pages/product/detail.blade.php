@@ -115,182 +115,91 @@
                 </div>
                 <div class="text-xl mt-4 font-bold">Thông tin người đăng ký</div>
                 <div class="flex flex-wrap">
-                    @foreach ($product->receivers as $item)
-                        <div class="basis-1/2 flex flex-wrap mt-4">
-                            <div class="basis-1/2 flex space-x-4">
-                                <img class="h-fit pl-2" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u108.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" alt="">
-                                <p>{{$item->name}}</p>
+                    @if ($product->receivers->isNotEmpty())
+                        @foreach ($product->receivers as $item)
+                            <div class="basis-1/2 flex flex-wrap mt-4">
+                                <div class="basis-1/2 flex space-x-4">
+                                    <img class="h-fit pl-2" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u108.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" alt="">
+                                    <p>{{$item->name}}</p>
+                                </div>
+                                <div class="basic-1/2 flex space-x-4">
+                                    <img class="h-fit pl-2" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u110.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" alt="">
+                                    <p>{{$item->phone_number}}</p>
+                                </div>
                             </div>
-                            <div class="basic-1/2 flex space-x-4">
-                                <img class="h-fit pl-2" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u110.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" alt="">
-                                <p>{{$item->phone_number}}</p>
+                        @endforeach
+                    @else
+                        <p class="text-lg mt-4">Chưa có người đăng ký</p>
+                    @endif
+                </div>
+            </div>
+            @if ($recommend->isNotEmpty())
+                <div class="w-full mt-10">
+                    <div class="flex">
+                        <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Đề xuất cho bạn</h2>
+                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
+                            ></a>
+                    </div>
+                    <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
+                        @foreach ($recommend as $item)
+                            <div class="w-3/12 relative p-2">
+                                <img class="h-fit"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                    alt="">
+                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                                <div class="flex py-2 space-x-4 h-28">
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                        width="18px" alt="">
+                                    <p class="text-lg">{{ $item->address }}</p>
+                                </div>
+                                <div class="flex py-2 space-x-4  ">
+                                    <img class="h-fit"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u139.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"                                        width="15px" alt="">
+                                    <p class=" text-lg">{{ $item->expiration }}</p>
+                                </div>
+                                <img class="absolute top-40 right-2" width="25px"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                    alt="">
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="w-full mt-10">
-                <div class="flex">
-                    <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Đề xuất cho bạn</h2>
-                    <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
-                        ></a>
-                </div>
-                <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="18px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                    </div>
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="15px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                    </div>
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="18px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                    </div>
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="15px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
+                        @endforeach
+                        
                     </div>
                 </div>
-            </div>
-            <div class="w-full mt-10">
-                <div class="flex">
-                    <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Giải cứu thực phẩm sắp hết hạn</h2>
-                    <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
-                        ></a>
-                </div>
-                <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="18px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
+            @endif
+            @if ($nearExpiryFood->isNotEmpty())
+                <div class="w-full mt-10">
+                    <div class="flex">
+                        <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Giải cứu thực phẩm sắp hết hạn</h2>
+                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
+                            ></a>
                     </div>
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="15px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                    </div>
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="18px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                    </div>
-                    <div class="w-3/12 relative">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
-                        <h3 class="text-2xl mt-2">Ổi sạch Di Trạch</h3>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                width="15px" alt="">
-                            <p class="text-lg">Hoài Đức, Hà Nội</p>
-                        </div>
-                        <div class="flex py-2 space-x-4">
-                            <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                width="15px" alt="">
-                            <p class="text-orange-400 text-lg">29/09/2022</p>
-                        </div>
-                        <img class="absolute top-40 right-2" width="25px"
-                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            alt="">
+                    <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
+                        @foreach ($nearExpiryFood as $item)
+                            <div class="w-3/12 relative p-2">
+                                <img class="h-fit"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                    alt="">
+                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                                <div class="flex py-2 space-x-4 h-28">
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                        width="18px" alt="">
+                                    <p class="text-lg">{{ $item->address }}</p>
+                                </div>
+                                <div class="flex py-2 space-x-4  ">
+                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                    width="15px" alt="">
+                                    <p class="text-orange-400 text-lg">{{$item->expiration}}</p>
+                                </div>
+                                <img class="absolute top-40 right-2" width="25px"
+                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                alt="">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
         
         <div class="w-4/12 h-fit">

@@ -9,4 +9,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function getProductDetail($id);
 
     public function getProductsBySubCategory($id);
+
+    public function getRecommend($currentProductId, $categoryId);
+
+    public function getNearExpiryFood($currentProductId);
 }

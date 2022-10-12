@@ -29,4 +29,14 @@ class ProductService extends BaseService
     {
         return $this->productRepository->getProductsBySubCategory($id);
     }
+
+    public function getRecommend($currentProductId, $categoryId)
+    {
+        return $this->productRepository->getRecommend($currentProductId, $categoryId);
+    }
+
+    public function getNearExpiryFood($currentProductId)
+    {
+        return $this->productRepository->getNearExpiryFood($currentProductId);
+    }
 }
