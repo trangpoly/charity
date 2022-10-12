@@ -55,7 +55,7 @@ class PostService
             $product = $this->productRepository->create($productData);
 
             foreach ($request->images as $image) {
-                Storage::disk('images')->put('images', $image);
+                Storage::disk('public')->put('images', $image);
                 $productImage = [
                     'path' => $image->hashName(),
                     'product_id' => $product->id,
