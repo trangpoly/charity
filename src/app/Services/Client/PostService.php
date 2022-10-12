@@ -21,8 +21,7 @@ class PostService
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository,
         ProductImageRepositoryInterface $productImageRepository,
-    )
-    {
+    ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productImageRepository = $productImageRepository;
