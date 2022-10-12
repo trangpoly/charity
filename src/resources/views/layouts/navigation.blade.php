@@ -44,12 +44,12 @@
                 </a>
             </div>
             <div class="w-1/4 text-gray-500 hover:text-black">
-                <a href="">
+                <a href="{{ route('web.posts.create') }}">
                     <div class="h-6">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u9.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                             class="m-auto" alt="">
                     </div>
-                    <p class="mt-3">Đăng bài</p>
+                    <p href="" class="mt-3">Đăng bài</p>
                 </a>
             </div>
             <div class="w-1/4 text-gray-500 hover:text-black">

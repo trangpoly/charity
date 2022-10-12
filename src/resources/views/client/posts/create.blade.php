@@ -15,7 +15,7 @@
                     <div class="relative w-full">
                         <img class="h-[80px] inline absolute" src="{{ $category->image }}" alt="">
                         <div class="bg-[#abd19e] w-8/12 h-[80px] ml-24 py-5 text-center text-2xl font-bold font-[Merriweather] text-white border rounded">
-                            <a href="" class="">{{ $category->name }}</a>
+                            <a href="{{ route('web.posts.create-form', ['id' => $category->id]) }}" class="">{{ $category->name }}</a>
                         </div>
                     </div>
                     @endforeach
