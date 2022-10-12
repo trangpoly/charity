@@ -52,10 +52,8 @@ Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name(
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
-
-Route::get('/posts/create-form', function () {
-    return view('client.posts.create-form');
-});
+Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
+Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
 
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', function () {

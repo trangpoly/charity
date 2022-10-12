@@ -9,9 +9,11 @@
     <div class="flex max-w-8xl mx-auto mt-16 space-x-8 mb-10">
         <div class="flex w-8/12 bg-white rounded-lg border border-gray-700">
             <div class="w-full m-4">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    @csrf
+
                     <div class="mb-5">
-                        <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
+                        <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
                             Danh mục sản phẩm con
                         </label>
                         <select
@@ -30,13 +32,15 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            aria-label="Chọn danh mục con cho sản phẩm">
+                            name="category_id" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn danh mục con cho sản phẩm</option>
-                            <option value="1">Táo</option>
-                            <option value="2">Bưởi</option>
-                            <option value="3">Chuối</option>
-                            <option value="4">Lê</option>
+                            @foreach ($subCategories as $subCategory)
+                            <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                            @endforeach
                         </select>
+                        @foreach ($errors->get('category_id') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -59,14 +63,17 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1" placeholder="" />
+                            name="name" id="" placeholder="" />
+                        @foreach ($errors->get('name') as $message)
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
                             Mô tả sản phẩm
                         </label>
-                        <textarea rows="4" name="message" id="message" placeholder=""
-                            class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
+                        <textarea rows="4" name="desc" id="message" placeholder=""
+                            class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -74,7 +81,13 @@
                         </label>
                         <input
                             class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
-                            id="multiple_files" type="file" multiple="">
+                            name="images[]" id="multiple_files" type="file" multiple="">
+                        @if ($errors->has('images.*'))
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                        @endif
+                        @foreach ($errors->get('images') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -97,7 +110,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1" placeholder="" />
+                            name="unit" id="" placeholder="" />
                     </div>
                     <div class="mb-5 flex">
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -120,7 +133,7 @@
                             ease-in-out
                             ml-12
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1" placeholder="" />
+                            name="weight" id="" placeholder="" />
                         <select
                             class="form-select appearance-none
                                 w-[80px]
@@ -137,11 +150,61 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            aria-label="Chọn danh mục con cho sản phẩm">
-                            <option value="1">G</option>
-                            <option value="2">KG</option>
-                            <option value="3">Quả</option>
+                            name="weight_unit" aria-label="Chọn danh mục con cho sản phẩm">
+                            <option value="g">G</option>
+                            <option value="kg">KG</option>
                         </select>
+                        @foreach ($errors->get('weight') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
+                    </div>
+                    <div class="mb-5 flex">
+                        <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Số lượng
+                        </label>
+                        <input type="number" min="1"
+                            class="
+                            form-control
+                            block
+                            w-[156px]
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            ml-[124px]
+                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                            name="quantity" id="" placeholder="" />
+                        @foreach ($errors->get('quantity') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
+                    </div>
+                    <div class="mb-5 flex">
+                        <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Hạn sử dụng
+                        </label>
+                        <div class="relative ml-[100px]">
+                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input datepicker="" type="text" name="expire_at" datepicker
+                                datepicker-format="yyyy/mm/dd"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker-input"
+                                placeholder="Chọn hạn sử dụng">
+                        </div>
+                        @foreach ($errors->get('expire_at') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="mb-5 flex flex-cols-2">
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -163,11 +226,11 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            aria-label="Chọn danh mục con cho sản phẩm">
+                            name="city" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
-                            <option value="1">Hà Nội</option>
-                            <option value="2">Hồ Chí Minh</option>
-                            <option value="3">Đà Nẵng</option>
+                            <option value="Hà Nội">Hà Nội</option>
+                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                            <option value="Đà Nẵng">Đà Nẵng</option>
                         </select>
                         <select
                             class="form-select appearance-none
@@ -185,12 +248,18 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            aria-label="Chọn danh mục con cho sản phẩm">
+                            name="district" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn quận huyện</option>
-                            <option value="1">Hoàng Mai</option>
-                            <option value="2">Cầu Giấy</option>
-                            <option value="3">Thanh Xuân</option>
+                            <option value="Hoàng Mai">Hoàng Mai</option>
+                            <option value="Cầu Giấy">Cầu Giấy</option>
+                            <option value="Thanh Xuân">Thanh Xuân</option>
                         </select>
+                        @foreach ($errors->get('city') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
+                        @foreach ($errors->get('district') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="mb-5">
                         <input type="text"
@@ -210,10 +279,13 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1" placeholder="Nhập địa chỉ chi tiết" />
+                            name="address" id="" placeholder="Nhập địa chỉ chi tiết" />
+                        @foreach ($errors->get('address') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="mb-5">
-                        <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
+                        <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
                             Số điện thoại liên hệ
                         </label>
                         <input type="number"
@@ -233,10 +305,13 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            id="exampleFormControlInput1" placeholder="" />
+                            name="phone" id="" placeholder="" />
+                        @foreach ($errors->get('phone') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                        @endforeach
                     </div>
                     <div class="text-center">
-                        <button
+                        <button type="submit"
                             class="hover:shadow-form rounded-md bg-[#ffaa00] py-3 px-8 text-lg font-semibold text-white outline-none">
                             ĐĂNG BÀI
                         </button>
