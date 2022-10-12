@@ -27,7 +27,16 @@ Route::get('/home', function () {
     return view('pages.home');
 })->name('home');
 
+
+
+Route::get('/my-app', function () {
+    return view('pages.my-page.subscribe-receive');
+})->name('my-page.subscribe-receive');
+
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
+Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.product.list');
+Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.product.list');
+
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');
