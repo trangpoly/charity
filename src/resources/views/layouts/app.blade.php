@@ -9,7 +9,6 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
-
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
 
     <!-- Scripts -->
@@ -30,6 +29,8 @@
             @include('layouts.footer')
         </footer>
     </div>
+    {{-- <script src="../path/to/flowbite/dist/flowbite.js"></script> --}}
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/datepicker.js"></script>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     @yield('script')
 </body>
