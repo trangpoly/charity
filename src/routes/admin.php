@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Admin Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These 
+| Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
@@ -41,3 +41,7 @@ Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('we
 Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
 Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
 Route::delete('admin/user/delete/{id}', [UserController::class, 'deleteUser'])->name('web.admin.user.delete');
+
+
+
+

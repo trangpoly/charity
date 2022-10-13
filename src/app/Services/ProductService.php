@@ -25,6 +25,11 @@ class ProductService extends BaseService
         return $this->productRepository->paginate($options, $limit);
     }
 
+    public function getProductsBySubCategory($id)
+    {
+        return $this->productRepository->getProductsBySubCategory($id);
+    }
+
     public function getRecommend($currentProductId, $categoryId)
     {
         return $this->productRepository->getRecommend($currentProductId, $categoryId);

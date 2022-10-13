@@ -12,6 +12,16 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         return Category::class;
     }
 
+    public function getCategories($id)
+    {
+        return $this->model->where('id', $id)->with('subCategory')->first();
+    }
+
+    public function getProductsBySubCategory($id)
+    {
+        return $this->model->where('parent_id', $id)->get();
+    }
+
     public function getParentCategories()
     {
         return $this->model->where('parent_id', null)->paginate(20);

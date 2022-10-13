@@ -44,4 +44,9 @@ class Product extends BaseModel
     {
         return $this->belongsTo(User::class, 'owner_id', 'id');
     }
+
+    public function subCategory()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
 }
