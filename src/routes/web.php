@@ -34,8 +34,10 @@ Route::get('/my-app', function () {
 })->name('my-page.subscribe-receive');
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
-Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.product.list');
-Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.product.list');
+Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
+Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');
+Route::post('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
+Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');

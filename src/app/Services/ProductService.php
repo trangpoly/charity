@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Product\ProductRepositoryInterface;
+use Illuminate\Http\Request;
 
 class ProductService extends BaseService
 {
@@ -28,6 +29,16 @@ class ProductService extends BaseService
     public function getProductsBySubCategory($id)
     {
         return $this->productRepository->getProductsBySubCategory($id);
+    }
+
+    public function search(Request $request)
+    {
+        return $this->productRepository->search($request);
+    }
+
+    public function filter($sortExpireDate, $id)
+    {
+        return $this->productRepository->filter($sortExpireDate, $id);
     }
 
     public function getRecommend($currentProductId, $categoryId)

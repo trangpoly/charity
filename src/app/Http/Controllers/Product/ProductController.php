@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\BaseController;
 use App\Services\ProductService;
+use Illuminate\Http\Request;
 
 class ProductController extends BaseController
 {
@@ -39,6 +40,26 @@ class ProductController extends BaseController
     {
         $products = $this->productService->getProductsBySubCategory($id);
 
-        return view('pages.product.sub-category', ['products' => $products]);
+        $subCategory = $products[0]->subCategory->category->subCategory;
+
+        return view('pages.product.sub-category', ['products' => $products, 'subCategory' => $subCategory]);
+    }
+
+    public function submitSearch(Request $request)
+    {
+        $search = $this->productService->search($request);
+
+        $subCategory = $search[0]->subCategory->category->subCategory;
+
+        return view('pages.product.search', ['search' => $search, 'subCategory' => $subCategory]);
+    }
+
+    public function filter(Request $request, $id)
+    {
+        $sortExpireDate = $request->expire_at;
+
+        $filterProducts = $this->productService->filter($sortExpireDate, $id);
+
+        return response()->json($filterProducts);
     }
 }
