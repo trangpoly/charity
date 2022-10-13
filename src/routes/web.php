@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\AuthLoginController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
@@ -72,4 +73,8 @@ Route::prefix('receiver')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
     Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
+
+    Route::get('login', [AuthLoginController::class, 'create'])->name('web.admin.login.create');
+    Route::post('login', [AuthLoginController::class, 'store'])->name('web.admin.login.store');
+    Route::get('logout', [AuthLoginController::class, 'logout'])->name('web.admin.logout');
 });
