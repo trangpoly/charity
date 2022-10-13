@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
-
 class Admin extends BaseModel implements Authenticatable
 {
     use HasFactory;
