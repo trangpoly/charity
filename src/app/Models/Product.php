@@ -29,6 +29,7 @@ class Product extends BaseModel
         'category_id',
         'owner_id',
     ];
+
     public function images()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
@@ -37,5 +38,10 @@ class Product extends BaseModel
     public function receivers()
     {
         return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
+    }
+
+    public function giver()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
     }
 }

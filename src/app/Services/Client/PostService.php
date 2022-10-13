@@ -73,4 +73,73 @@ class PostService
             return true;
         }
     }
+
+    public function find($id)
+    {
+        return $this->productRepository->findPostWithImages($id);
+    }
+
+    public function findSubCategory($subCategoryId)
+    {
+        return $this->categoryRepository->findSubCategory($subCategoryId);
+    }
+
+    public function findParentCategory($parentCategoryId)
+    {
+        return $this->categoryRepository->findParentCategory($parentCategoryId);
+    }
+
+    public function delImage($id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->productImageRepository->delImage($id);
+            DB::commit();
+
+            return false;
+        } catch (Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+
+            return true;
+        }
+    }
+
+    public function updateProduct($request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $productData = $request->except(['images', '_token', '_method']);
+            $productData['avatar'] = $request->images[0]->hashName();
+            $productData['stock'] = $request->quantity;
+            $productData['owner_id'] = Auth::id();
+
+            if (! $productData['stock'] == 0) {
+                $productData['status'] = 1;
+            } else {
+                $productData['status'] = 0;
+            }
+
+            $this->productRepository->update($id, $productData);
+
+            foreach ($request->images as $image) {
+                Storage::disk('public')->put('images', $image);
+                $productImage = [
+                    'path' => $image->hashName(),
+                    'product_id' => $id,
+                ];
+
+                $this->productImageRepository->create($productImage);
+            }
+            DB::commit();
+
+            return false;
+        } catch (Exception $e) {
+            Log::error($e);
+            throw $e;
+            DB::rollBack();
+
+            return true;
+        }
+    }
 }

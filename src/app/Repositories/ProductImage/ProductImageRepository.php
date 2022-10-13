@@ -11,4 +11,9 @@ class ProductImageRepository extends BaseRepository implements ProductImageRepos
     {
         return ProductImage::class;
     }
+
+    public function delImage($id)
+    {
+        return $this->model->destroy($id);
+    }
 }
