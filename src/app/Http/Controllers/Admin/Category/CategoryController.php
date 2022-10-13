@@ -15,12 +15,13 @@ class CategoryController extends BaseController
     {
         $this->categoryService = $categoryService;
     }
+
     public function listCategory()
     {
-        $parenCategories = $this->categoryService->getListParentCategoryWithSub();
+        $parentCategories = $this->categoryService->getListParentCategoryWithSub();
 
         return view('admin.pages.categories.list', [
-            'parenCategories' => $parenCategories
+            'parentCategories' => $parentCategories
         ]);
     }
 
@@ -44,9 +45,9 @@ class CategoryController extends BaseController
 
         $cateParent = $this->categoryService->create($data);
 
-        foreach ($request->input('name_sub') as $name_sub) {
+        foreach ($request->input('name_sub') as $nameSubCate) {
             $data = [
-                "name" => $name_sub,
+                "name" => $nameSubCate,
                 "status" => $request->input('status'),
                 "parent_id" => $cateParent->id
             ];
@@ -54,6 +55,78 @@ class CategoryController extends BaseController
             $this->categoryService->create($data);
         }
 
-        return redirect()->route('web.admin.categories.list');
+        return redirect()->route('web.admin.category.list');
+    }
+
+    public function detailCategory($id)
+    {
+        $parentCategory = $this->categoryService->getCategory($id);
+
+        return view('admin.pages.categories.detail', [
+            'parentCategory' => $parentCategory
+        ]);
+    }
+
+    public function updateCategory(Request $request)
+    {
+        $data = $request->only([
+            'name',
+            'status',
+            'expiration_date'
+        ]);
+
+        if ($request->file) {
+            $data['image'] = $request->file->hashName();
+            Storage::disk('public')->put('images', $request->file);
+        }
+
+        if (empty($request->file)) {
+            $category = $this->categoryService->getCategory($request->id);
+            $data['image'] = $category;
+        }
+
+        $this->categoryService->update($request->id, $data);
+
+        if ($request->sub_cate_add) {
+            foreach ($request->sub_cate_add as $nameSubCateNew) {
+                if ($nameSubCateNew) {
+                    $this->categoryService->create([
+                        "name" => $nameSubCateNew,
+                        "status" => $request->status,
+                        "parent_id" => $request->id
+                    ]);
+                }
+            }
+        }
+
+        foreach (json_decode($request->sub_cate, true) as $subCate) {
+            $this->categoryService->update($subCate["id"], [
+                "name" => $subCate["name"]
+            ]);
+        }
+
+        return response()->json($data);
+    }
+
+    public function searchCategory(Request $request)
+    {
+        $parentCategories = $this->categoryService->searchCategory($request->name, $request->status);
+
+        return view('admin.pages.categories.list', [
+            'parentCategories' => $parentCategories
+        ]);
+    }
+
+    public function paginationCategory(Request $request)
+    {
+        $amountItem = $request->amount_item;
+        $parentCategories = $this->categoryService->paginateCategory($amountItem);
+
+        return response()->json($parentCategories);
+    }
+
+    public function deleteSubCategory($id)
+    {
+        dd($this->categoryService->getProductsByCategory($id));
     }
 }

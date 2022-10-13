@@ -74,4 +74,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->where($this->model->getKeyName(), $id)->update($attribute);
     }
+
+    public function delete($id)
+    {
+        return $this->model->destroy($id);
+    }
 }

@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
-    Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
 
     Route::prefix('product')->group(function () {
         Route::get('list', [ProductController::class, 'list'])->name('web.admin.list');
@@ -29,10 +28,18 @@ Route::prefix('admin')->group(function () {
         Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.saveUpdate');
     });
 
-    Route::prefix('categories')->group(function(){
-        Route::get('/', [CategoryController::class, 'listCategory'])->name('web.admin.categories.list');
-        Route::get('/add', [CategoryController::class, 'addCategory'])->name('web.admin.categories.add');
-        Route::post('/add', [CategoryController::class, 'storeCategory'])->name('web.admin.categories.store');
+    Route::prefix('category')->group(function () {
+        Route::get('/', [CategoryController::class, 'listCategory'])->name('web.admin.category.list');
+        Route::get('add', [CategoryController::class, 'addCategory'])->name('web.admin.category.add');
+        Route::post('add', [CategoryController::class, 'storeCategory'])->name('web.admin.category.store');
+
+        Route::get('detail/{id}', [CategoryController::class, 'detailCategory'])->name('web.admin.category.detail');
+        Route::post('detail/', [CategoryController::class, 'updateCategory'])->name('web.admin.category.update');
+
+        Route::get('delete/{id}', [CategoryController::class, 'deleteSubCategory'])->name('web.admin.category.delete');
+
+        Route::any('search', [CategoryController::class, 'searchCategory'])->name('web.admin.category.search');
+        Route::post('pagination', [CategoryController::class, 'paginationCategory'])->name('web.admin.category.pagination');
     });
 });
 

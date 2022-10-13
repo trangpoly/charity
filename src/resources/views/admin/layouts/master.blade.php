@@ -6,10 +6,13 @@
     <link rel="shortcut icon" href="./img/fav.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     @vite(['resources/css/admin.scss', 'resources/js/admin.js'])
     <title>@yield('title')</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body class="bg-gray-100">
     <!-- start navbar -->
@@ -119,7 +122,7 @@
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u12.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
                         alt="">
                 </a>
-                <a href="{{ route('web.admin.categories.list') }}"
+                <a href="{{ route('web.admin.category.list') }}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Category Management
                     <img style="float: right" width="20px"
@@ -175,5 +178,7 @@
     <!-- end wrapper -->
     <!-- script -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
 </body>
 </html>

@@ -2,7 +2,8 @@
 @section('title', ' Categories')
 @section('content')
     <div class="container">
-        <form action="" method="" class="w-full h-fix">
+        <form action="{{ route('web.admin.category.search') }}" method="POST" class="w-full h-fix">
+            @csrf
             <div class="input flex mb-5">
                 <div class="w-3/12">
                     <p class="text-black font-semibold">Category name</p>
@@ -12,29 +13,29 @@
                     <p class="text-black font-semibold">Status</p>
                     <select class="h-8 w-full border border-gray-300 px-2" name="status" id="">
                         <option value="">Please select</option>
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
+                        <option value="0">Active</option>
+                        <option value="1">Deactive</option>
                     </select>
                 </div>
             </div>
-
             <div class="w-full h-fit bg-yellow-200 mb-5 text-center py-2 space-x-2">
                 <button type="submit" class="bg-yellow-500 text-black py-1 px-10 border border-gray-300">Search</button>
                 <button type="reset" class="bg-white text-blue-500 py-1 px-10 border border-gray-300">Reset</button>
             </div>
         </form>
         <div class="flex py-0 items-end mb-5 relative">
-            <p class="pr-8 text-black">Display item: 1~10</p>
-            <form action="" method="">
-                <select class="border border-gray-300 px-2 py-1" name="status" id="">
-                    <option value="">10</option>
-                    <option value="">50</option>
-                    <option value="">100</option>
+            <p class="pr-8 text-black" id="box-display"><span>Display item: 1~{{ count($parentCategories) }}</span></p>
+            <form method="POST">
+                @csrf
+                <select class="border border-gray-300 px-2 py-1" name="pagination" id="amount_item">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
                 </select>
             </form>
+
             <p class="px-2 text-black">items/page</p>
-            <a href="{{ route('web.admin.categories.add') }}"
+            <a href="{{ route('web.admin.category.add') }}"
                 class="flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
                 <p class="text-black text-sm">Create new</p>
                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
@@ -55,6 +56,9 @@
                             Category image
                         </th>
                         <th scope="col" class="py-3 px-6">
+                            Expiration Date
+                        </th>
+                        <th scope="col" class="py-3 px-6">
                             Status
                         </th>
                         <th scope="col" class="py-3 px-6">
@@ -65,31 +69,106 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($parenCategories as $parenCategory)
+                <tbody id="table-cate">
+                    @foreach ($parentCategories as $parentCategory)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="py-4 px-6 text-black">
-                                {{-- {{ $loop->iteration + ($categories->currentPage() - 1) * $categories->perPage() }} --}}
+                                #
                             </td>
                             <th scope="row"
                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $parenCategory->name }}
+                                {{ $parentCategory->name }}
                             </th>
                             <td class="py-4 px-6">
-                                <img src="{{ Illuminate\Support\Facades\Storage::url("images/$parenCategory->image") }}"
+                                <img src="{{ Illuminate\Support\Facades\Storage::url("images/$parentCategory->image") }}"
                                     width="200px" alt="">
                             </td>
                             <td class="py-4 px-6">
-                                {{ $parenCategory->status == 0 ? 'Active' : 'Deactive' }}
+                                {{ $parentCategory->expiration_date }}
                             </td>
                             <td class="py-4 px-6">
-                                @foreach ($parenCategory->subCategory as $item)
+                                {{ $parentCategory->status == 0 ? 'Active' : 'Deactive' }}
+                            </td>
+                            <td class="py-4 px-6">
+                                @foreach ($parentCategory->subCategory as $item)
                                     <p>{{ $item->name }}</p>
                                 @endforeach
                             </td>
-                            <td class="py-4 px-6 flex space-x-6">
-                                <a href="#">
+                            <td class="py-10 px-6 flex space-x-6">
+                                <a href="{{ route('web.admin.category.detail', $parentCategory->id) }}">
+                                    <img width="32px"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
+                                        alt="">
+                                </a>
+                                <a href="{{ route('web.admin.category.delete', $parentCategory->id) }}">
+                                    <img width="30px"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
+                                        alt="">
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="m-2 border-gray-300">
+                {{ $parentCategories->links() }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var element = $("#table-cate").children();
+
+        $(document).ready(function() {
+            $("#amount_item").change(function() {
+                var amount_item = $("#amount_item").val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('web.admin.category.pagination') }}",
+                    data: {
+                        amount_item: amount_item
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        element.remove();
+                        $("#box-display").children().remove();
+                        $("#box-display").append(`<span>Display item: 1~${data.data.length}</span>`);
+                        $.each(data.data, function(key, value) {
+                            $("#table-cate").append(`
+                           <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <td class="py-4 px-6 text-black">
+                                #
+                            </td>
+                            <th scope="row"
+                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                ${value.name}
+                            </th>
+                            <td class="py-4 px-6">
+                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/${value.image}') }}"
+                                    width="200px" alt="">
+                            </td>
+                            <td class="py-4 px-6">
+                                ${value.expiration_date ? value.expiration_date : ''}
+                            </td>
+                            <td class="py-4 px-6">
+                                ${value.status == 0 ? 'Active' : 'Deactive'}
+                            </td>
+                            <td class="py-4 px-6">
+                                ${value.sub_category.map((sub_category) => `
+                                                                <p>${sub_category.name}</p>
+                                                            `).join("")}
+                            </td>
+                            <td class="py-10 px-6 flex space-x-6">
+                                <a href="{{ url('admin/category/${value.id}') }}">
                                     <img width="32px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
@@ -101,55 +180,11 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <nav class="flex justify-center py-4" aria-label="Table navigation">
-                <ul class="inline-flex items-center space-x-1">
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                    </li>
-                    <li>
-                        <a href="#" aria-current="page"
-                            class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+                            `)
+                        })
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

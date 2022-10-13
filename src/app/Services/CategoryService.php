@@ -34,4 +34,29 @@ class CategoryService extends BaseService
     {
         return $this->categoryRepository->getListParentCategoryWithSub();
     }
+
+    public function update($id, $data = [])
+    {
+        return $this->categoryRepository->update($id, $data);
+    }
+
+    public function delete($id)
+    {
+        return $this->categoryRepository->delete($id);
+    }
+
+    public function searchCategory($nameCate, $statusCate)
+    {
+        return $this->categoryRepository->searchCategory($nameCate,$statusCate);
+    }
+
+    public function paginateCategory($amountItem)
+    {
+        return $this->categoryRepository->paginateCategory($amountItem);
+    }
+
+    public function getProductsByCategory($id)
+    {
+        return $this->categoryRepository->getProductsByCategory($id);
+    }
 }
