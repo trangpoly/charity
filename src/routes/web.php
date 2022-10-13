@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Client\GiverController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,12 +55,12 @@ Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logou
 Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
 Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
 Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
+Route::get('/posts/edit/{id}/{subCategoryId}', [PostController::class, 'edit'])->name('web.posts.edit');
+Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct'])->name('web.posts.remove-image');
+Route::put('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
 
 Route::prefix('giver')->group(function () {
-    Route::get('subscribe-giver', function () {
-
-        return view('pages.my-page.giver.subscribe-giver');
-    })->name('web.client.giver.subscribe-giver');
+    Route::get('subscribe-giver', [GiverController::class, 'showGiverPosts'])->name('web.client.giver-posts');
 });
 
 Route::prefix('receiver')->group(function () {

@@ -40,6 +40,11 @@ class Product extends BaseModel
         return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
     }
 
+    public function giver()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
     public function subCategory()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

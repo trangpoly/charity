@@ -47,4 +47,14 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->limit(4)
             ->get();
     }
+
+    public function getUserPosts($userId)
+    {
+        return $this->model->where('owner_id', $userId)->with('giver')->limit(5)->get();
+    }
+
+    public function findPostWithImages($id)
+    {
+        return $this->model->with('images')->findOrFail($id);
+    }
 }
