@@ -11,6 +11,8 @@ use App\Repositories\Client\PostRepository;
 use App\Repositories\Client\PostRepositoryInterface;
 use App\Repositories\Client\RegisterUserRepository;
 use App\Repositories\Client\RegisterUserRepositoryInterface;
+use App\Repositories\Order\OrderRepository;
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepository;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
@@ -41,5 +43,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
+        $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
     }
 }
