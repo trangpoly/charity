@@ -10,6 +10,10 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function getProductsBySubCategory($id);
 
+    public function search($request);
+
+    public function filter($sortExpireDate, $id);
+
     public function getRecommend($currentProductId, $categoryId);
 
     public function getNearExpiryFood($currentProductId);

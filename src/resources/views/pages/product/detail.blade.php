@@ -4,119 +4,141 @@
             {{ __('Chi tiết sản phẩm') }}
         </h2> --}}
     </x-slot>
-    
+
     <nav class="flex mx-auto max-w-8xl my-7" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
-        <li class="inline-flex items-center">
-            <a href="#" class="inline-flex text-xl items-center font-medium text-green-600 hover:text-green-400 dark:text-gray-400 dark:hover:text-white active:text-green-500 underline underline-offset-1">
-            {{-- <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg> --}}
-            Nông sản
-            </a>
-        </li>
-        <li aria-current="page">
-            <div class="flex items-center">
-            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="ml-1 text-xl font-medium text-slate-500 md:ml-2 dark:text-gray-400 underline underline-offset-1">{{$product->name}}</span>
-            </div>
-        </li>
+            <li class="inline-flex items-center">
+                <a href="#"
+                    class="inline-flex text-xl items-center font-medium text-green-600 hover:text-green-400 dark:text-gray-400 dark:hover:text-white active:text-green-500 underline underline-offset-1">
+                    {{-- <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg> --}}
+                    Nông sản
+                </a>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span
+                        class="ml-1 text-xl font-medium text-slate-500 md:ml-2 dark:text-gray-400 underline underline-offset-1">{{ $product->name }}</span>
+                </div>
+            </li>
         </ol>
     </nav>
-    
+
     <div class="flex max-w-8xl mx-auto mt-16 space-x-8 mb-10">
         <div class="w-8/12">
             <div class=" h-fit border border-slate-400 rounded-md p-7">
                 <div class="flex w-full">
                     <div class="w-6/12 md:shrink-0 ">
-                        <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                        <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                            alt="">
                         <div class="grid grid-cols-3 gap-4 mt-4">
                             <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                                    alt="">
                             </div>
                             <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                                    alt="">
                             </div>
                             <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                                    alt="">
                             </div>
                             <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                                    alt="">
                             </div>
                             <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                                    alt="">
                             </div>
                             <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80" alt="">
+                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                                    alt="">
                             </div>
                         </div>
                         <p class="mt-5 text-2xl bg-slate-300 w-fit">{{!in_array($product->stock, [-1, 0]) ? '' : 'Hết hàng'}}</p>
                     </div>
                     <div class="w-6/12 ml-10">
                         <div class="w-full flex justify-between">
-                            <h2 class="font-semibold text-3xl text-slate-800">{{$product->name}}</h2>
+                            <h2 class="font-semibold text-3xl text-slate-800">{{ $product->name }}</h2>
                         </div>
                         <div class="flex justify-between">
                             <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Địa chỉ: {{$product->address}}</p>
+                                    <p>Địa chỉ: {{ $product->address }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u50.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u50.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Người đăng: {{$product->owner_id}}</p>
+                                    <p>Người đăng: {{ $product->owner_id }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u52.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u52.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Liên hệ: {{$product->phone}}</p>
+                                    <p>Liên hệ: {{ $product->phone }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u56.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u56.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Đơn vị: {{$product->unit}}</p>
+                                    <p>Đơn vị: {{ $product->unit }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u54.png?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u54.png?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Trọng lượng: {{$product->weight . $product->weight_unit .'/'.$product->unit}}</p>
+                                    <p>Trọng lượng: {{ $product->weight . $product->weight_unit . '/' . $product->unit }}
+                                    </p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u58.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u58.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Số lượng: {{$product->quantity}}</p>
+                                    <p>Số lượng: {{ $product->quantity }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u60.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u60.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
                                     <p>Hạn sử dụng: {{$product->expire_at}}</p>
                                 </div>
                             </div>
                             <div class="pl-2 mt-6 flex flex-col space-y-5 border-b border-lime-600">
                                 <a href="#">
-                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u106.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" 
-                                    width="30px" alt="">
+                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u106.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
+                                        width="30px" alt="">
                                 </a>
                                 @if ($currentUser->id == $product->owner_id)
                                     <a href="#">
-                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u134.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" 
+                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u134.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
                                         width="30px" alt="">
                                     </a>
                                     <a href="#">
-                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u133.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e" 
+                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u133.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
                                         width="30px" alt="">
                                     </a>
                                 @else
                                     <a href="#">
-                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_nh_n_1/u107.svg?pageId=6f073e97-65b3-4b3d-8d8e-df5597dd984c" 
+                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_nh_n_1/u107.svg?pageId=6f073e97-65b3-4b3d-8d8e-df5597dd984c"
                                         width="30px" alt="">
                                     </a>
-                                @endif                             
+                                @endif
                             </div>
                         </div>
                         <div>
                             <p class="my-4 text-2xl text-bold font-bold">Mô tả</p>
-                            <span class="text-lg inline-block mb-5">{{$product->desc}}</span>
+                            <span class="text-lg inline-block mb-5">{{ $product->desc }}</span>
                         </div>
                         @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? $product->orders[0]->status == 2 : true))
                         <form action="{{route('web.order.create', ['product' => $product->id])}}" method="POST" id="amount-received">
@@ -133,7 +155,7 @@
                                 <p class="mb-3 text-xl font-light text-balck bg">Số lượng:</p>
                                 <input class="h-7 w-12 text-center" type="text" readonly min="1" name="" value="{{$product->orders[0]->quantity}}"  size="1">
                             </div>
-                        @endif                 
+                        @endif
                     </div>
                 </div>
                 <div class="flex justify-center mt-5">
@@ -170,13 +192,14 @@
                         @endif
                     </div>
                 @endif
-                
+
             </div>
             @if ($recommend->isNotEmpty())
                 <div class="w-full mt-10">
                     <div class="flex">
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Đề xuất cho bạn</h2>
-                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
+                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem
+                            thêm
                             ></a>
                     </div>
                     <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
@@ -202,7 +225,7 @@
                                     alt="">
                             </div>
                         @endforeach
-                        
+
                     </div>
                 </div>
             @endif
@@ -210,7 +233,8 @@
                 <div class="w-full mt-10">
                     <div class="flex">
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Giải cứu thực phẩm sắp hết hạn</h2>
-                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
+                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem
+                            thêm
                             ></a>
                     </div>
                     <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
@@ -232,8 +256,8 @@
                                     <p class="text-orange-400 text-lg">{{$item->expire_at}}</p>
                                 </div>
                                 <img class="absolute top-40 right-2" width="25px"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                alt="">
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                    alt="">
                             </div>
                         @endforeach
                     </div>
@@ -283,7 +307,7 @@
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
         </div>
     </div>
-    
+
     <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
         <div class="relative p-4 w-full max-w-md h-full md:h-auto">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -294,18 +318,18 @@
                 <div class="p-6 text-center">
                     <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500">Hủy đăng ký?</h3>
-                    <form action="{{route('web.order.unsubscribe', ['product' =>$product->id])}}" method="POST">    
+                    <form action="{{route('web.order.unsubscribe', ['product' =>$product->id])}}" method="POST">
                     @csrf
                         <button data-modal-toggle="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                             Có
                         </button>
-                        <button data-modal-toggle="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Hủy</button>                        
+                        <button data-modal-toggle="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Hủy</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    
+
     @if (session()->has('msg'))
         <div class="flex justify-end sticky bottom-0">
         <div id="toast-success" class="flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow" role="alert">
@@ -321,7 +345,7 @@
         </div>
         </div>
     @endif
-    
+
 
     <script type="text/javascript">
         $(document).ready(function(){
