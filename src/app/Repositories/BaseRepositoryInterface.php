@@ -13,5 +13,4 @@ interface BaseRepositoryInterface
     public function paginate();
 
     public function delete($id);
-
 }
