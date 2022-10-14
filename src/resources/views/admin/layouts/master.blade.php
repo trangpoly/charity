@@ -65,7 +65,7 @@
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u26.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9">
                         </div>
                         <div class="ml-2 capitalize flex ">
-                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">Admin</h1>
+                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ Auth::guard('admin')->user()->name }}</h1>
                             <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
                         </div>
                     </button>
@@ -81,9 +81,9 @@
                         <hr>
                         <!-- item -->
                         <a class="px-4 py-2 block capitalize font-medium text-sm tracking-wide bg-white hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 ease-in-out"
-                            href="#">
+                            href="{{ route('web.admin.logout') }}">
                             <i class="fad fa-user-times text-xs mr-1"></i>
-                            log out
+                            Log out
                         </a>
                         <!-- end item -->
                     </div>

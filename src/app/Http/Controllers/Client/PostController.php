@@ -37,4 +37,27 @@ class PostController extends Controller
 
         return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);
     }
+
+    public function edit($id, $subCategoryId)
+    {
+        $post = $this->postService->find($id);
+        $subCategory = $this->postService->findSubCategory($subCategoryId);
+        $parentCategoryId = $subCategory->parent_id;
+        $subCategories = $this->postService->getSubCategories($parentCategoryId);
+
+        return view('client.posts.edit', ['post' => $post, 'subCategories' => $subCategories]);
+    }
+
+    public function deleteImageProduct(Request $request)
+    {
+        $status = $this->postService->delImage($request->id);
+    }
+
+    public function update(PostFormRequest $request, $id)
+    {
+        $status = $this->postService->updateProduct($request, $id);
+        $msg = $status ? 'Error! Cập nhập bài đăng thất bại.' : 'Bài Đăng của bạn đã được cập nhập !';
+
+        return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);
+    }
 }
