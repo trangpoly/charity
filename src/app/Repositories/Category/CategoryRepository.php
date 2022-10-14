@@ -83,5 +83,4 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return $this->model->find($parentCategoryId);
     }
-
 }
