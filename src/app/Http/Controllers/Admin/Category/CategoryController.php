@@ -34,7 +34,8 @@ class CategoryController extends BaseController
     {
         $data = $request->only([
             'name',
-            'status'
+            'status',
+            'expiration_date'
         ]);
 
         $data['image'] = $request->file('image')->hashName();
@@ -75,20 +76,20 @@ class CategoryController extends BaseController
             'expiration_date'
         ]);
 
-        if ($request->file) {
+        if ($request->file !== "undefined") {
             $data['image'] = $request->file->hashName();
             Storage::disk('public')->put('images', $request->file);
         }
 
-        if (empty($request->file)) {
+        if ($request->file == "undefined") {
             $category = $this->categoryService->getCategory($request->id);
-            $data['image'] = $category;
+            $data['image'] = $category->image;
         }
 
         $this->categoryService->update($request->id, $data);
 
         if ($request->sub_cate_add) {
-            foreach ($request->sub_cate_add as $nameSubCateNew) {
+            foreach (json_decode($request->sub_cate_add, true) as $nameSubCateNew) {
                 if ($nameSubCateNew) {
                     $this->categoryService->create([
                         "name" => $nameSubCateNew,
@@ -127,6 +128,13 @@ class CategoryController extends BaseController
 
     public function deleteSubCategory($id)
     {
-        dd($this->categoryService->getProductsByCategory($id));
+        $subCategories = $this->categoryService->getProductsByCategory($id);
+
+        if (count($subCategories) == 0) {
+            $this->categoryService->delete($id);
+            return redirect()->back()->with('success', "Thanh cong");
+        }
+
+        return redirect()->back()->with('fail', "That bai");;
     }
 }

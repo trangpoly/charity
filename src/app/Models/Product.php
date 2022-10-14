@@ -17,9 +17,11 @@ class Product extends BaseModel
         'avatar',
         'unit',
         'weight',
-        'expiration',
+        'expire_at',
         'quantity',
         'weight_unit',
+        'district',
+        'city',
         'address',
         'phone',
         'stock',
@@ -27,6 +29,7 @@ class Product extends BaseModel
         'category_id',
         'owner_id',
     ];
+
     public function images()
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id');
@@ -35,5 +38,15 @@ class Product extends BaseModel
     public function receivers()
     {
         return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
+    }
+
+    public function giver()
+    {
+        return $this->belongsTo(User::class, 'owner_id', 'id');
+    }
+
+    public function subCategory()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 }

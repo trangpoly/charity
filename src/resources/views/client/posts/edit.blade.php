@@ -2,15 +2,16 @@
     <header class="bg-white shadow">
         <div class="max-w-8xl mx-auto py-6">
             <h2 class="font-semibold text-3xl text-gray-800">
-                Đăng Bài
+                Cập Nhập Bài Viết
             </h2>
         </div>
     </header>
     <div class="flex max-w-8xl mx-auto mt-16 space-x-8 mb-10">
         <div class="flex w-8/12 bg-white rounded-lg border border-gray-700">
             <div class="w-full m-4">
-                <form action="" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('web.posts.update', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
 
                     <div class="mb-5">
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -35,11 +36,12 @@
                             name="category_id" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn danh mục con cho sản phẩm</option>
                             @foreach ($subCategories as $subCategory)
-                            <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
+                                <option value="{{ $subCategory->id }}"
+                                    @if ($post->category_id == $subCategory->id) selected @endif>{{ $subCategory->name }}</option>
                             @endforeach
                         </select>
                         @foreach ($errors->get('category_id') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5">
@@ -63,7 +65,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="name" id="" placeholder="" />
+                            name="name" id="" value="{{ @$post->name }}" />
                         @foreach ($errors->get('name') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
@@ -73,7 +75,7 @@
                             Mô tả sản phẩm
                         </label>
                         <textarea rows="4" name="desc" id="message" placeholder=""
-                            class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"></textarea>
+                            class="w-full resize-none rounded-md border border-[#e0e0e0] bg-white py-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">{{ @$post->desc }}</textarea>
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -81,12 +83,29 @@
                         </label>
                         <input
                             class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
-                            name="images[]" id="multiple_files" type="file" multiple="">
+                            name="images[]" id="multiple_files" type="file" multiple=""
+                            value="{{ @$post->images }}">
+                        <div class="flex m-4">
+                            @foreach ($post->images as $item)
+                                <div class="relative">
+                                    <img class="mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
+                                        src="{{ asset('storage/images/' . $item->path) }}" alt="">
+                                    <a href="" data-product-image-id="{{ $item->id }}"
+                                        class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                                d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
                         @if ($errors->has('images.*'))
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
                         @endif
                         @foreach ($errors->get('images') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5">
@@ -110,7 +129,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="unit" id="" placeholder="" />
+                            name="unit" id="" value="{{ @$post->unit }}" />
                     </div>
                     <div class="mb-5 flex">
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -133,7 +152,7 @@
                             ease-in-out
                             ml-12
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="weight" id="" placeholder="" />
+                            name="weight" id="" value="{{ @$post->weight }}" />
                         <select
                             class="form-select appearance-none
                                 w-[80px]
@@ -151,11 +170,11 @@
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="weight_unit" aria-label="Chọn danh mục con cho sản phẩm">
-                            <option value="g">G</option>
-                            <option value="kg">KG</option>
+                            <option value="g" @if ($post->weight_unit == 'g') selected @endif>G</option>
+                            <option value="kg" @if ($post->weight_unit == 'kg') selected @endif>KG</option>
                         </select>
                         @foreach ($errors->get('weight') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5 flex">
@@ -179,9 +198,9 @@
                             ease-in-out
                             ml-[124px]
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="quantity" id="" placeholder="" />
+                            name="quantity" id="" value="{{ @$post->quantity }}" />
                         @foreach ($errors->get('quantity') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5 flex">
@@ -198,12 +217,12 @@
                                 </svg>
                             </div>
                             <input datepicker="" type="text" name="expire_at" datepicker
-                                datepicker-format="yyyy/mm/dd"
+                                value="{{ @$post->expire_at }}" datepicker-format="yyyy/mm/dd"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker-input"
                                 placeholder="Chọn hạn sử dụng">
                         </div>
                         @foreach ($errors->get('expire_at') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5 flex flex-cols-2">
@@ -228,9 +247,10 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="city" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
-                            <option value="Hà Nội">Hà Nội</option>
-                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            <option value="Hà Nội" @if ($post->city == 'Hà Nội') selected @endif>Hà Nội</option>
+                            <option value="Hồ Chí Minh" @if ($post->city == 'Hồ Chí Minh') selected @endif>Hồ Chí Minh
+                            </option>
+                            <option value="Đà Nẵng" @if ($post->city == 'Đà Nẵng') selected @endif>Đà Nẵng</option>
                         </select>
                         <select
                             class="form-select appearance-none
@@ -250,15 +270,18 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="district" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn quận huyện</option>
-                            <option value="Hoàng Mai">Hoàng Mai</option>
-                            <option value="Cầu Giấy">Cầu Giấy</option>
-                            <option value="Thanh Xuân">Thanh Xuân</option>
+                            <option value="Hoàng Mai" @if ($post->district == 'Hoàng Mai') selected @endif>Hoàng Mai
+                            </option>
+                            <option value="Cầu Giấy" @if ($post->district == 'Cầu Giấy') selected @endif>Cầu Giấy
+                            </option>
+                            <option value="Thanh Xuân" @if ($post->district == 'Thanh Xuân') selected @endif>Thanh Xuân
+                            </option>
                         </select>
                         @foreach ($errors->get('city') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                         @foreach ($errors->get('district') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5">
@@ -279,9 +302,9 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="address" id="" placeholder="Nhập địa chỉ chi tiết" />
+                            name="address" id="" value="{{ @$post->address }}" />
                         @foreach ($errors->get('address') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="mb-5">
@@ -305,15 +328,15 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="phone" id="" placeholder="" />
+                            name="phone" id="" value="{{ @$post->phone }}" />
                         @foreach ($errors->get('phone') as $message)
-                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
                     </div>
                     <div class="text-center">
                         <button type="submit"
                             class="hover:shadow-form rounded-md bg-[#ffaa00] py-3 px-8 text-lg font-semibold text-white outline-none">
-                            ĐĂNG BÀI
+                            CẬP NHẬP BÀI VIẾT
                         </button>
                     </div>
                 </form>
@@ -362,4 +385,38 @@
             <div class="w-full border border-gray-700 mt-10 h-32"></div>
         </div>
     </div>
+    @section('script')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.product-image-delete').click(function(e) {
+                e.preventDefault();
+
+                var url = "{{ route('web.posts.remove-image') }}";
+                var image_id = $(this).data('product-image-id');
+                var imageEl = $(this).parent();
+
+                $.ajax(url, {
+                type: 'POST',
+                data: {
+                    id: image_id,
+                },
+                success: function (data) {
+                    console.log('success');
+
+                    imageEl.remove();
+                },
+                error: function (e) {
+                    console.log('fail');
+                }
+                });
+            })
+
+            $('#image').change(function(e) {
+                var fileName = e.target.files[0].name;
+
+                $('.custom-file-label').html(fileName);
+          });
+        });
+    </script>
+    @endsection
 </x-app-layout>

@@ -14,6 +14,7 @@ class Category extends BaseModel
     protected $fillable = [
         'name',
         'image',
+        'expiration_date',
         'status',
         'parent_id'
     ];

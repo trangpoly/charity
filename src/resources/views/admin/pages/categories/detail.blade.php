@@ -5,6 +5,17 @@
         <div class="bg-blue-700 px-5 py-2">
             <p class="text-white font-semibold">Create Category</p>
         </div>
+        @if (session('fail'))
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <span class="font-medium">Cannot remove!</span> This category contained products
+            </div>
+        @endif
+        @if (session('success'))
+            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+                role="alert">
+                <span class="font-medium">Remove success!</span>
+            </div>
+        @endif
         <form id="formCate" class="w-8/12 ml-24 mt-5" method="POST" enctype="multipart/form-data">
             {{-- <div class="w-8/12 ml-24 mt-5"> --}}
             @csrf
@@ -17,7 +28,7 @@
                 <p class="text-black w-3/12">Image<span class="text-red-700 ml-2">*</span></p>
                 <div class="w-3/12 flex justify-center items-center">
                     <label for="dropzone-file"
-                        class="flex flex-col justify-center items-center w-full h-24 bg-gray-50 border-gray-300 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        class="flex flex-col justify-center items-center w-full h-fit bg-gray-50 border-gray-300 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                         <img id="img_preview"
                             src="{{ Illuminate\Support\Facades\Storage::url("images/$parentCategory->image") }}"
                             class="w-full" alt="">
@@ -28,10 +39,10 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Status<span class="text-red-700 ml-2">*</span></p>
                 <div class="w-9/12 flex space-x-8 text-gray-700">
-                    <input type="radio" id="status" name="status" value="0"
-                        {{ $parentCategory->status == 0 ? 'checked' : '' }} /> Active
                     <input type="radio" id="status" name="status" value="1"
-                        {{ $parentCategory->status == 1 ? 'checked' : '' }} /> Deactive
+                        {{ $parentCategory->status == 1 ? 'checked' : '' }} /> Active
+                    <input type="radio" id="status" name="status" value="2"
+                        {{ $parentCategory->status == 2 ? 'checked' : '' }} /> Deactive
                 </div>
             </div>
             <div class="flex mt-5">
@@ -64,7 +75,7 @@
                         <div class="w-full flex space-x-4 justify-items-center">
                             <input type="text" data-id="{{ $item->id }}" name="name_sub[]"
                                 value="{{ $item->name }}" class="input-subCate w-10/12 border border-gray-500">
-                            <a href="" class="w-2/12" id="removeInputSub">
+                            <a href="{{ route('web.admin.category.delete-subcate', $item->id) }}" class="w-2/12">
                                 <img class=""
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/create_category/u45.svg?pageId=fc344ff3-0f48-40b8-905b-b57fafc3e11c"
                                     alt="">
@@ -151,7 +162,7 @@
 
                 $(".name_sub_add").each(function(x) {
                     sub_cate_add.push(
-                        $(".name_sub_add").val()
+                        $(this).val()
                     );
                 })
 
@@ -162,7 +173,7 @@
                 formData.append("status", $("#status:checked").val());
                 formData.append("expiration_date", $("#btn_expiration_date").val());
                 formData.append("sub_cate", JSON.stringify(sub_cate));
-                formData.append("sub_cate_add", sub_cate_add);
+                formData.append("sub_cate_add", JSON.stringify(sub_cate_add));
 
                 $.ajax({
                     type: 'POST',

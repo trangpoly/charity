@@ -12,9 +12,9 @@
                 <div class="w-2/12">
                     <p class="text-black font-semibold">Status</p>
                     <select class="h-8 w-full border border-gray-300 px-2" name="status" id="">
-                        <option value="">Please select</option>
-                        <option value="0">Active</option>
-                        <option value="1">Deactive</option>
+                        <option value="3">Please select</option>
+                        <option value="1">Active</option>
+                        <option value="2">Deactive</option>
                     </select>
                 </div>
             </div>
@@ -24,7 +24,9 @@
             </div>
         </form>
         <div class="flex py-0 items-end mb-5 relative">
-            <p class="pr-8 text-black" id="box-display"><span>Display item: 1~{{ count($parentCategories) }}</span></p>
+            @if ($parentCategories)
+                <p class="pr-8 text-black" id="box-display"><span>Display item: 1~{{ count($parentCategories) }}</span></p>
+            @endif
             <form method="POST">
                 @csrf
                 <select class="border border-gray-300 px-2 py-1" name="pagination" id="amount_item">
@@ -43,6 +45,7 @@
             </a>
         </div>
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            @if ($parentCategories)
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-md text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -88,7 +91,12 @@
                                 {{ $parentCategory->expiration_date }}
                             </td>
                             <td class="py-4 px-6">
-                                {{ $parentCategory->status == 0 ? 'Active' : 'Deactive' }}
+                                @if ($parentCategory->status == 1)
+                                    Active
+                                @endif
+                                @if ($parentCategory->status == 2)
+                                    Deactive
+                                @endif
                             </td>
                             <td class="py-4 px-6">
                                 @foreach ($parentCategory->subCategory as $item)
@@ -101,19 +109,19 @@
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
                                 </a>
-                                <a href="{{ route('web.admin.category.delete', $parentCategory->id) }}">
-                                    <img width="30px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                        alt="">
-                                </a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            
             <div class="m-2 border-gray-300">
                 {{ $parentCategories->links() }}
-            </div>
+            </div>     
+            @else
+                <p class="pr-8 text-red-700 text-center" ><span>Khong thay ban ghi nao</span></p>
+            @endif
+            
         </div>
     </div>
 
@@ -124,7 +132,7 @@
             }
         });
 
-        var element = $("#table-cate").children();
+        var element = $("#table-cate");
 
         $(document).ready(function() {
             $("#amount_item").change(function() {
@@ -138,7 +146,7 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        element.remove();
+                        element.children().remove();
                         $("#box-display").children().remove();
                         $("#box-display").append(`<span>Display item: 1~${data.data.length}</span>`);
                         $.each(data.data, function(key, value) {
@@ -171,11 +179,6 @@
                                 <a href="{{ url('admin/category/${value.id}') }}">
                                     <img width="32px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                        alt="">
-                                </a>
-                                <a href="#">
-                                    <img width="30px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
                                 </a>
                             </td>

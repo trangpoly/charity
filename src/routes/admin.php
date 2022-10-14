@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 | Admin Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These 
+| Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
@@ -36,7 +36,7 @@ Route::prefix('admin')->group(function () {
         Route::get('detail/{id}', [CategoryController::class, 'detailCategory'])->name('web.admin.category.detail');
         Route::post('detail/', [CategoryController::class, 'updateCategory'])->name('web.admin.category.update');
 
-        Route::get('delete/{id}', [CategoryController::class, 'deleteSubCategory'])->name('web.admin.category.delete');
+        Route::any('delete-subcate/{id}', [CategoryController::class, 'deleteSubCategory'])->name('web.admin.category.delete-subcate');
 
         Route::any('search', [CategoryController::class, 'searchCategory'])->name('web.admin.category.search');
         Route::post('pagination', [CategoryController::class, 'paginationCategory'])->name('web.admin.category.pagination');
@@ -48,4 +48,8 @@ Route::get('admin/user/create', [UserController::class, 'showCreateForm'])->name
 Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('web.admin.user.store');
 Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
 Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
-Route::delete('admin/user/delete/{id}', [UserController::class, 'deleteUser'])->name('web.admin.user.delete');
+Route::get('admin/user/delete/{id}', [UserController::class, 'deleteUser'])->name('web.admin.user.delete');
+
+
+
+
