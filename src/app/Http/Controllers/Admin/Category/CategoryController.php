@@ -135,6 +135,6 @@ class CategoryController extends BaseController
             return redirect()->back()->with('success', "Thanh cong");
         }
 
-        return redirect()->back()->with('fail', "That bai");;
+        return redirect()->back()->with('fail', "That bai");
     }
 }
