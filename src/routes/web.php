@@ -7,6 +7,7 @@ use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,8 @@ Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCat
 Route::any('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
 Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
+Route::post('/order/{product}', [OrderController::class, 'createOrder'])->name('web.order.create');
+Route::post('/order/unsubscribe/{product}', [OrderController::class, 'unsubscribe'])->name('web.order.unsubscribe');
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');

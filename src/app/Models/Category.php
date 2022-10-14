@@ -3,21 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class Category extends BaseModel
 {
     use HasApiTokens;
     use HasFactory;
-    use Notifiable;
     use Uuid;
 
     protected $fillable = [
         'name',
         'image',
+        'expiration_date',
         'status',
-        'parent_id',
+        'parent_id'
     ];
 
     public function subCategory()
