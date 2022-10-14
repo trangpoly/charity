@@ -6,15 +6,13 @@ use App\Repositories\BaseRepositoryInterface;
 
 interface CategoryRepositoryInterface extends BaseRepositoryInterface
 {
-    public function getCategories($id);
+    public function getCategoryDetail($id);
 
-    public function getProductsBySubCategory($id);
+    public function getListParentCategoryWithSub();
 
-    public function getParentCategories();
+    public function searchCategory($nameCate, $statusCate);
 
-    public function getSubCategories($id);
+    public function paginateCategory($amountItem);
 
-    public function findSubCategory($subCategoryId);
-
-    public function findParentCategory($parentCategoryId);
+    public function getProductsByCategory($id);
 }

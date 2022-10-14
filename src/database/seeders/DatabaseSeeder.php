@@ -29,7 +29,11 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(10)->create();
 
+<<<<<<< HEAD
+        Category::factory(10)->create();
+=======
         // Category::factory(1)->create();
 
+>>>>>>> develop
     }
 }
