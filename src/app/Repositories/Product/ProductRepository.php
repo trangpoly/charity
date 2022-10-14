@@ -28,7 +28,29 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->whereHas('subCategory', function ($q) use ($id) {
             $q->where('id', $id);
-        })->paginate(4);
+        })->paginate(12);
+    }
+
+
+    public function search($request)
+    {
+        $subCate = $request->subCate ? $request->subCate : [];
+
+        $city = $request->city;
+
+        $district = $request->district;
+
+        $dateStart = $request->dateStart;
+
+        $dateEnd = $request->dateEnd;
+
+        return $this->model->orWhere('city', $city)->orWhere('district', $district)->orWhereIn('category_id', $subCate)
+            ->orWhereBetween('expire_at', [$dateStart, $dateEnd])->get();
+    }
+
+    public function filter($sortExpireDate, $id)
+    {
+        return $this->model->orderBy('expire_at', $sortExpireDate)->where('category_id', $id)->get();
     }
 
     public function getRecommend($currentProductId, $categoryId)

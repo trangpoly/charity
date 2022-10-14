@@ -25,10 +25,8 @@ class ClientController extends Controller
     {
         $data = [];
         $data['sliders'] = $this->sliderService->getSliders();
-        // $data['categories'] = $this->categoryService->getListParentCategoryWithSub();
         $data['categories'] = $this->categoryService->getProductsByParentCategory();
 
-        // dd($data['categories']);
         return view('pages.home', [
             'data' => $data
         ]);

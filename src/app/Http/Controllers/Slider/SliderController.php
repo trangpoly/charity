@@ -14,11 +14,4 @@ class SliderController extends Controller
     {
         $this->sliderService = $sliderService;
     }
-
-    // public function home()
-    // {
-    //     $sliders = $this->sliderService->getSliders();
-    //     dd($sliders);
-    //     return view('pages.home');
-    // }
 }

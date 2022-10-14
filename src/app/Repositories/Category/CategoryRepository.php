@@ -4,6 +4,7 @@ namespace App\Repositories\Category;
 
 use App\Models\Category;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Carbon;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
