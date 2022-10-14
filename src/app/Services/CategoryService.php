@@ -42,7 +42,7 @@ class CategoryService extends BaseService
 
     public function searchCategory($nameCate, $statusCate)
     {
-        return $this->categoryRepository->searchCategory($nameCate,$statusCate);
+        return $this->categoryRepository->searchCategory($nameCate, $statusCate);
     }
 
     public function paginateCategory($amountItem)

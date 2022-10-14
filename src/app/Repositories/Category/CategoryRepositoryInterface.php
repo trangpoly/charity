@@ -15,5 +15,4 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function paginateCategory($amountItem);
 
     public function getProductsByCategory($id);
-
 }
