@@ -15,4 +15,16 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function paginateCategory($amountItem);
 
     public function getProductsByCategory($id);
+
+    public function getProductsByParentCategory();
+
+    public function getProductsBySubCategory($id);
+
+    public function getCategories($id);
+
+    public function getParentCategories();
+
+    public function getSubCategories($id);
+
+    public function findParentCategory($parentCategoryId);
 }
