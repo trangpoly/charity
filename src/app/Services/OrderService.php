@@ -12,8 +12,10 @@ class OrderService extends BaseService
 
     protected $productRepository;
 
-    public function __construct(OrderRepositoryInterface $orderRepository, ProductRepositoryInterface $productRepository)
-    {
+    public function __construct(
+        OrderRepositoryInterface $orderRepository,
+        ProductRepositoryInterface $productRepository
+    ) {
         $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
     }
