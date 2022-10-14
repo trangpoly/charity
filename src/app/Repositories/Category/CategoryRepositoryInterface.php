@@ -21,4 +21,10 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function getProductsBySubCategory($id);
 
     public function getCategories($id);
+
+    public function getParentCategories();
+
+    public function getSubCategories($id);
+
+    public function findParentCategory($parentCategoryId);
 }

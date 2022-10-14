@@ -66,7 +66,7 @@
                     <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
                         @foreach ($category->productsByParentCategory as $item)
                         <div class="w-3/12 relative">
-                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                            <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
                                 alt="">
                             <h3 class="text-2xl mt-2">{{$item->name}}</h3>
                             <div class="flex py-2 space-x-4">
