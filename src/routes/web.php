@@ -6,7 +6,7 @@ use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;

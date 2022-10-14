@@ -15,8 +15,7 @@ class ClientController extends Controller
     public function __construct(
         SliderService $sliderService,
         CategoryService $categoryService
-        )
-    {
+    ) {
         $this->sliderService = $sliderService;
         $this->categoryService = $categoryService;
     }

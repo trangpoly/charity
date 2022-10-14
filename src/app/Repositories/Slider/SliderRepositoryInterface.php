@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Repositories\Slider;
 
 use App\Repositories\BaseRepositoryInterface;

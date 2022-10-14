@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Slider;
 
 use App\Models\Slider;
@@ -13,6 +14,6 @@ class SliderRepository extends BaseRepository implements SliderRepositoryInterfa
 
     public function getSliders()
     {
-        return $this->model->paginate(3);
+        return $this->model->all();
     }
 }

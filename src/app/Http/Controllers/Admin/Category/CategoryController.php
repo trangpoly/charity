@@ -137,4 +137,12 @@ class CategoryController extends BaseController
 
         return redirect()->back()->with('fail', "That bai");
     }
+
+    public function category($id)
+    {
+        $category = $this->categoryService->find($id);
+        $subCategory = $this->categoryService->getProductsBySubCategory($id);
+
+        return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory]);
+    }
 }
