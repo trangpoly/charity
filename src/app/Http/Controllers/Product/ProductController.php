@@ -19,17 +19,19 @@ class ProductController extends BaseController
         $product = $this->productService->getProduct($id);
         $recommend = $this->productService->getRecommend($product->id, $product->category_id);
         $nearExpiryFood = $this->productService->getNearExpiryFood($product->id);
+        $currentUser = $this->productService->getCurrentUser();
 
-        $data = array();
-        $data['product'] = $product;
-        $data['recommend'] = $recommend;
-        $data['nearExpiryFood'] = $nearExpiryFood;
+        $data = [
+            'product' => $product,
+            'recommend' => $recommend,
+            'nearExpiryFood' => $nearExpiryFood,
+            'currentUser' => $currentUser,
+        ];
 
         return view('pages.product.detail', $data);
     }
 
-    public function list()
-    {
+    public function list() {
         $products = $this->productService->list();
 
         return view('admin.product.list', ['products' => $products]);

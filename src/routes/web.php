@@ -6,6 +6,7 @@ use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Order\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,6 +38,8 @@ Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.product.list');
 Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.product.list');
 
+Route::post('/order/{product}', [OrderController::class, 'createOrder'])->name('web.order.create');
+Route::post('/order/unsubscribe/{product}', [OrderController::class, 'unsubscribe'])->name('web.order.unsubscribe');
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');

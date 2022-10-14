@@ -43,6 +43,7 @@ class RegisterUserService
                 $data = [
                     'phone_number' => $dataRegister->phone_number,
                     'password' => Hash::make('user'),
+                    'status' => 1
                 ];
 
                 $this->registerUserRepository->register($data);
