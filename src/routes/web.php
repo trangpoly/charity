@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Auth\AuthLoginController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
@@ -37,7 +38,7 @@ Route::get('/my-app', function () {
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
 Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');
-Route::post('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
+Route::any('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
 Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
 
@@ -74,4 +75,8 @@ Route::prefix('receiver')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
     Route::get('categories', [CategoryController::class, 'list'])->name('web.admin.categories.list');
+
+    Route::get('login', [AuthLoginController::class, 'create'])->name('web.admin.login.create');
+    Route::post('login', [AuthLoginController::class, 'store'])->name('web.admin.login.store');
+    Route::get('logout', [AuthLoginController::class, 'logout'])->name('web.admin.logout');
 });

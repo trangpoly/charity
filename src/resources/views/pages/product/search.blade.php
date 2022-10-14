@@ -9,9 +9,12 @@
                         <option value="asc">Ngay het han xa nhat</option>
                     </select>
                 </div>
+                <div>
+                    {{ Session::has('search') }}
+                </div>
                 <div class="w-2/12 mt-8">
                     <p class="font-base text-xl mt-2 text-gray-700 ">Tong san pham:
-                        {{ count($search) }} </p>
+                        {{ count($search) }}  </p>
                 </div>
             </div>
             <div class="w-full border rounded-xl border-gray-300 mt-4">
@@ -22,6 +25,9 @@
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                 alt="">
                             <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                            @if (in_array($item->stock, [-1, 0]))
+                                <p>Het hang !!!</p>
+                            @endif
                             <div class="flex py-2 space-x-4 h-28">
                                 <img class="h-fit"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
@@ -41,21 +47,22 @@
                     @endforeach
                 </div>
                 <div class="w-full mb-2 mr-6">
-                    <p class="">
-                    </p>
+                    {{-- <p class="">
+                        {{$search->appends([$request])->links()}}
+                    </p> --}}
                 </div>
             </div>
         </div>
         <div class="w-4/12 h-fit">
             <div class="w-full border border-gray-300 h-60"></div>
             <div class="w-full border border-gray-300 h-fit mt-10">
-                <form action="{{ route('web.client.product.submitSearch') }}" method="POST">
+                <form action="{{ route('web.client.product.submitSearch') }}" method="GET">
                     @csrf
                     <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
                         <div class="w-full flex items-center text-center py-4">
                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u36.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                 class="w-2/12 p-5" alt="">
-                            <p class="text-3xl">Tìm kiếm {{ $search[0]->subCategory->category->name }}</p>
+                            {{-- <p class="text-3xl">Tìm kiếm {{ $search[0]->subCategory->category->name }}</p> --}}
                         </div>
                     </div>
                     <div class="w-full flex text-lg px-5 text-gray-800 hover:bg-lime-100">

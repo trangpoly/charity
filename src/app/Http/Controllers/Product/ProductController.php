@@ -51,7 +51,7 @@ class ProductController extends BaseController
 
         $subCategory = $search[0]->subCategory->category->subCategory;
 
-        return view('pages.product.search', ['search' => $search, 'subCategory' => $subCategory]);
+        return view('pages.product.search', ['search' => $search, 'subCategory' => $subCategory, 'request' => $request->except(['_token'])]);
     }
 
     public function filter(Request $request, $id)

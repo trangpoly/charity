@@ -26,6 +26,9 @@
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                 alt="">
                             <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                            @if (in_array($item->stock, [-1, 0]))
+                                <p>Het hang !!!</p>
+                            @endif
                             <div class="flex py-2 space-x-4 h-28">
                                 <img class="h-fit"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
@@ -127,6 +130,7 @@
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
         </div>
+    </div>
         <script>
             $.ajaxSetup({
                 headers: {
