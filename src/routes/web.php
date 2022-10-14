@@ -7,11 +7,8 @@ use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\CategoryController;
-<<<<<<< HEAD
 use App\Http\Controllers\Order\OrderController;
-=======
 use App\Http\Controllers\Client\GiverController;
->>>>>>> develop
 use Illuminate\Support\Facades\Route;
 
 /*
