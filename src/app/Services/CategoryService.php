@@ -54,4 +54,9 @@ class CategoryService extends BaseService
     {
         return $this->categoryRepository->getProductsByCategory($id);
     }
+
+    public function getProductsByParentCategory()
+    {
+        return $this->categoryRepository->getProductsByParentCategory();
+    }
 }

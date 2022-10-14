@@ -15,6 +15,8 @@ use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepository;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Repositories\Slider\SliderRepository;
+use App\Repositories\Slider\SliderRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -44,5 +46,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
+        $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
     }
 }

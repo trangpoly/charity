@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Slider;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -23,17 +24,16 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
+        //     'phone_number' => "0123456789"
         // ]);
 
-        Product::factory(5)->create();
+        // Product::factory(5)->create();
 
-        // User::factory(10)->create();
+        Slider::factory(5)->create();
 
-<<<<<<< HEAD
         Category::factory(10)->create();
-=======
-        // Category::factory(1)->create();
 
->>>>>>> develop
+
+
     }
 }

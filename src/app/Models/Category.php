@@ -28,4 +28,9 @@ class Category extends BaseModel
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
+
+    public function productsByParentCategory()
+    {
+        return $this->hasManyThrough(Product::class, Category::class, 'parent_id', 'category_id', 'id', 'id');
+    }
 }
