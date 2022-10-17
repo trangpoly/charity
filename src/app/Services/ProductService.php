@@ -35,7 +35,8 @@ class ProductService extends BaseService
         return $this->productRepository->getProductDetail($id);
     }
 
-    function list(array $options = [], $limit = self::PAGE_LIMIT) {
+    public function list(array $options = [], $limit = self::PAGE_LIMIT)
+    {
         return $this->productRepository->paginate($options, $limit);
     }
 
