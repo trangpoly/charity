@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\AuthLoginController;
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
@@ -77,4 +78,7 @@ Route::prefix('admin')->group(function () {
     Route::get('login', [AuthLoginController::class, 'create'])->name('web.admin.login.create');
     Route::post('login', [AuthLoginController::class, 'store'])->name('web.admin.login.store');
     Route::get('logout', [AuthLoginController::class, 'logout'])->name('web.admin.logout');
+
+    Route::get('banner', [BannerController::class, 'setting'])->name('web.admin.banner.setting');
+    Route::post('banner', [BannerController::class, 'uploadBanner'])->name('web.admin.banner.upload');
 });
