@@ -11,7 +11,20 @@
                 <a href="#"
                     class="inline-flex text-xl items-center font-medium text-green-600 hover:text-green-400 dark:text-gray-400 dark:hover:text-white active:text-green-500 underline underline-offset-1">
                     {{-- <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg> --}}
-                    Nông sản
+                    {{$product->subCategory->category->name}}
+                </a>
+            </li>
+            <li class="inline-flex items-center">
+                <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"></path>
+                </svg>
+                <a href="#"
+                    class="inline-flex ml-2 text-xl items-center font-medium text-green-600 hover:text-green-400 active:text-green-500 underline underline-offset-1">
+                    {{-- <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg> --}}
+                    {{$product->subCategory->name}}
                 </a>
             </li>
             <li aria-current="page">
@@ -34,33 +47,15 @@
             <div class=" h-fit border border-slate-400 rounded-md p-7">
                 <div class="flex w-full">
                     <div class="w-6/12 md:shrink-0 ">
-                        <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
+                        <img src="{{ Illuminate\Support\Facades\Storage::url("images/$product->avatar") }}"
                             alt="">
                         <div class="grid grid-cols-3 gap-4 mt-4">
-                            <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img src="https://plus.unsplash.com/premium_photo-1663100792050-04772fc1eb0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=938&q=80"
-                                    alt="">
-                            </div>
+                            @foreach ($product->images as $item)
+                                <div>
+                                    <img class="h-fit" src="{{ Illuminate\Support\Facades\Storage::url("images/" .$item->path) }}"
+                                        alt="">
+                                </div>
+                            @endforeach
                         </div>
                         <p class="mt-5 text-2xl bg-slate-300 w-fit">{{!in_array($product->stock, [-1, 0]) ? '' : 'Hết hàng'}}</p>
                     </div>
@@ -74,13 +69,19 @@
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Địa chỉ: {{ $product->address }}</p>
+                                    <p>
+                                        Địa chỉ:
+                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))                                            
+                                            {{$product->address . ', '}}
+                                        @endif
+                                        {{ $product->district . ', ' . $product->city }}
+                                    </p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u50.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Người đăng: {{ $product->owner_id }}</p>
+                                    <p>Người đăng: {{ $product->giver->name }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
                                     <img class="h-fit"
@@ -274,34 +275,15 @@
                         <p class="text-3xl">Tìm kiếm theo danh mục</p>
                     </div>
                 </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex border-b border-lime-500">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u66.png?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Nông sản</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex border-b border-lime-500">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u69.png?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Đồ ăn trong ngày</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex border-b border-lime-500">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u70.png?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Thực phẩm đóng gói</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u71.png?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Đồ dùng sinh hoạt</p>
-                    </div>
-                </div>
+                @foreach ($parentCategories as $item)
+                    <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
+                        <div class="w-full flex border-b border-lime-500">
+                            <img src="{{ Illuminate\Support\Facades\Storage::url("images/" .$item->image) }}"
+                                class="w-3/12 p-5" alt="">
+                            <p class="w-10/12 py-10">{{$item->name}}</p>
+                        </div>
+                    </div>                    
+                @endforeach
             </div>
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
             <div class="w-full border border-gray-300 mt-10 h-32"></div>

@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="./img/fav.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -13,6 +14,7 @@
     <title>@yield('title')</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 </head>
 <body class="bg-gray-100">
     <!-- start navbar -->
