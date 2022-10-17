@@ -3,17 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Order extends BaseModel
+class Slider extends BaseModel
 {
     use HasFactory;
     use Uuid;
 
     protected $fillable = [
-        'product_id',
-        'receiver_id',
-        'giver_id',
-        'quantity',
-        'status',
+        'path',
+        'status'
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Repositories\Product;
 use App\Models\Product;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ProductRepository extends BaseRepository implements ProductRepositoryInterface
 {
@@ -15,22 +16,49 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function getProductDetail($id)
     {
-        return $this->model->with(['images', 'receivers'])->findOrFail($id);
+        return $this->model
+            ->with(['images', 'receivers'])
+            ->with('orders', function ($q) {
+                $q->where('receiver_id', Auth::user()->id);
+            })
+            ->findOrFail($id);
     }
 
     public function getProductsBySubCategory($id)
     {
         return $this->model->whereHas('subCategory', function ($q) use ($id) {
             $q->where('id', $id);
-        })->paginate(4);
+        })->paginate(12);
+    }
+
+
+    public function search($request)
+    {
+        $subCate = $request->subCate ? $request->subCate : [];
+
+        $city = $request->city;
+
+        $district = $request->district;
+
+        $dateStart = $request->dateStart;
+
+        $dateEnd = $request->dateEnd;
+
+        return $this->model->orWhere('city', $city)->orWhere('district', $district)->orWhereIn('category_id', $subCate)
+            ->orWhereBetween('expire_at', [$dateStart, $dateEnd])->get();
+    }
+
+    public function filter($sortExpireDate, $id)
+    {
+        return $this->model->orderBy('expire_at', $sortExpireDate)->where('category_id', $id)->get();
     }
 
     public function getRecommend($currentProductId, $categoryId)
     {
         return $this->model
             ->where('category_id', $categoryId)
-            ->where('stock', '<>', 0)
-            ->where('expiration', '>=', Carbon::now()->toDateString())
+            ->whereNotIn('stock', [-1, 0])
+            ->where('expire_at', '>=', Carbon::now()->toDateString())
             ->where('id', '<>', $currentProductId)
             ->inRandomOrder()
             ->limit(4)
@@ -40,9 +68,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getNearExpiryFood($currentProductId)
     {
         return $this->model
-            ->where('stock', '<>', 0)
+            ->whereNotIn('stock', [-1, 0])
             ->where('id', '<>', $currentProductId)
-            ->whereBetween('expiration', [Carbon::now()->toDateString(), Carbon::now()->adddays(3)->toDateString()])
+            ->whereBetween('expire_at', [Carbon::now()->toDateString(), Carbon::now()->adddays(3)->toDateString()])
             ->inRandomOrder()
             ->limit(4)
             ->get();

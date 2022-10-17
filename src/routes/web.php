@@ -7,7 +7,9 @@ use App\Http\Controllers\Client\Auth\AuthSessionController;
 use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +28,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('pages.home');
-})->name('home');
+Route::get('/home',[ClientController::class, 'home'])->name('home');
 
 
 
@@ -37,9 +37,13 @@ Route::get('/my-app', function () {
 })->name('my-page.subscribe-receive');
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
-Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.product.list');
-Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.product.list');
+Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
+Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');
+Route::any('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
+Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
+Route::post('/order/{product}', [OrderController::class, 'createOrder'])->name('web.order.create');
+Route::post('/order/unsubscribe/{product}', [OrderController::class, 'unsubscribe'])->name('web.order.unsubscribe');
 
 Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->name('web.register');
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');
