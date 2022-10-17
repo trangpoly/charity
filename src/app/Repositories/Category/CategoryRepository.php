@@ -83,4 +83,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return $this->model->find($parentCategoryId);
     }
+
+    public function getParentCategoryNotPaginate()
+    {
+        return $this->model->where('parent_id', null)->get();
+    }
 }
