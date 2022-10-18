@@ -28,7 +28,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->with('images')->with('orders', function ($q) {
             $q->where('status', 1);
-        })->paginate(10);
+        })->get();
     }
 
     public function getProductsBySubCategory($id)
