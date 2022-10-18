@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class UserService extends BaseService
 {
@@ -16,5 +17,13 @@ class UserService extends BaseService
     public function getUsers()
     {
         return $this->userRepository->all();
+    }
+
+    public function create($request)
+    {
+        $attribute = $request->all();
+        $attribute['password'] = Hash::make('user');
+
+        $this->userRepository->create($attribute);
     }
 }
