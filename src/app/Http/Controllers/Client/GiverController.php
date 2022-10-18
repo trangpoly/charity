@@ -24,7 +24,7 @@ class GiverController extends Controller
     public function showGiverPostsRegistered()
     {
         $idUser = Auth::id();
-        // $productsRegistered = [];
+
         $productsRegistered = $this->giverService->findProductsRegistered($idUser);
 
         return view('client.giver.subscribe-giver', [
@@ -63,11 +63,13 @@ class GiverController extends Controller
     {
         $productsMarkedSolOut = [];
         $products = $this->giverService->findProductsMarkedSoldOut();
+
         foreach ($products as $product) {
             if (empty($product->orders->toArray())) {
                 $productsMarkedSolOut[] = $product;
             }
         }
+
         return view('client.giver.marked-soldout', [
             "productsMarkedSolOut" => $productsMarkedSolOut
         ]);

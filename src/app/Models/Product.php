@@ -54,9 +54,4 @@ class Product extends BaseModel
     {
         return $this->hasMany(Order::class, 'product_id', 'id');
     }
-
-    // public function productNotRegistered()
-    // {
-    //     return $this->hasMany(Order)
-    // }
 }

@@ -60,32 +60,33 @@
             <h2 class="font-semibold text-2xl text-lime-700">Danh sách sản phẩm tặng</h2>
             <div class="mt-8 flex w-full items-center text-xl text-gray-700 space-x-16">
                 <div class="font-semibold text-gray-600 border-b-4 border-lime-200">
-                    <a href="{{ route("web.client.giver-posts.not-registered") }}" class="">
+                    <a href="{{ route('web.client.giver-posts.not-registered') }}" class="">
                         Chưa được đăng kí nhận
                     </a>
                 </div>
                 <div
                     class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
-                    <a href="{{ route("web.client.giver-posts") }}">
+                    <a href="{{ route('web.client.giver-posts') }}">
                         Đã được đăng kí nhận
                     </a>
                 </div>
                 <div
                     class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
-                    <a href="{{ route("web.client.giver-posts.gived") }}">
+                    <a href="{{ route('web.client.giver-posts.gived') }}">
                         Đã tặng
                     </a>
                 </div>
                 <div
                     class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
-                    <a href="{{ route("web.client.giver-posts.marked-soldout") }}">
+                    <a href="{{ route('web.client.giver-posts.marked-soldout') }}">
                         Đã đánh dấu hết hàng
                     </a>
                 </div>
             </div>
-            <div class="w-full mt-10">
+            <div class="box-products w-full mt-10">
                 @foreach ($productsNotRegistered as $product)
-                    <div class="w-full flex border border-gray-300 rounded-md p-10">
+                    <div class="box-product w-full flex border border-gray-300 rounded-md p-10 mt-5"
+                        style="display: none;">
                         <div class="w-6/12">
                             <img src="{{ asset('storage/images/' . $product->avatar) }}" alt="">
                         </div>
@@ -113,16 +114,21 @@
                                     <p>Hạn sử dụng: {{ $product->expire_at }}</p>
                                 </div>
                             </div>
-                            <form method="POST" action="{{ route("web.client.giver-posts.mark-soldout", $product->id) }}" class="mt-5 w-full text-center">
+                            <form method="POST"
+                                action="{{ route('web.client.giver-posts.mark-soldout', $product->id) }}"
+                                class="mt-5 w-full text-center">
                                 @csrf
                                 <button
-                                    class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">Đánh dấu hết hàng</button>
+                                    class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">Đánh
+                                    dấu hết hàng</button>
                             </form>
-    
-                            <img class="absolute top-0 right-0"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
-                                width="30px" alt="">
-                            <a href="">
+
+                            <a href="{{ route('web.client.product.detail', $product->id) }}">
+                                <img class="absolute top-0 right-0"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
+                                    width="30px" alt="">
+                            </a>
+                            <a href="{{ route('web.posts.edit', [$product->id, $product->category_id]) }}">
                                 <img class="absolute top-8 right-0"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u68.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
                                     width="30px" alt="">
@@ -133,4 +139,22 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $(".box-product").slice(0, 3).show();
+            if ($(".box-product").length > 3) {
+                $(".box-products").append(
+                    `<a href="#" id="loadMore" class="text-blue-500 hover:text-blue-800 text-xl mt-5 float-right">Xem them...</a>`
+                    );
+            }
+            $("#loadMore").on("click", function(e) {
+                e.preventDefault();
+                $(".box-product:hidden").slice(0, 3).slideDown();
+                if ($(".box-product:hidden").length == 0) {
+                    $("#loadMore").remove();
+                }
+            });
+
+        })
+    </script>
 </x-app-layout>

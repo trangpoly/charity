@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Models\VerificationOtp;
+use App\Repositories\Banner\BannerRepository;
+use App\Repositories\Banner\BannerRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Client\PostRepository;
@@ -45,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
+        $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
     }

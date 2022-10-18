@@ -4,6 +4,7 @@ namespace App\Repositories\Category;
 
 use App\Models\Category;
 use App\Repositories\BaseRepository;
+use PDO;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -35,6 +36,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         if ($statusCate && $nameCate == null) {
             return $this->model->where('status', $statusCate)->where('parent_id', null)->paginate(5);
         }
+
+        if ($statusCate && $nameCate) {
+            return $this->model->where('status', $statusCate)->where('name', 'like', "%$nameCate%")->where('parent_id', null)->paginate(5);
+        }
     }
 
     public function paginateCategory($amountItem)
@@ -51,7 +56,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function getProductsByParentCategory()
     {
-        return $this->model->with("productsByParentCategory")->where("parent_id" , null)->limit(4)->get();
+        return $this->model->with("productsByParentCategory")->where("parent_id", null)->get();
     }
 
     public function getCategories($id)
@@ -82,5 +87,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     public function findParentCategory($parentCategoryId)
     {
         return $this->model->find($parentCategoryId);
+    }
+
+    public function getParentCategoryNotPaginate()
+    {
+        return $this->model->where('parent_id', null)->get();
     }
 }

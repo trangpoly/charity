@@ -27,4 +27,6 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
     public function getSubCategories($id);
 
     public function findParentCategory($parentCategoryId);
+
+    public function getParentCategoryNotPaginate();
 }

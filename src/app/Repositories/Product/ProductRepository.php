@@ -17,7 +17,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function getProductDetail($id)
     {
         return $this->model
-            ->with(['images', 'receivers'])
+            ->with(['images', 'receivers', 'giver', 'subCategory'])
             ->with('orders', function ($q) {
                 $q->where('receiver_id', Auth::user()->id);
             })
@@ -103,7 +103,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function findProductsGived($userId)
     {
         return $this->model->whereHas("orders", function ($e) {
-            $e->where('stock', -1);
+            $e->where('status', 1);
         })->whereHas("giver", function ($e) use ($userId) {
             $e->where("id", $userId);
         })->with("receivers")->get();

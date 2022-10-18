@@ -132,6 +132,7 @@ class CategoryController extends BaseController
 
         if (count($subCategories) == 0) {
             $this->categoryService->delete($id);
+            
             return redirect()->back()->with('success', "Thanh cong");
         }
 
@@ -141,6 +142,7 @@ class CategoryController extends BaseController
     public function category($id)
     {
         $category = $this->categoryService->find($id);
+
         $subCategory = $this->categoryService->getProductsBySubCategory($id);
 
         return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory]);
