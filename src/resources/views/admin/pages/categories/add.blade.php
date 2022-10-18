@@ -96,15 +96,13 @@
         }
 
         $(document).ready(function() {
-            var max_fields = 5;
+            var max_fields = 10;
             var wrapper = $("#box_subCate");
             var add_button = $("#addInputSub");
             var x = 1;
 
             $(add_button).click(function(e) {
                 e.preventDefault();
-                if (x < max_fields) {
-                    x++;
                     $(wrapper).append(
                         `<div class="w-full flex space-x-4 justify-items-center" id="inputSub">
                             <input type="text" name="name_sub[]" class="w-10/12 border border-gray-500">
@@ -115,9 +113,6 @@
                             </a>
                         </div>`
                     );
-                } else {
-                    alert('You Reached the limits')
-                }
             });
 
             $(wrapper).on("click", "#removeInputSub", function(e) {

@@ -122,6 +122,7 @@ class CategoryController extends BaseController
     public function paginationCategory(Request $request)
     {
         $amountItem = $request->amount_item;
+
         $parentCategories = $this->categoryService->paginateCategory($amountItem);
 
         return response()->json($parentCategories);
@@ -133,7 +134,7 @@ class CategoryController extends BaseController
 
         if (count($subCategories) == 0) {
             $this->categoryService->delete($id);
-            
+
             return redirect()->back()->with('success', "Thanh cong");
         }
 
