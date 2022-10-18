@@ -18,6 +18,8 @@ class ProductService extends BaseService
 
     protected $categoryRepository;
 
+    protected $productImagesRepository;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         UserRepositoryInterface $userRepository,
