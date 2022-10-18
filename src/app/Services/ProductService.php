@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\ProductImage\ProductImageRepository;
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProductService extends BaseService
 {
@@ -13,13 +15,17 @@ class ProductService extends BaseService
 
     protected $userRepository;
 
+    protected $productImagesRepository;
+
     private const PAGE_LIMIT = 10;
 
-    public function __construct(ProductRepositoryInterface $productRepository, UserRepositoryInterface $userRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, UserRepositoryInterface $userRepository, ProductImageRepository $productImagesRepository)
     {
         $this->productRepository = $productRepository;
 
         $this->userRepository = $userRepository;
+
+        $this->productImagesRepository = $productImagesRepository;
     }
 
     public function getProduct($id)
@@ -27,14 +33,51 @@ class ProductService extends BaseService
         return $this->productRepository->getProductDetail($id);
     }
 
-    public function list(array $options = [], $limit = self::PAGE_LIMIT)
+    public function list()
     {
-        return $this->productRepository->paginate($options, $limit);
+        return $this->productRepository->list();
     }
 
     public function getProductsBySubCategory($id)
     {
         return $this->productRepository->getProductsBySubCategory($id);
+    }
+
+    public function getSubCategory()
+    {
+        return $this->productRepository->getSubCategory();
+    }
+
+    public function saveCreate($request)
+    {
+        $product = [
+            'name' => $request->name,
+            'desc' => $request->desc,
+            'avatar' => $request->avatar[0]->hashName(),
+            'unit' => $request->unit,
+            'weight' => $request->weight,
+            'expire_at' => $request->expire_at,
+            'quantity' => $request->quantity,
+            'weight_unit' => $request->weight_unit,
+            'district' => $request->district,
+            'city' => $request->city,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+        ];
+
+        $productId = $this->productRepository->create($product);
+
+        foreach ($request->avatar as $images) {
+            Storage::disk('public')->put('images/products/', $images);
+            $productImage = [
+                'path' => $images->hashName(),
+                'product_id' => $productId->id
+            ];
+
+            $this->productImagesRepository->create($productImage);
+        }
     }
 
     public function search(Request $request)

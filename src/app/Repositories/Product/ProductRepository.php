@@ -24,6 +24,13 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->findOrFail($id);
     }
 
+    public function list()
+    {
+        return $this->model->with('images')->with('orders', function ($q) {
+            $q->where('status', 1);
+        })->paginate(10);
+    }
+
     public function getProductsBySubCategory($id)
     {
         return $this->model->whereHas('subCategory', function ($q) use ($id) {
@@ -31,6 +38,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         })->paginate(12);
     }
 
+    public function getSubCategory()
+    {
+        return $this->model->with('subCategory')->first();
+    }
 
     public function search($request)
     {
