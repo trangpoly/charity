@@ -116,7 +116,7 @@ class ProductService extends BaseService
     {
         return $this->productRepository->update($id, $data);
     }
-    
+
     public function getParentCategories()
     {
         return $this->categoryRepository->getParentCategoryNotPaginate();

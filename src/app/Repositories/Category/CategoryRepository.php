@@ -38,7 +38,10 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
         }
 
         if ($statusCate && $nameCate) {
-            return $this->model->where('status', $statusCate)->where('name', 'like', "%$nameCate%")->where('parent_id', null)->paginate(5);
+            return $this->model->where('status', $statusCate)
+                ->where('name', 'like', "%$nameCate%")
+                ->where('parent_id', null)
+                ->paginate(5);
         }
     }
 
