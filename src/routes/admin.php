@@ -21,11 +21,11 @@ Route::prefix('admin')->group(function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('web.admin.dashboard');
 
     Route::prefix('product')->group(function () {
-        Route::get('list', [ProductController::class, 'list'])->name('web.admin.list');
-        Route::get('create', [ProductController::class, 'create'])->name('web.admin.create');
-        Route::post('create', [ProductController::class, 'savaCreate'])->name('web.admin.saveCreate');
-        Route::get('update', [ProductController::class, 'create'])->name('web.admin.create');
-        Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.saveUpdate');
+        Route::get('list', [ProductController::class, 'list'])->name('web.admin.product.list');
+        Route::get('create', [ProductController::class, 'create'])->name('web.admin.product.create');
+        Route::post('create', [ProductController::class, 'saveCreate'])->name('web.admin.product.saveCreate');
+        Route::get('update', [ProductController::class, 'create'])->name('web.admin.product.update');
+        Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.product.saveUpdate');
     });
 
     Route::prefix('category')->group(function () {
