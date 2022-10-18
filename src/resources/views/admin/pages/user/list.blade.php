@@ -33,7 +33,7 @@
         </form>
         <div class="w-full flex py-0 justify-end">
             <div>
-                <a type="button" href="#" class=" flex items-center h-10 bg-orange-400 hover:bg-orange-500 active:bg-orange-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
+                <a type="button" href="{{route('web.admin.user.form')}}" class=" flex items-center h-10 bg-orange-400 hover:bg-orange-500 active:bg-orange-800 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">
                     <p class="text-white mr-2">Create</p>
                     <img class="h-5" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/user_management/u133.svg?pageId=cc8a7305-72c4-47f1-a75f-9cc1324d0df1" alt="">
                 </a>
@@ -102,7 +102,9 @@
             </table>
         </div>
     </div>
+@endsection
 
+@section('script')
     <script type="text/javascript">
         $(document).ready( function () {
             $('#table-users').DataTable({dom : 'lrtip'});
@@ -144,15 +146,9 @@
                         $('#user-search-phone').val()
                     )
                     .draw();
-                // alert( $( "#user-search-status option:selected").val())
-                // $('#table-users')
-                //     .DataTable()
-                //     .column(4)
-                //     .search(
-                //         $( "#user-search-status option:selected").val()
-                //     )
-                //     .draw();
             });
+
+            $('#toast-notify').fadeOut(5000);
         });
     </script>
 @endsection
