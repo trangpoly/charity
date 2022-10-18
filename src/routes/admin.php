@@ -26,6 +26,7 @@ Route::prefix('admin')->group(function () {
         Route::post('create', [ProductController::class, 'saveCreate'])->name('web.admin.product.saveCreate');
         Route::get('update', [ProductController::class, 'create'])->name('web.admin.product.update');
         Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.product.saveUpdate');
+        Route::get('delete/{id}',[ProductController::class, 'delete'])->name('web.admin.product.delete');
     });
 
     Route::prefix('category')->group(function () {

@@ -97,6 +97,11 @@ class ProductService extends BaseService
         return $this->productRepository->filter($sortExpireDate, $id);
     }
 
+    public function delete($id)
+    {
+        return $this->productRepository->delete($id);
+    }
+
     public function getRecommend($currentProductId, $categoryId)
     {
         return $this->productRepository->getRecommend($currentProductId, $categoryId);
