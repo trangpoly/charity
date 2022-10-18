@@ -114,14 +114,14 @@
                     @endforeach
                 </tbody>
             </table>
-            
+
             <div class="m-2 border-gray-300">
                 {{ $parentCategories->links() }}
-            </div>     
+            </div>
             @else
                 <p class="pr-8 text-red-700 text-center" ><span>Khong thay ban ghi nao</span></p>
             @endif
-            
+
         </div>
     </div>
 
