@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
-use App\Repositories\ProductImage\ProductImageRepository;
-use Illuminate\Http\Request;
+use App\Repositories\ProductImage\ProductImageRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,15 +16,19 @@ class ProductService extends BaseService
 
     protected $userRepository;
 
-    protected $productImagesRepository;
+    protected $categoryRepository;
 
-    private const PAGE_LIMIT = 10;
-
-    public function __construct(ProductRepositoryInterface $productRepository, UserRepositoryInterface $userRepository, ProductImageRepository $productImagesRepository)
-    {
+    public function __construct(
+        ProductRepositoryInterface $productRepository,
+        UserRepositoryInterface $userRepository,
+        CategoryRepositoryInterface $categoryRepository,
+        ProductImageRepositoryInterface $productImagesRepository
+    ) {
         $this->productRepository = $productRepository;
 
         $this->userRepository = $userRepository;
+
+        $this->categoryRepository = $categoryRepository;
 
         $this->productImagesRepository = $productImagesRepository;
     }
@@ -103,5 +108,10 @@ class ProductService extends BaseService
     public function getCurrentUser()
     {
         return $this->userRepository->find(Auth::user()->id);
+    }
+
+    public function getParentCategories()
+    {
+        return $this->categoryRepository->getParentCategoryNotPaginate();
     }
 }

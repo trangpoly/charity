@@ -22,12 +22,14 @@ class ProductController extends BaseController
         $recommend = $this->productService->getRecommend($product->id, $product->category_id);
         $nearExpiryFood = $this->productService->getNearExpiryFood($product->id);
         $currentUser = $this->productService->getCurrentUser();
+        $parentCategories = $this->productService->getParentCategories();
 
         $data = [
             'product' => $product,
             'recommend' => $recommend,
             'nearExpiryFood' => $nearExpiryFood,
             'currentUser' => $currentUser,
+            'parentCategories' => $parentCategories,
         ];
 
         return view('pages.product.detail', $data);
@@ -73,7 +75,7 @@ class ProductController extends BaseController
             'search' => $search,
             'subCategory' => $subCategory,
             'request' => $request
-            ->except(['_token'])
+                ->except(['_token'])
         ]);
     }
 
