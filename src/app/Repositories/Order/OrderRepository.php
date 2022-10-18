@@ -26,4 +26,5 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
         return $order;
     }
+
 }

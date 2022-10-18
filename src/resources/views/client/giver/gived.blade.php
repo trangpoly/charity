@@ -62,19 +62,18 @@
                 <div
                     class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
 
-                    <a href="{{ route('web.client.giver-posts.not-registered') }}">
+                    <a href="{{ route('web.client.giver-posts.not-registered') }}" class="">
                         Chưa được đăng kí nhận
                     </a>
                 </div>
-                <div class="font-semibold text-gray-600 border-b-4 border-lime-200">
-                    <a href="{{ route('web.client.giver-posts') }}" class="">
+                <div
+                    class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
+                    <a href="{{ route('web.client.giver-posts') }}">
                         Đã được đăng kí nhận
                     </a>
                 </div>
-
-                <div
-                    class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
-                    <a href="{{ route('web.client.giver-posts.gived') }}">
+                <div class="font-semibold text-gray-600 border-b-4 border-lime-200">
+                     <a href="{{ route("web.client.giver-posts.gived") }}">
                         Đã tặng
                     </a>
                 </div>
@@ -86,7 +85,7 @@
                 </div>
             </div>
             <div class="w-full mt-10">
-                @foreach ($productsRegistered as $product)
+                @foreach ($productsGived as $product)
                     <div class="w-full flex border border-gray-300 rounded-md p-10">
                         <div class="w-6/12">
                             <img src="{{ asset('storage/images/' . $product->avatar) }}" alt="">
@@ -94,21 +93,6 @@
                         <div class="w-6/12 ml-10 relative">
                             <h2 class="font-semibold text-3xl text-slate-800">{{ $product->name }}</h2>
                             <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
-                                <div class="flex py-2 space-x-4">
-                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="25px" alt="">
-                                    <p>Địa chỉ: {{ $product->city . ', ' . $product->district }}</p>
-                                </div>
-                                <div class="flex py-2 space-x-4">
-                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u50.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="25px" alt="">
-                                    <p>Người đăng: {{ $product->giver->name }}</p>
-                                </div>
-                                <div class="flex py-2 space-x-4">
-                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u52.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="25px" alt="">
-                                    <p>Liên hệ: {{ $product->giver->phone }}</p>
-                                </div>
                                 <div class="flex py-2 space-x-4">
                                     <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u56.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
@@ -130,7 +114,6 @@
                                     <p>Hạn sử dụng: {{ $product->expire_at }}</p>
                                 </div>
                             </div>
-
                             <div class="mt-5">
                                 <p class="font-semibold text-2xl text-slate-700">Thông tin người đăng kí</p>
                                 <div class="mt-2 text-lg">
@@ -155,6 +138,7 @@
                                 </div>
 
                             </div>
+                            <a href="{{ route("web.client.product.detail", $product->id)}}"></a>
                             <img class="absolute top-0 right-0"
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
                                 width="30px" alt="">
@@ -166,84 +150,6 @@
                         </div>
                     </div>
                 @endforeach
-                {{-- <div class="w-full flex border border-gray-300 rounded-md p-10 mt-10">
-                    <div class="w-6/12">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u41.jpg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                            alt="">
-                    </div>
-                    <div class="w-6/12 ml-10">
-                        <h2 class="font-semibold text-3xl text-slate-800">Ổi sạch Di Trạch</h2>
-                        <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Địa chỉ: Hoài Đức</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u50.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Người đăng: Thảo Bún</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u52.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Liên hệ: 0123456789</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u56.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Đơn vị: Túi</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u54.png?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Trọng lượng: 1kg/túi</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u58.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Số lượng: 5</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u60.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="25px" alt="">
-                                <p>Hạn sử dụng: 29/09/2022</p>
-                            </div>
-                        </div>
-                        <div class="mt-5">
-                            <p class="font-semibold text-2xl text-slate-700">Thông tin người đăng kí</p>
-                            <div class="mt-2 text-lg">
-                                <div class="flex mt-2">
-                                   <div class="w-1/2 flex space-x-4">
-                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_1/u54.svg?pageId=8827addf-dd14-4b0e-975e-eb3de1aee1bf"
-                                        width="25px" alt="">
-                                        <p class="w-1/2">Thảo Bún</p>
-                                    </div>
-                                    <div class="w-1/2 flex space-x-4">
-                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_1/u56.svg?pageId=8827addf-dd14-4b0e-975e-eb3de1aee1bf"
-                                        width="25px" alt="">
-                                        <p class="w-1/2">0123456789</p>
-                                    </div>
-                                </div>
-                                <div class="flex mt-2">
-                                    <div class="w-1/2 flex space-x-4">
-                                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_1/u54.svg?pageId=8827addf-dd14-4b0e-975e-eb3de1aee1bf"
-                                         width="25px" alt="">
-                                         <p class="w-1/2">Thảo Bún</p>
-                                     </div>
-                                     <div class="w-1/2 flex space-x-4">
-                                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_1/u56.svg?pageId=8827addf-dd14-4b0e-975e-eb3de1aee1bf"
-                                         width="25px" alt="">
-                                         <p class="w-1/2">0123456789</p>
-                                     </div>
-                                 </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>

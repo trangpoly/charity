@@ -64,8 +64,9 @@
                             ></a>
                     </div>
                     <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
-                        @foreach ($category->productsByParentCategory as $item)
-                        <div class="w-3/12 relative">
+                        {{-- <p>{{count($category->productsByParentCategory) -1}}</p> --}}
+                        @foreach ( $category->productsByParentCategory as $item)
+                        <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12 relative">
                             <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
                                 alt="">
                             <h3 class="text-2xl mt-2">{{$item->name}}</h3>
@@ -82,7 +83,7 @@
                             <img class="absolute top-48 right-2" width="25px"
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                 alt="">
-                        </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>
