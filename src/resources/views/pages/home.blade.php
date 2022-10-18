@@ -57,35 +57,40 @@
     <div class="flex max-w-8xl mx-auto mt-6 space-x-8 mb-10">
         <div class="w-8/12">
             @foreach ($data["categories"] as $category)
+            @if(!empty($category->productsByParentCategory->toArray())) 
                 <div class="w-full mt-10">
                     <div class="flex">
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">{{$category->name}}</h2>
                         <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
                             ></a>
                     </div>
-                    <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
-                        @foreach ($category->productsByParentCategory as $item)
-                        <div class="w-3/12 relative">
-                            <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
-                                alt="">
-                            <h3 class="text-2xl mt-2">{{$item->name}}</h3>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="18px" alt="">
-                                <p class="text-lg">{{$item->district . "," . $item->city}}</p>
-                            </div>
-                            <div class="flex py-2 space-x-4">
-                                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    width="15px" alt="">
-                                <p class="text-orange-400 text-lg">{{$item->expire_at}}</p>
-                            </div>
-                            <img class="absolute top-48 right-2" width="25px"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                alt="">
-                        </div>
+                    <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">   
+                       @foreach ( $category->productsByParentCategory->take(4) as $item)
+                            
+                                <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12 relative">
+                                    <div class="h-30">
+                                        <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
+                                        alt="">
+                                    </div>
+                                    <h3 class="text-2xl h-10">{{$item->name}}</h3>
+                                    <div class="flex py-2 space-x-4 h-16 items-center">
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                            class="w-1/12 h-fit mb-0" alt="">
+                                        <p class="text-lg">{{$item->district . "," . $item->city}}</p>
+                                    </div>
+                                    <div class="flex space-x-4 h-8 items-center">
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        class="w-1/12 h-fit" alt="">
+                                        <p class="text-orange-400 text-lg">{{$item->expire_at}}</p>
+                                    </div>
+                                    <img class="absolute top-28 right-2" width="25px"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        alt="">
+                                </a>
                         @endforeach
                     </div>
                 </div>
+            @endif
             @endforeach
         </div>
         <div class="w-4/12 h-fit">

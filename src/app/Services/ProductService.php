@@ -112,6 +112,11 @@ class ProductService extends BaseService
         return $this->userRepository->find(Auth::user()->id);
     }
 
+    public function updateProduct($id, $data = [])
+    {
+        return $this->productRepository->update($id, $data);
+    }
+
     public function getParentCategories()
     {
         return $this->categoryRepository->getParentCategoryNotPaginate();

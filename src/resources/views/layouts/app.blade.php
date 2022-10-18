@@ -27,7 +27,7 @@
         </main>
 
         <!-- Page Footer -->
-        <footer class="bg-lime-200 pt-5 px-10">
+        <footer class="bg-lime-200 pt-5 px-10 mt-5">
             @include('layouts.footer')
         </footer>
     </div>

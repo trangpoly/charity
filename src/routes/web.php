@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/home',[ClientController::class, 'home'])->name('home');
+Route::get('/',[ClientController::class, 'home'])->name('home');
 
 
 
@@ -66,7 +66,11 @@ Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct']
 Route::put('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
 
 Route::prefix('giver')->group(function () {
-    Route::get('subscribe-giver', [GiverController::class, 'showGiverPosts'])->name('web.client.giver-posts');
+    Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');
+    Route::get('not-subscribe-giver', [GiverController::class, 'showGiverPostsNotRegistered'])->name('web.client.giver-posts.not-registered');
+    Route::post('mark-soldout/{id}', [GiverController::class, 'markSoldOut'])->name('web.client.giver-posts.mark-soldout');
+    Route::get('marked-soldout', [GiverController::class, 'showGiverPostsMarkedSoldOut'])->name('web.client.giver-posts.marked-soldout');
+    Route::get('gived', [GiverController::class, 'showGiverPostsGived'])->name('web.client.giver-posts.gived');
 });
 
 Route::prefix('receiver')->group(function () {
