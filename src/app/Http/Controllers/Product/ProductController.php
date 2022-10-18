@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\admin\ProductRequest;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -39,6 +40,20 @@ class ProductController extends BaseController
         $products = $this->productService->list();
 
         return view('admin.product.list', ['products' => $products]);
+    }
+
+    public function create()
+    {
+        $subCategory = $this->productService->getSubCategory();
+
+        return view('admin.product.create', ['subCategory' => $subCategory]);
+    }
+
+    public function saveCreate(ProductRequest $request)
+    {
+        $this->productService->saveCreate($request);
+
+        return redirect()->route('web.admin.product.list');
     }
 
     public function getProductsBySubCategory($id)
