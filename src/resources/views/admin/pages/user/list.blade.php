@@ -86,13 +86,13 @@
                                 {{$item->status == 1 ? 'active' : 'unactive'}}
                             </td>
                             <td class="py-4 px-6">
-                                123
+                                {{$item->lastLogin}}
                             </td>
                             <td class="py-4 px-6 flex space-x-4">
-                                <a href="#">
+                                <a href="{{route('web.admin.user.edit', ['id' => $item->id])}}">
                                     <img class="" width="32px" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021" alt="">
                                 </a>
-                                <a href="#">
+                                <a onclick= "return confirm('Are you sure you want to deactivate this user?')" href="{{route('web.admin.user.deactivate', ['id' =>$item->id])}}" class="cursor-pointer">
                                     <img width="30px" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021" alt="">
                                 </a>
                             </td>

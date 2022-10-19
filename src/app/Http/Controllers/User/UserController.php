@@ -34,4 +34,26 @@ class UserController extends BaseController
 
         return redirect()->route('web.admin.user.list');
     }
+
+    public function showEditForm($id)
+    {
+        $user = $this->userService->getUser($id);
+
+        return view('admin.pages.user.edit')->with('user', $user);
+    }
+
+    public function updateUser(UserRequest $request, $id)
+    {
+        $this->userService->updateUser($request, $id);
+        session(['msg' => 'Update user successfully !']);
+
+        return redirect()->route('web.admin.user.list');
+    }
+
+    public function deactivateUser($id)
+    {
+        $this->userService->deactivateUser($id);
+
+        return redirect()->route('web.admin.user.list');
+    }
 }
