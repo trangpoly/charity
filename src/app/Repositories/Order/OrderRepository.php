@@ -26,4 +26,28 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
 
         return $order;
     }
+
+    public function getRegisteredList($userId)
+    {
+        return $this->model->where('receiver_id', $userId)
+            ->where('status', 0)
+            ->with('product', 'giver')
+            ->get();
+    }
+
+    public function getreceivedList($userId)
+    {
+        return $this->model->where('receiver_id', $userId)
+            ->where('status', 1)
+            ->with('product', 'giver')
+            ->get();
+    }
+
+    public function getcanceledList($userId)
+    {
+        return $this->model->where('receiver_id', $userId)
+            ->where('status', 2)
+            ->with('product', 'giver')
+            ->get();
+    }
 }

@@ -45,7 +45,6 @@ class RegisterUserService
                     'password' => Hash::make('user'),
                     'status' => 1
                 ];
-
                 $this->registerUserRepository->register($data);
                 $this->registerUserRepository->deleteOTP($inputOTP);
 

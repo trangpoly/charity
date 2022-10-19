@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\admin\CategoryRequest;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,7 @@ class CategoryController extends BaseController
         return view('admin.pages.categories.add');
     }
 
-    public function storeCategory(Request $request)
+    public function storeCategory(CategoryRequest $request)
     {
         $data = $request->only([
             'name',
@@ -121,6 +122,7 @@ class CategoryController extends BaseController
     public function paginationCategory(Request $request)
     {
         $amountItem = $request->amount_item;
+
         $parentCategories = $this->categoryService->paginateCategory($amountItem);
 
         return response()->json($parentCategories);
@@ -132,6 +134,7 @@ class CategoryController extends BaseController
 
         if (count($subCategories) == 0) {
             $this->categoryService->delete($id);
+
             return redirect()->back()->with('success', "Thanh cong");
         }
 
@@ -141,6 +144,7 @@ class CategoryController extends BaseController
     public function category($id)
     {
         $category = $this->categoryService->find($id);
+
         $subCategory = $this->categoryService->getProductsBySubCategory($id);
 
         return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory]);
