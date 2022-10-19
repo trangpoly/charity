@@ -58,6 +58,13 @@ class ProductController extends BaseController
         return redirect()->route('web.admin.product.list');
     }
 
+    public function delete($id)
+    {
+        $this->productService->delete($id);
+
+        return redirect()->back();
+    }
+
     public function getProductsBySubCategory($id)
     {
         $products = $this->productService->getProductsBySubCategory($id);
