@@ -112,9 +112,26 @@ class ProductService extends BaseService
         return $this->userRepository->find(Auth::user()->id);
     }
 
-    public function updateProduct($id, $data = [])
+    public function updateProduct($id, $request)
     {
-        return $this->productRepository->update($id, $data);
+        $attribute = [
+            'name' => $request->name,
+            'desc' => $request->desc,
+            'avatar' => $request->avatar,
+            'unit' => $request->unit,
+            'weight' => $request->weight,
+            'expire_at' => $request->expire_at,
+            'quantity' => $request->quantity,
+            'weight_unit' => $request->weight_unit,
+            'district' => $request->district,
+            'city' => $request->city,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+        ];
+
+        return $this->productRepository->update($id, $attribute);
     }
 
     public function getParentCategories()
