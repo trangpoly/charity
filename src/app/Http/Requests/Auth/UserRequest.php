@@ -25,8 +25,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'bail|required|string',
-            'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/|unique:users,phone_number,' .$this->id,
-            'email' => 'bail|required|email|unique:users,email,' .$this->id
+            'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/|unique:users,phone_number,' . $this->id,
+            'email' => 'bail|required|email|unique:users,email,' . $this->id
         ];
     }
 }
