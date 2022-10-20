@@ -4,6 +4,7 @@ namespace App\Repositories\Category;
 
 use App\Models\Category;
 use App\Repositories\BaseRepository;
+use PDO;
 
 class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
@@ -19,7 +20,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function getListParentCategoryWithSub()
     {
-        return $this->model->with('subCategory')->where('parent_id', null)->paginate(5);
+        return $this->model->with('subCategory')->where('parent_id', null)->get();
     }
 
     public function searchCategory($nameCate, $statusCate)
@@ -34,6 +35,13 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
         if ($statusCate && $nameCate == null) {
             return $this->model->where('status', $statusCate)->where('parent_id', null)->paginate(5);
+        }
+
+        if ($statusCate && $nameCate) {
+            return $this->model->where('status', $statusCate)
+                ->where('name', 'like', "%$nameCate%")
+                ->where('parent_id', null)
+                ->paginate(5);
         }
     }
 
@@ -51,7 +59,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
 
     public function getProductsByParentCategory()
     {
-        return $this->model->with("productsByParentCategory")->get();
+        return $this->model->with("productsByParentCategory")->where("parent_id", null)->get();
     }
 
     public function getCategories($id)

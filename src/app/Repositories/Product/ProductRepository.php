@@ -31,7 +31,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->with('images')->with('orders', function ($q) {
             $q->where('status', 1);
-        })->paginate(10);
+        })->get();
+    }
+
+    public function delete($id)
+    {
+        return $this->model->destroy($id);
     }
 
     public function getProductsBySubCategory($id)
@@ -90,13 +95,36 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->get();
     }
 
-    public function getUserPosts($userId)
+    public function findProductsRegistered($userId)
     {
-        return $this->model->where('owner_id', $userId)->with('giver')->limit(5)->get();
+        return $this->model->whereHas("orders", function ($e) {
+            $e->where('status', 0);
+        })->whereHas("giver", function ($e) use ($userId) {
+            $e->where("id", $userId);
+        })->with("receivers")->get();
     }
 
     public function findPostWithImages($id)
     {
         return $this->model->with('images')->findOrFail($id);
+    }
+
+    public function findProductsNotRegistered()
+    {
+        return $this->model->with("orders")->whereNot('stock', -1)->get();
+    }
+
+    public function findProductsMarkedSoldOut()
+    {
+        return $this->model->with("orders")->where('stock', -1)->get();
+    }
+
+    public function findProductsGived($userId)
+    {
+        return $this->model->whereHas("orders", function ($e) {
+            $e->where('status', 1);
+        })->whereHas("giver", function ($e) use ($userId) {
+            $e->where("id", $userId);
+        })->with("receivers")->get();
     }
 }

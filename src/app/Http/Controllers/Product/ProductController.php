@@ -38,7 +38,9 @@ class ProductController extends BaseController
     {
         $products = $this->productService->list();
 
-        return view('admin.product.list', ['products' => $products]);
+        $subCategory = $this->productService->getSubCategory();
+
+        return view('admin.product.list', ['products' => $products, 'subCategory' => $subCategory]);
     }
 
     public function create()
@@ -53,6 +55,13 @@ class ProductController extends BaseController
         $this->productService->saveCreate($request);
 
         return redirect()->route('web.admin.product.list');
+    }
+
+    public function delete($id)
+    {
+        $this->productService->delete($id);
+
+        return redirect()->back();
     }
 
     public function getProductsBySubCategory($id)

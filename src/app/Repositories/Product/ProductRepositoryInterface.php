@@ -18,11 +18,19 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function filter($sortExpireDate, $id);
 
+    public function delete($id);
+
     public function getRecommend($currentProductId, $categoryId);
 
     public function getNearExpiryFood($currentProductId);
 
-    public function getUserPosts($userId);
+    public function findProductsRegistered($userId);
 
     public function findPostWithImages($id);
+
+    public function findProductsNotRegistered();
+
+    public function findProductsMarkedSoldOut();
+
+    public function findProductsGived($userId);
 }

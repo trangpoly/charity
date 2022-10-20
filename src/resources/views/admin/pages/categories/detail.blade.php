@@ -17,18 +17,21 @@
             </div>
         @endif
         <form id="formCate" class="w-8/12 ml-24 mt-5" method="POST" enctype="multipart/form-data">
-            {{-- <div class="w-8/12 ml-24 mt-5"> --}}
             @csrf
             <div class="flex">
                 <p class="text-black w-3/12">Category Name<span class="text-red-700 ml-2">*</span></p>
-                <input type="text" name="name" id="name" value="{{ $parentCategory->name }}"
-                    class="w-9/12 border border-gray-500">
+                <div class="w-9/12">
+                    <input type="text" name="name" class="w-full border border-gray-500" id="name" value="{{ $parentCategory->name }}">
+                    @error('name')
+                    <div class="text-red-600 mt-2 col-12">{{ $message }}</div>
+                    @enderror
+                </div>
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Image<span class="text-red-700 ml-2">*</span></p>
-                <div class="w-3/12 flex justify-center items-center">
+                <div class="w-3/12 flex">
                     <label for="dropzone-file"
-                        class="flex flex-col justify-center items-center w-full h-fit bg-gray-50 border-gray-300 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        class="flex flex-col w-full h-fit bg-gray-50 border-gray-300 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                         <img id="img_preview"
                             src="{{ Illuminate\Support\Facades\Storage::url("images/$parentCategory->image") }}"
                             class="w-full" alt="">
@@ -44,6 +47,9 @@
                     <input type="radio" id="status" name="status" value="2"
                         {{ $parentCategory->status == 2 ? 'checked' : '' }} /> Deactive
                 </div>
+                @error('status')
+                    <div class="text-danger mt-5 pt-2 col-12">{{ $message }}</div>
+                @enderror
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Show expiration date</p>
@@ -89,7 +95,6 @@
                 <button type="submit" id="btnCate" value="{{ $parentCategory->id }}"
                     class="bg-yellow-600 text-white border border-gray-500 px-4 py-1">Submit</button>
             </div>
-            {{-- </div> --}}
         </form>
     </div>
     <script>

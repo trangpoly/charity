@@ -13,8 +13,23 @@ class GiverService
         $this->productRepository = $productRepository;
     }
 
-    public function getAllGiverPost($userId)
+    public function findProductsRegistered($userId)
     {
-        return $this->productRepository->getUserPosts($userId);
+        return $this->productRepository->findProductsRegistered($userId);
+    }
+
+    public function findProductsNotRegistered()
+    {
+        return $this->productRepository->findProductsNotRegistered();
+    }
+
+    public function findProductsMarkedSoldOut()
+    {
+        return $this->productRepository->findProductsMarkedSoldOut();
+    }
+
+    public function findProductsGived($userId)
+    {
+        return $this->productRepository->findProductsGived($userId);
     }
 }
