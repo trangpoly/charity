@@ -13,6 +13,8 @@ use App\Repositories\Client\PostRepository;
 use App\Repositories\Client\PostRepositoryInterface;
 use App\Repositories\Client\RegisterUserRepository;
 use App\Repositories\Client\RegisterUserRepositoryInterface;
+use App\Repositories\Favourite\FavouriteRepository;
+use App\Repositories\Favourite\FavouriteRepositoryInterface;
 use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepository;
@@ -50,5 +52,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
+        $this->app->bind(FavouriteRepositoryInterface::class, FavouriteRepository::class);
     }
 }

@@ -54,4 +54,9 @@ class Product extends BaseModel
     {
         return $this->hasMany(Order::class, 'product_id', 'id');
     }
+
+    public function favourite()
+    {
+        return $this->belongsTo(Favourite::class, 'id', 'product_id');
+    }
 }

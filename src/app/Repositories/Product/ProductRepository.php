@@ -18,6 +18,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model
             ->with(['images', 'receivers', 'giver', 'subCategory'])
+            ->with('favourite', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })
             ->with('orders', function ($q) {
                 $q->where('receiver_id', Auth::user()->id);
             })
