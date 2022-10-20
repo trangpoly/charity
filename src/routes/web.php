@@ -42,6 +42,9 @@ Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCat
 Route::any('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
 Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
+Route::post('/add-favourite', [ProductController::class, 'addFavourite'])->name('web.client.product.add-favourite');
+Route::post('/remove-favourite', [ProductController::class, 'removeFavourite'])->name('web.client.product.remove-favourite');
+
 Route::post('/order/{product}', [OrderController::class, 'createOrder'])->name('web.order.create');
 Route::post('/order/unsubscribe/{product}', [OrderController::class, 'unsubscribe'])->name('web.order.unsubscribe');
 
@@ -49,7 +52,6 @@ Route::get('/register', [RegisterUserController::class, 'showFormRegister'])->na
 Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('web.register.auth');
 Route::get('/register/verify', [RegisterUserController::class, 'showFormOtpVerify'])->name('web.register.verify');
 Route::post('/register/verify', [RegisterUserController::class, 'checkOTP'])->name('web.register.verify.check-otp');
-
 
 Route::get('/login', [AuthSessionController::class, 'showFormLogin'])->name('web.login.show');
 Route::post('/login', [AuthSessionController::class, 'generateOtp'])->name('web.login.auth');

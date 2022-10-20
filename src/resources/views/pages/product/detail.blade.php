@@ -71,7 +71,7 @@
                                         width="25px" alt="">
                                     <p>
                                         Địa chỉ:
-                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))                                            
+                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))
                                             {{$product->address . ', '}}
                                         @endif
                                         {{ $product->district . ', ' . $product->city }}
@@ -130,10 +130,20 @@
                                         width="30px" alt="">
                                     </a>
                                 @else
-                                    <a href="#">
-                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_nh_n_1/u107.svg?pageId=6f073e97-65b3-4b3d-8d8e-df5597dd984c"
+                                    @if ($product->favourite == null)
+                                    <a href="" id="add-favourite"
+                                        data-product-id="{{ $product->id }}"
+                                        data-user-id="{{ Auth::id() }}">
+                                        <img class="h-fit" src="https://e7.pngegg.com/pngimages/789/854/png-clipart-heart-shape-symbol-heart-border-love-text.png"
                                         width="30px" alt="">
                                     </a>
+                                    @else
+                                    <a href="" id="remove-favourite"
+                                        data-favourite-id="{{ $product->favourite->id }}">
+                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u124.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                        width="30px" alt="">
+                                    </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -296,7 +306,7 @@
                                 class="w-3/12 p-5" alt="">
                             <p class="w-10/12 py-10">{{$item->name}}</p>
                         </div>
-                    </a>                  
+                    </a>
                 @endforeach
             </div>
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
@@ -364,6 +374,52 @@
             })
 
             $('#toast-success').fadeOut(5000);
+
+            $('#add-favourite').click(function(e) {
+                e.preventDefault();
+
+                var url = "{{ route('web.client.product.add-favourite') }}";
+                var product_id = $(this).data('product-id');
+                var user_id = $(this).data('user-id');
+
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        product_id: product_id,
+                        user_id: user_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được thêm vào danh sách yêu thích');
+                        location.reload(true);
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
+                });
+            });
+
+            $('#remove-favourite').click(function(e) {
+                e.preventDefault();
+
+                var url = "{{ route('web.client.product.remove-favourite') }}";
+                var favourite_id = $(this).data('favourite-id');
+
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        favourite_id: favourite_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được gỡ khỏi danh sách yêu thích');
+                        location.reload(true);
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
+                });
+            });
         });
     </script>
 </x-app-layout>
