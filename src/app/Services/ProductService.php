@@ -137,7 +137,10 @@ class ProductService extends BaseService
 
         $count = $this->productImagesRepository->countImages($request->id);
 
-        if ($count == ($arrayImages == null ? -1 : count($arrayImages))  && ($request->avatar == null ? true : count($request->avatar) == 0)) {
+        if (
+            $count == ($arrayImages == null ? -1 : count($arrayImages))
+            && ($request->avatar == null ? true : count($request->avatar) == 0)
+        ) {
             return false;
         }
 

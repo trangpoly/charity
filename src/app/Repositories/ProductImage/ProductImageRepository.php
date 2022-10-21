@@ -24,6 +24,6 @@ class ProductImageRepository extends BaseRepository implements ProductImageRepos
 
     public function countImages($id)
     {
-      return $this->model->where('product_id', $id)->groupBy('product_id')->count();
+        return $this->model->where('product_id', $id)->groupBy('product_id')->count();
     }
 }

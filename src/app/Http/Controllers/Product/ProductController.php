@@ -75,7 +75,6 @@ class ProductController extends BaseController
         }
 
         if ($request->has('avatar')) {
-
             $this->productService->createProductImage($id, $request);
         }
 
