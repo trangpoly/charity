@@ -39,11 +39,11 @@
                 <div class="flex flex-col w-9/12">
                     <div class="w-9/12 flex space-x-8 text-gray-700">
                         <div class="space-x-2">
-                            <input type="radio" {{$user->status == 1 ? 'checked' : ''}} id="1" name="status" value="1">
+                            <input type="radio" {{$user->deleted_at == null ? 'checked' : ''}} id="1" name="status" value="1">
                             <label for="1">Active</label><br>
                         </div>
                         <div class="space-x-2">
-                            <input type="radio" {{$user->status == 0 ? 'checked' : ''}} id="2" name="status" value="0">
+                            <input type="radio" {{$user->deleted_at != null ? 'checked' : ''}} id="2" name="status" value="0">
                             <label for="2">Unactive</label><br>
                         </div>
                     </div>                    

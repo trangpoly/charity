@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Auth\UserRequest;
 use App\Services\UserService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
 {
@@ -55,5 +57,17 @@ class UserController extends BaseController
         $this->userService->deactivateUser($id);
 
         return redirect()->route('web.admin.user.list');
+    }
+
+    public function deactivateAccount(Request $request)
+    {
+        $userId = Auth::user()->id;
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        $this->userService->deactivateUser($userId);
+
+        return redirect()->route('home');
     }
 }

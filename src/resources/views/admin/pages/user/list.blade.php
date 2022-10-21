@@ -83,7 +83,7 @@
                                 {{$item->phone_number}}
                             </td>
                             <td class="py-4 px-6">
-                                {{$item->status == 1 ? 'active' : 'unactive'}}
+                                {{$item->deleted_at == null ? 'active' : 'unactive'}}
                             </td>
                             <td class="py-4 px-6">
                                 {{$item->lastLogin}}

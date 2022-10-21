@@ -12,6 +12,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,7 @@ Route::get('/login/otp-verify', [AuthSessionController::class, 'otpVerify'])->na
 Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name('web.login.store');
 
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
+Route::get('/deactivate', [UserController::class, 'deactivateAccount'])->name('web.client.user.deactivate');
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
 Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
