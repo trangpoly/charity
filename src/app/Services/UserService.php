@@ -28,7 +28,7 @@ class UserService extends BaseService
 
         $user = $this->userRepository->create($attribute);
 
-        if($request->status == 0) {
+        if ($request->status == 0) {
             $this->userRepository->delete($user->id);
         }
     }
@@ -51,8 +51,7 @@ class UserService extends BaseService
 
         $this->userRepository->update($id, $attribute);
 
-        if($request->status == 0)
-        {
+        if ($request->status == 0) {
             $this->userRepository->delete($id);
         } else {
             $this->userRepository->restore($id);
