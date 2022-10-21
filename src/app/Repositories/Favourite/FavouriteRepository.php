@@ -16,6 +16,6 @@ class FavouriteRepository extends BaseRepository implements FavouriteRepositoryI
 
     public function getFavouriteList()
     {
-        return $this->model->get();
+        return $this->model->where('user_id', Auth::user()->id)->get();
     }
 }
