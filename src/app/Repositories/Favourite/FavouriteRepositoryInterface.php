@@ -6,4 +6,5 @@ use App\Repositories\BaseRepositoryInterface;
 
 interface FavouriteRepositoryInterface extends BaseRepositoryInterface
 {
+    public function getFavouriteList();
 }

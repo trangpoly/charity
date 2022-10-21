@@ -9,6 +9,7 @@ use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
 use App\Http\Controllers\User\UserController;
@@ -84,6 +85,10 @@ Route::prefix('receiver')->group(function () {
     Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
     Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
     Route::post('registered/re', [ReceiverController::class, 'reRegistered'])->name('web.client.re-registered');
+});
+
+Route::prefix('favourite')->group(function () {
+    Route::get('list', [FavouriteController::class, 'list'])->name('web.client.favourite-list');
 });
 
 Route::prefix('admin')->group(function () {
