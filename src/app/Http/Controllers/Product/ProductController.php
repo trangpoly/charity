@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\admin\ProductRequest;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -53,6 +54,31 @@ class ProductController extends BaseController
     public function saveCreate(ProductRequest $request)
     {
         $this->productService->saveCreate($request);
+
+        return redirect()->route('web.admin.product.list');
+    }
+
+    public function update(Product $id)
+    {
+        $subCategory = $this->productService->getSubCategory();
+
+        return view('admin.product.update', ['subCategory' => $subCategory, 'product' => $id]);
+    }
+
+    public function saveUpdate($id, ProductRequest $request)
+    {
+        $status = $this->productService->updateProduct($id, $request);
+
+        if ($status == false) {
+            session(['msg' => 'San pham phai chua toi da 1 anh']);
+            return back();
+        }
+
+        if ($request->has('avatar')) {
+            $this->productService->createProductImage($id, $request);
+        }
+
+        $this->productService->updateProduct($id, $request);
 
         return redirect()->route('web.admin.product.list');
     }

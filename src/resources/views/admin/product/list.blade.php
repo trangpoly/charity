@@ -41,6 +41,12 @@
             </div>
         </form>
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <a href="{{ route('web.admin.product.create') }}"
+            class="z-10 flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
+            <p class="text-black text-sm">Create new</p>
+            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
+                alt="">
+            </a>
             <table id="table-products" class="w-full pt-2 text-lg text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-md text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -96,17 +102,21 @@
                                 {{ $item->orders->sum('quantity') }}
                             </td>
                             <td class="py-4 px-6">
-                                {{ $item->quantity - $item->orders->sum('quantity')}}
+                                @if ($item->stock == -1)
+                                <img width="50px" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/product_management/u157.png?pageId=0c712e26-470a-41fb-900b-f6886ea20171">
+                                @else
+                                {{ $item->quantity - $item->orders->sum('quantity') }}
+                                @endif
                             </td>
                             <td class="py-4 px-6">
-                                <img src="{{ Illuminate\Support\Facades\Storage::url("images/products/$item->avatar") }}"
+                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/products/' .$item->images[0]->path) ?? ''}}"
                                     width="100px" alt="">
                             </td>
                             <td class="py-4 px-6">
                                 {{ $item->expire_at }}
                             </td>
                             <td class="py-4 px-6 flex space-x-6">
-                                <a href="#">
+                                <a href="{{ route('web.admin.product.update', $item->id) }}">
                                     <img width="32px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
@@ -121,10 +131,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>
-
-            </div>
-
         </div>
     </div>
     <script type="text/javascript">

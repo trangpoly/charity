@@ -20,10 +20,10 @@ class DatabaseSeeder extends Seeder
     {
         Product::factory(5)->create();
 
-        Slider::factory(5)->create();
+        // Slider::factory(5)->create();
 
-        Category::factory(10)->create();
+        // Category::factory(10)->create();
 
-        User::factory(1)->create();
+        // User::factory(1)->create();
     }
 }

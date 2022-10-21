@@ -24,8 +24,8 @@ Route::prefix('admin')->group(function () {
         Route::get('list', [ProductController::class, 'list'])->name('web.admin.product.list');
         Route::get('create', [ProductController::class, 'create'])->name('web.admin.product.create');
         Route::post('create', [ProductController::class, 'saveCreate'])->name('web.admin.product.saveCreate');
-        Route::get('update', [ProductController::class, 'create'])->name('web.admin.product.update');
-        Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.product.saveUpdate');
+        Route::get('update/{id}', [ProductController::class, 'update'])->name('web.admin.product.update');
+        Route::post('update/{id}', [ProductController::class, 'saveUpdate'])->name('web.admin.product.saveUpdate');
         Route::get('delete/{id}',[ProductController::class, 'delete'])->name('web.admin.product.delete');
     });
 

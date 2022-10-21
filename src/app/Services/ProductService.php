@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ProductImage;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Favourite\FavouriteRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
@@ -115,9 +116,44 @@ class ProductService extends BaseService
         return $this->userRepository->find(Auth::user()->id);
     }
 
-    public function updateProduct($id, $data = [])
+    public function createProductImage($id, $request)
     {
-        return $this->productRepository->update($id, $data);
+        foreach ($request->avatar as $images) {
+            Storage::disk('public')->put('images/products/', $images);
+            $productImage = [
+                'path' => $images->hashName(),
+                'product_id' => $id
+            ];
+
+            $this->productImagesRepository->create($productImage);
+        }
+    }
+
+    public function updateProduct($id, $request)
+    {
+        $attribute = $request->except('_token', 'idImage');
+
+        $arrayImages = $request->idImage;
+
+        $count = $this->productImagesRepository->countImages($request->id);
+
+        if (
+            $count == ($arrayImages == null ? -1 : count($arrayImages))
+            && ($request->avatar == null ? true : count($request->avatar) == 0)
+        ) {
+            return false;
+        }
+
+        if ($request->has('idImage')) {
+            foreach ($request->idImage as $img) {
+                $ids[] = $img;
+            }
+            $this->productImagesRepository->deleteMultiple($ids);
+        }
+
+        $this->productRepository->update($id, $attribute);
+
+        return true;
     }
 
     public function getParentCategories()
