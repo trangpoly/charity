@@ -11,4 +11,19 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return User::class;
     }
+
+    public function all()
+    {
+        return $this->model::withTrashed()->get();
+    }
+
+    public function find($id)
+    {
+        return $this->model::withTrashed()->find($id);
+    }
+
+    public function restore($id)
+    {
+        return $this->model::withTrashed()->where('id', $id)->restore();
+    }
 }

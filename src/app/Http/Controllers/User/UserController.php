@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\Auth\UserRequest;
 use App\Services\UserService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
 {
@@ -33,5 +35,39 @@ class UserController extends BaseController
         session(['msg' => 'Create user successfully !']);
 
         return redirect()->route('web.admin.user.list');
+    }
+
+    public function showEditForm($id)
+    {
+        $user = $this->userService->getUser($id);
+
+        return view('admin.pages.user.edit')->with('user', $user);
+    }
+
+    public function updateUser(UserRequest $request, $id)
+    {
+        $this->userService->updateUser($request, $id);
+        session(['msg' => 'Update user successfully !']);
+
+        return redirect()->route('web.admin.user.list');
+    }
+
+    public function deactivateUser($id)
+    {
+        $this->userService->deactivateUser($id);
+
+        return redirect()->route('web.admin.user.list');
+    }
+
+    public function deactivateAccount(Request $request)
+    {
+        $userId = Auth::user()->id;
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        $this->userService->deactivateUser($userId);
+
+        return redirect()->route('home');
     }
 }

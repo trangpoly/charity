@@ -6,95 +6,48 @@
             <div class="input flex mb-5 space-x-4">
                 <div class="">
                     <p class="text-black font-semibold">Product name</p>
-                    <input type="text" class="h-8 border border-gray-300 px-2" name="name" placeholder="Search...">
+                    <input type="text" class="h-8 border text-sm text-gray-700 border-gray-400 px-2"
+                        id="products-search-name" name="name" placeholder="Search...">
                 </div>
                 <div class="">
-                    <p class="text-black font-semibold">Status</p>
-                    <select class="h-8 w-full border border-gray-300 px-2" name="status" id="">
+                    <p class="text-black font-semibold">Category</p>
+                    <select class="h-8 text-gray-600 text-sm w-full bg-white border border-gray-300 px-2"
+                        id="products-search-category" name="category">
                         <option value="">Please select</option>
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
+                        @foreach ($subCategory->subCategory->category->subCategory as $fake)
+                            <option value="{{ $fake->name }}">{{ $fake->name }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="space-x-2">
-                    <p class="w-full text-black font-semibold">Address</p>
+                <div class="space-x-6">
+                    <p class="w-full ml-6 text-black font-semibold">Expiration data</p>
                     <div class="flex space-x-1">
-                        <select class="h-8 w-full border border-gray-300 px-2" name="" id="">
-                            <option value="">Select province</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                        <select class="h-8 w-full border border-gray-300 px-2" name="" id="">
-                            <option value="">Select district</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
+                        <input type="date" class="h-8 border text-gray-600 text-sm border-gray-300 px-2" id="min"
+                            name="">
+                        <input type="date" class="h-8 border text-gray-600 text-sm border-gray-300 px-2" id="max"
+                            name="">
                     </div>
                 </div>
-                <div class="space-x-2">
-                    <p class="w-full text-black font-semibold">Address</p>
-                    <div class="flex space-x-1">
-                        <select class="h-8 w-full border border-gray-300 px-2" name="" id="">
-                            <option value="">Select province</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                        <select class="h-8 w-full border border-gray-300 px-2" name="" id="">
-                            <option value="">Select district</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="space-x-2">
-                    <p class="w-full text-black font-semibold">Expiration data</p>
-                    <div class="flex space-x-1">
-                        <input type="date" class="h-8 border border-gray-300 px-2" name="">
-                        <input type="date" class="h-8 border border-gray-300 px-2" name="">
-                    </div>
-                </div>
-                <div class="space-x-2">
-                    <p class="text-black font-semibold">Stock</p>
-                    <select class="h-8 w-full border border-gray-300 px-2" name="" id="">
-                        <option value="">Please select</option>
-                        <option value="">1</option>
-                        <option value="">2</option>
-                        <option value="">3</option>
-                    </select>
+                <div class="space-x-3">
+                    <p class=" text-black ml-4 font-semibold">Stock</p>
+                    <input class="h-8 w-full text-gray-700 text-sm bg-white border border-gray-300 px-2" name=""
+                        id="products-search-stock">
                 </div>
             </div>
             <div class="w-full h-fit bg-yellow-200 mb-5 text-center py-2 space-x-2">
-                <button type="submit" class="bg-yellow-500 text-black py-1 px-10 border border-gray-300">Search</button>
+                <button type="button" id="products-search"
+                    class="bg-yellow-500 text-black py-1 px-10 border border-gray-300">Search</button>
                 <button type="reset" class="bg-white text-blue-500 py-1 px-10 border border-gray-300">Reset</button>
             </div>
         </form>
-        <div class="w-full flex py-0 items-end mb-5">
-            @if ($products)
-                <p class="pr-8 text-black" id="box-display"><span>Display item: 1~{{ count($products) }}</span></p>
-            @endif
-            <form action="" method="POST">
-                @csrf
-                <select class="border border-gray-300 px-2 py-1" name="paginate" id="amount_item">
-                    <option value="">10</option>
-                    <option value="">20</option>
-                    <option value="">30</option>
-                </select>
-            </form>
-            <p class="px-2 text-black">items/page</p>
-            <a href="{{ route('web.admin.product.create') }}"
-                class="flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
-                <p class="text-black text-sm">Create new</p>
-                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                    alt="">
-            </a>
-        </div>
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-lg text-left text-gray-500 dark:text-gray-400">
+            <a href="{{ route('web.admin.product.create') }}"
+            class="z-10 flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
+            <p class="text-black text-sm">Create new</p>
+            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
+                alt="">
+            </a>
+            <table id="table-products" class="w-full pt-2 text-lg text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-md text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="py-3 px-6">
@@ -121,22 +74,22 @@
                         <th scope="col" class="py-3 px-6">
                             Expiration data
                         </th>
-                        <th scope="col" colspan="2" class="py-3 px-6">
+                        <th scope="col" class="py-3 px-6">
                             Action
                         </th>
                     </tr>
                 </thead>
-                <tbody id="table">
+                <tbody>
                     @foreach ($products as $item)
                         <tr
                             class="bg-white border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="py-4 px-6 text-black">
-                                {{ $loop->iteration + ($products->currentPage() - 1) * $products->perPage() }}
+                                #
                             </td>
-                            <th scope="row"
+                            <td scope="row"
                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $item->name }}
-                            </th>
+                            </td>
                             <td class="py-4 px-6">
                                 {{ $item->subCategory->category->name }}
                                 <br>
@@ -146,25 +99,29 @@
                                 {{ $item->quantity }}
                             </td>
                             <td class="py-4 px-6">
-                              {{$item->loadSum('orders', 'quantity')->sum_orders}}
+                                {{ $item->orders->sum('quantity') }}
                             </td>
                             <td class="py-4 px-6">
-                                {{ $item->stock }}
+                                @if ($item->stock == -1)
+                                <img width="50px" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/product_management/u157.png?pageId=0c712e26-470a-41fb-900b-f6886ea20171">
+                                @else
+                                {{ $item->quantity - $item->orders->sum('quantity') }}
+                                @endif
                             </td>
                             <td class="py-4 px-6">
-                                <img src="{{ Illuminate\Support\Facades\Storage::url("images/products/$item->avatar") }}"
+                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/products/' .$item->images[0]->path) ?? ''}}"
                                     width="100px" alt="">
                             </td>
                             <td class="py-4 px-6">
                                 {{ $item->expire_at }}
                             </td>
                             <td class="py-4 px-6 flex space-x-6">
-                                <a href="#">
+                                <a href="{{ route('web.admin.product.update', $item->id) }}">
                                     <img width="32px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
                                 </a>
-                                <a href="#">
+                                <a href="{{route('web.admin.product.delete', $item->id)}}" onclick="return confirm('Xác nhận xóa ?')">
                                     <img width="30px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
@@ -174,56 +131,55 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>
-                {{ $products->links() }}
-            </div>
-            <nav class="flex justify-center py-4" aria-label="Table navigation">
-                <ul class="inline-flex items-center space-x-1">
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                    </li>
-                    <li>
-                        <a href="#" aria-current="page"
-                            class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#table-products').DataTable({
+                dom: 'lrtip'
+            });
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
 
+                    var min = $('#min').val();
+                    var max = $('#max').val();
+                    var createdAt = data[7] || 0;
+                    if (
+                        (min == "" || max == "") ||
+                        (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
+                    ) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+            $('#products-search').on('click', function() {
+                $('#table-products')
+                    .DataTable()
+                    .column(1)
+                    .search(
+                        $('#products-search-name').val()
+                    )
+                    .draw();
+            });
+            $('#products-search').on('click', function() {
+                $('#table-products')
+                    .DataTable()
+                    .column(2)
+                    .search(
+                        $('#products-search-category option:selected').val()
+                    )
+                    .draw();
+            });
+            $('#products-search').on('click', function() {
+                $('#table-products')
+                    .DataTable()
+                    .column(5)
+                    .search(
+                        $('#products-search-stock').val()
+                    )
+                    .draw();
+            });
+        });
+    </script>
 @endsection

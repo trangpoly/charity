@@ -9,8 +9,10 @@ use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Client\ClientController;
+use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +44,9 @@ Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCat
 Route::any('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
 Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
+Route::post('/add-favourite', [ProductController::class, 'addFavourite'])->name('web.client.product.add-favourite');
+Route::post('/remove-favourite', [ProductController::class, 'removeFavourite'])->name('web.client.product.remove-favourite');
+
 Route::post('/order/{product}', [OrderController::class, 'createOrder'])->name('web.order.create');
 Route::post('/order/unsubscribe/{product}', [OrderController::class, 'unsubscribe'])->name('web.order.unsubscribe');
 
@@ -50,13 +55,13 @@ Route::post('/register', [RegisterUserController::class, 'generateOTP'])->name('
 Route::get('/register/verify', [RegisterUserController::class, 'showFormOtpVerify'])->name('web.register.verify');
 Route::post('/register/verify', [RegisterUserController::class, 'checkOTP'])->name('web.register.verify.check-otp');
 
-
 Route::get('/login', [AuthSessionController::class, 'showFormLogin'])->name('web.login.show');
 Route::post('/login', [AuthSessionController::class, 'generateOtp'])->name('web.login.auth');
 Route::get('/login/otp-verify', [AuthSessionController::class, 'otpVerify'])->name('web.login.otp-verify');
 Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name('web.login.store');
 
 Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
+Route::get('/deactivate', [UserController::class, 'deactivateAccount'])->name('web.client.user.deactivate');
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
 Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
@@ -80,6 +85,10 @@ Route::prefix('receiver')->group(function () {
     Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
     Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
     Route::post('registered/re', [ReceiverController::class, 'reRegistered'])->name('web.client.re-registered');
+});
+
+Route::prefix('favourite')->group(function () {
+    Route::get('list', [FavouriteController::class, 'list'])->name('web.client.favourite-list');
 });
 
 Route::prefix('admin')->group(function () {

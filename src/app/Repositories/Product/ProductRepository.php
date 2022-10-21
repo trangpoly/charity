@@ -18,6 +18,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model
             ->with(['images', 'receivers', 'giver', 'subCategory'])
+            ->with('favourite', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })
             ->with('orders', function ($q) {
                 $q->where('receiver_id', Auth::user()->id);
             })
@@ -28,7 +31,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->with('images')->with('orders', function ($q) {
             $q->where('status', 1);
-        })->paginate(10);
+        })->get();
+    }
+
+    public function delete($id)
+    {
+        return $this->model->destroy($id);
     }
 
     public function getProductsBySubCategory($id)

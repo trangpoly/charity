@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|bail',
-            'avatar' => 'required|max:10',
+            'avatar' => 'max:10',
             'avatar.*' => 'mimes:jpeg,png,jpg,gif|max:2000',
             'unit' => 'required|bail',
             'weight' => 'required|bail',

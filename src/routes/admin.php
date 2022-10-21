@@ -24,8 +24,9 @@ Route::prefix('admin')->group(function () {
         Route::get('list', [ProductController::class, 'list'])->name('web.admin.product.list');
         Route::get('create', [ProductController::class, 'create'])->name('web.admin.product.create');
         Route::post('create', [ProductController::class, 'saveCreate'])->name('web.admin.product.saveCreate');
-        Route::get('update', [ProductController::class, 'create'])->name('web.admin.product.update');
-        Route::post('update', [ProductController::class, 'savaUpdate'])->name('web.admin.product.saveUpdate');
+        Route::get('update/{id}', [ProductController::class, 'update'])->name('web.admin.product.update');
+        Route::post('update/{id}', [ProductController::class, 'saveUpdate'])->name('web.admin.product.saveUpdate');
+        Route::get('delete/{id}',[ProductController::class, 'delete'])->name('web.admin.product.delete');
     });
 
     Route::prefix('category')->group(function () {
@@ -48,8 +49,4 @@ Route::get('admin/user/create', [UserController::class, 'showCreateForm'])->name
 Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('web.admin.user.store');
 Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
 Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
-Route::get('admin/user/delete/{id}', [UserController::class, 'deleteUser'])->name('web.admin.user.delete');
-
-
-
-
+Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');

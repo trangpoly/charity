@@ -16,4 +16,14 @@ class ProductImageRepository extends BaseRepository implements ProductImageRepos
     {
         return $this->model->destroy($id);
     }
+
+    public function deleteMultiple($ids)
+    {
+        return $this->model->whereIn('id', $ids)->delete();
+    }
+
+    public function countImages($id)
+    {
+        return $this->model->where('product_id', $id)->groupBy('product_id')->count();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Product;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\admin\ProductRequest;
+use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,6 @@ class ProductController extends BaseController
         $nearExpiryFood = $this->productService->getNearExpiryFood($product->id);
         $currentUser = $this->productService->getCurrentUser();
         $parentCategories = $this->productService->getParentCategories();
-
         $data = [
             'product' => $product,
             'recommend' => $recommend,
@@ -39,7 +39,9 @@ class ProductController extends BaseController
     {
         $products = $this->productService->list();
 
-        return view('admin.product.list', ['products' => $products]);
+        $subCategory = $this->productService->getSubCategory();
+
+        return view('admin.product.list', ['products' => $products, 'subCategory' => $subCategory]);
     }
 
     public function create()
@@ -54,6 +56,38 @@ class ProductController extends BaseController
         $this->productService->saveCreate($request);
 
         return redirect()->route('web.admin.product.list');
+    }
+
+    public function update(Product $id)
+    {
+        $subCategory = $this->productService->getSubCategory();
+
+        return view('admin.product.update', ['subCategory' => $subCategory, 'product' => $id]);
+    }
+
+    public function saveUpdate($id, ProductRequest $request)
+    {
+        $status = $this->productService->updateProduct($id, $request);
+
+        if ($status == false) {
+            session(['msg' => 'San pham phai chua toi da 1 anh']);
+            return back();
+        }
+
+        if ($request->has('avatar')) {
+            $this->productService->createProductImage($id, $request);
+        }
+
+        $this->productService->updateProduct($id, $request);
+
+        return redirect()->route('web.admin.product.list');
+    }
+
+    public function delete($id)
+    {
+        $this->productService->delete($id);
+
+        return redirect()->back();
     }
 
     public function getProductsBySubCategory($id)
@@ -86,5 +120,18 @@ class ProductController extends BaseController
         $filterProducts = $this->productService->filter($sortExpireDate, $id);
 
         return response()->json($filterProducts);
+    }
+
+    public function addFavourite(Request $request)
+    {
+        $userId = $request->user_id;
+        $productId = $request->product_id;
+        $this->productService->addFavourite($userId, $productId);
+    }
+
+    public function removeFavourite(Request $request)
+    {
+        $favouriteId = $request->favourite_id;
+        $this->productService->removeFavourite($favouriteId);
     }
 }

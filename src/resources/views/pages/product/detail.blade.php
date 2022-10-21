@@ -8,7 +8,7 @@
     <nav class="flex mx-auto max-w-8xl my-7" aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
-                <a href="#"
+                <a href="{{ route("web.client.category.list", $product->subCategory->category->id) }}"
                     class="inline-flex text-xl items-center font-medium text-green-600 hover:text-green-400 dark:text-gray-400 dark:hover:text-white active:text-green-500 underline underline-offset-1">
                     {{-- <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg> --}}
                     {{$product->subCategory->category->name}}
@@ -21,7 +21,7 @@
                             d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                             clip-rule="evenodd"></path>
                 </svg>
-                <a href="#"
+                <a href="{{ route("web.client.subCategory.list", $product->subCategory->id) }}"
                     class="inline-flex ml-2 text-xl items-center font-medium text-green-600 hover:text-green-400 active:text-green-500 underline underline-offset-1">
                     {{-- <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg> --}}
                     {{$product->subCategory->name}}
@@ -52,7 +52,7 @@
                         <div class="grid grid-cols-3 gap-4 mt-4">
                             @foreach ($product->images as $item)
                                 <div>
-                                    <img class="h-fit" src="{{ Illuminate\Support\Facades\Storage::url("images/" .$item->path) }}"
+                                    <img class="object-fill h-full" src="{{ Illuminate\Support\Facades\Storage::url("images/" .$item->path) }}"
                                         alt="">
                                 </div>
                             @endforeach
@@ -63,15 +63,15 @@
                         <div class="w-full flex justify-between">
                             <h2 class="font-semibold text-3xl text-slate-800">{{ $product->name }}</h2>
                         </div>
-                        <div class="flex justify-between">
-                            <div class="mt-5 text-lg text-slate-700 pb-10 border-b border-lime-600">
+                        <div class="flex justify-between border-b border-lime-600">
+                            <div class="mt-5 text-lg text-slate-700 pb-10">
                                 <div class="flex py-2 space-x-4">
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
                                     <p>
                                         Địa chỉ:
-                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))                                            
+                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))
                                             {{$product->address . ', '}}
                                         @endif
                                         {{ $product->district . ', ' . $product->city }}
@@ -115,7 +115,7 @@
                                     <p>Hạn sử dụng: {{$product->expire_at}}</p>
                                 </div>
                             </div>
-                            <div class="pl-2 mt-6 flex flex-col space-y-5 border-b border-lime-600">
+                            <div class="pl-2 mt-6 flex flex-col space-y-5">
                                 <a href="#">
                                     <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u106.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
                                         width="30px" alt="">
@@ -130,10 +130,20 @@
                                         width="30px" alt="">
                                     </a>
                                 @else
-                                    <a href="#">
-                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_nh_n_1/u107.svg?pageId=6f073e97-65b3-4b3d-8d8e-df5597dd984c"
+                                    @if ($product->favourite == null)
+                                    <a href="" id="add-favourite"
+                                        data-product-id="{{ $product->id }}"
+                                        data-user-id="{{ Auth::id() }}">
+                                        <img class="h-fit" src="https://e7.pngegg.com/pngimages/789/854/png-clipart-heart-shape-symbol-heart-border-love-text.png"
                                         width="30px" alt="">
                                     </a>
+                                    @else
+                                    <a href="" id="remove-favourite"
+                                        data-favourite-id="{{ $product->favourite->id }}">
+                                        <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u124.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                        width="30px" alt="">
+                                    </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -199,35 +209,48 @@
                 <div class="w-full mt-10">
                     <div class="flex">
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Đề xuất cho bạn</h2>
-                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem
+                        <a href="{{ route("web.client.subCategory.list", $product->subCategory->id) }}" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem
                             thêm
                             ></a>
                     </div>
-                    <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
-                        @foreach ($recommend as $item)
-                            <div class="w-3/12 relative p-2">
-                                <img class="h-fit"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    alt="">
-                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
-                                <div class="flex py-2 space-x-4 h-28">
-                                    <img class="h-fit"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="18px" alt="">
-                                    <p class="text-lg">{{ $item->address }}</p>
-                                </div>
-                                <div class="flex py-2 space-x-4  ">
-                                    <img class="h-fit"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u139.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"                                        width="15px" alt="">
-                                    <p class=" text-lg">{{ $item->expire_at }}</p>
-                                </div>
-                                <img class="absolute top-40 right-2" width="25px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    alt="">
-                            </div>
-                        @endforeach
-
-                    </div>
+                    <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">
+                        @foreach ( $recommend as $item)
+                                 <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12">
+                                     <div class="h-36 relative mx-2">
+                                         <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
+                                         class="object-fill h-full w-full" alt=""><img class="absolute top-28 right-2" width="25px"
+                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                         alt="">
+                                     </div>
+                                     <h3 class="text-2xl h-10 mx-2">{{$item->name}}</h3>
+                                     <div class="flex py-2 space-x-4 h-16 items-center mx-2">
+                                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                             class="w-1/12 h-fit mb-0" alt="">
+                                         <p class="text-lg">{{$item->district . ", " . $item->city}}</p>
+                                     </div>
+                                     <div class="flex space-x-4 h-8 items-center mx-2">
+                                         @php
+                                             $expireDate = mktime(0,0,0, date('m'), date('d') + 3, date('Y'));
+                                             $expireDate = date('Y-m-d', $expireDate);
+                                             $now = date('Y-m-d');
+                                         @endphp
+                                         @if($item->expire_at >= $now && $item->expire_at <= $expireDate)
+                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                             class="w-1/12 h-fit" alt="">
+                                             <p class="text-orange-400 text-lg">
+                                                 {{$item->expire_at}}
+                                             </p>
+                                         @else
+                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                             class="w-1/12 h-fit" alt="">
+                                             <p class="text-black text-lg">
+                                                 {{$item->expire_at}}
+                                             </p>
+                                         @endif
+                                     </div>
+                                 </a>
+                         @endforeach
+                     </div>
                 </div>
             @endif
             @if ($nearExpiryFood->isNotEmpty())
@@ -238,29 +261,30 @@
                             thêm
                             ></a>
                     </div>
-                    <div class="w-full flex border border-gray-300 rounded-md space-x-10 mt-5 p-5">
-                        @foreach ($nearExpiryFood as $item)
-                            <div class="w-3/12 relative p-2">
-                                <img class="h-fit"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    alt="">
-                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
-                                <div class="flex py-2 space-x-4 h-28">
-                                    <img class="h-fit"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="18px" alt="">
-                                    <p class="text-lg">{{ $item->address }}</p>
-                                </div>
-                                <div class="flex py-2 space-x-4  ">
-                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    width="15px" alt="">
-                                    <p class="text-orange-400 text-lg">{{$item->expire_at}}</p>
-                                </div>
-                                <img class="absolute top-40 right-2" width="25px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u123.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    alt="">
-                            </div>
-                        @endforeach
+                    <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">
+                        @foreach ( $nearExpiryFood as $item)
+                                <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12">
+                                    <div class="h-36 relative mx-2">
+                                        <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
+                                        class="object-fill h-full w-full" alt=""><img class="absolute top-28 right-2" width="25px"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        alt="">
+                                    </div>
+                                    <h3 class="text-2xl h-10 mx-2">{{$item->name}}</h3>
+                                    <div class="flex py-2 space-x-4 h-16 items-center mx-2">
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                            class="w-1/12 h-fit mb-0" alt="">
+                                        <p class="text-lg">{{$item->district . ", " . $item->city}}</p>
+                                    </div>
+                                    <div class="flex space-x-4 h-8 items-center mx-2">
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            class="w-1/12 h-fit" alt="">
+                                        <p class="text-orange-400 text-lg">
+                                            {{$item->expire_at}}
+                                        </p>
+                                    </div>
+                                </a>
+                         @endforeach
                     </div>
                 </div>
             @endif
@@ -276,13 +300,13 @@
                     </div>
                 </div>
                 @foreach ($parentCategories as $item)
-                    <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
+                    <a href="{{ route("web.client.category.list", $item->id) }}" class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
                         <div class="w-full flex border-b border-lime-500">
                             <img src="{{ Illuminate\Support\Facades\Storage::url("images/" .$item->image) }}"
                                 class="w-3/12 p-5" alt="">
                             <p class="w-10/12 py-10">{{$item->name}}</p>
                         </div>
-                    </div>                    
+                    </a>
                 @endforeach
             </div>
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
@@ -337,7 +361,6 @@
                 min = Number($this.attr('min')),
                 max = Number($this.attr('max'))
                 d = Number($this.attr('value'));
-
                 $(qty).on('click', function() {
                     if ($(this).hasClass('minus')) {
                         if (d > min)
@@ -351,6 +374,52 @@
             })
 
             $('#toast-success').fadeOut(5000);
+
+            $('#add-favourite').click(function(e) {
+                e.preventDefault();
+
+                var url = "{{ route('web.client.product.add-favourite') }}";
+                var product_id = $(this).data('product-id');
+                var user_id = $(this).data('user-id');
+
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        product_id: product_id,
+                        user_id: user_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được thêm vào danh sách yêu thích');
+                        location.reload(true);
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
+                });
+            });
+
+            $('#remove-favourite').click(function(e) {
+                e.preventDefault();
+
+                var url = "{{ route('web.client.product.remove-favourite') }}";
+                var favourite_id = $(this).data('favourite-id');
+
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        favourite_id: favourite_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được gỡ khỏi danh sách yêu thích');
+                        location.reload(true);
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
+                });
+            });
         });
     </script>
 </x-app-layout>
