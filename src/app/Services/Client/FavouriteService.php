@@ -23,7 +23,7 @@ class FavouriteService
     {
         $favouriteList = $this->favouriteRepository->getFavouriteList();
 
-        foreach($favouriteList as $favourite) {
+        foreach ($favouriteList as $favourite) {
             $checkOrderIsset = $favourite->product
                 ->orders()
                 ->where('receiver_id', Auth::user()->id)
