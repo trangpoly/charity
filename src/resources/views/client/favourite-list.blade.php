@@ -139,11 +139,16 @@
                                 </a>
                                 @endif
                             @endif
-                            <a href="#">
+                            <a href="{{ route('web.client.product.detail', ['id' => $item->product->id]) }}" target="_blank">
                                 <img class="absolute top-0 right-0"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
                                     width="30px" alt="">
                             </a>
+                            <button id="remove-favourite-{{ $key }}" type="button"
+                                onclick="removeFavourite('{{ $item->id }}', '{{ $key }}')">
+                                <img class="absolute top-10 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u124.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                width="30px" alt="">
+                            </button>
                         </div>
                     </div>
                 @endforeach
@@ -216,6 +221,28 @@
             });
         }
 
+        function removeFavourite(favourite_id, index) {
+            var url = "{{ route('web.client.product.remove-favourite') }}";
+
+            $(document).ready(function() {
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        favourite_id: favourite_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được gỡ khỏi danh sách yêu thích');
+
+                        $('#remove-favourite-'+index).parent().parent().remove();
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
+                });
+            });
+        }
+
         $(document).ready(function() {
             $(".order-element").slice(0, 3).show();
 
@@ -240,3 +267,4 @@
         </script>
     @endsection
 </x-app-layout>
+
