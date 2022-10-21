@@ -188,7 +188,7 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        document.location.href = "http://localhost:8888/admin/category";
+                        document.location.href = "{{route('web.admin.category.list')}}";
                     }
                 })
             })
