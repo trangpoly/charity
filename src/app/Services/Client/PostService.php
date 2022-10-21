@@ -46,7 +46,7 @@ class PostService
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
-            if (! $productData['stock'] == 0) {
+            if (!$productData['stock'] == 0) {
                 $productData['status'] = 1;
             } else {
                 $productData['status'] = 0;
@@ -110,11 +110,10 @@ class PostService
         DB::beginTransaction();
         try {
             $productData = $request->except(['images', '_token', '_method', "images_hidden", "images_old"]);
-            // $productData['avatar'] = $request->images[0]->hashName();
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
-            if (! $productData['stock'] == 0) {
+            if (!$productData['stock'] == 0) {
                 $productData['status'] = 1;
             } else {
                 $productData['status'] = 0;
@@ -122,18 +121,18 @@ class PostService
 
             $this->productRepository->update($id, $productData);
 
-            if($request->images) {
+            if ($request->images) {
                 foreach ($request->images as $image) {
-                Storage::disk('public')->put('images', $image);
-                $productImage = [
-                    'path' => $image->hashName(),
-                    'product_id' => $id,
-                ];
+                    Storage::disk('public')->put('images', $image);
+                    $productImage = [
+                        'path' => $image->hashName(),
+                        'product_id' => $id,
+                    ];
 
-                $this->productImageRepository->create($productImage);
+                    $this->productImageRepository->create($productImage);
+                }
             }
-            }
-            
+
             DB::commit();
 
             return false;
