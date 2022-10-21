@@ -63,7 +63,7 @@ Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->
 Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
 Route::get('/posts/edit/{id}/{subCategoryId}', [PostController::class, 'edit'])->name('web.posts.edit');
 Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct'])->name('web.posts.remove-image');
-Route::post('/posts/edit', [PostController::class, 'update'])->name('web.posts.update');
+Route::post('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
 
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');

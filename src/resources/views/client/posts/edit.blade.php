@@ -9,10 +9,9 @@
     <div class="flex max-w-8xl mx-auto mt-16 space-x-8 mb-10">
         <div class="flex w-8/12 bg-white rounded-lg border border-gray-700">
             <div class="w-full m-4">
-                <form action="{{ route('web.posts.update', ['id' => $post->id]) }}" method="POST" enctype="multipart/form-data">
+                <form id="form-editPost" action="{{ route('web.posts.update', ['id' => $post->id]) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
-
                     <div class="mb-5">
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
                             Danh mục sản phẩm con
@@ -33,7 +32,7 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="category_id" aria-label="Chọn danh mục con cho sản phẩm">
+                            name="category_id" id="category_id" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn danh mục con cho sản phẩm</option>
                             @foreach ($subCategories as $subCategory)
                                 <option value="{{ $subCategory->id }}"
@@ -65,7 +64,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="name" id="" value="{{ @$post->name }}" />
+                            name="name" id="name" value="{{ @$post->name }}" />
                         @foreach ($errors->get('name') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
@@ -83,12 +82,13 @@
                         </label>
                         <input
                             class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
-                            name="images[]" id="multiple_files" type="file" multiple=""
-                            value="{{ @$post->images }}">
-                        <div class="flex m-4">
+                            name="images[]" id="multiple_files" type="file" multiple="" multiple
+                            onchange="previewImg()">
+                        <input type="hidden" name="images_old" value={{ $post->images }}>
+                        <div class="flex m-4 box-images">
                             @foreach ($post->images as $item)
                                 <div class="relative">
-                                    <img class="mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
+                                    <img class="box-image mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
                                         src="{{ asset('storage/images/' . $item->path) }}" alt="">
                                     <a href="" data-product-image-id="{{ $item->id }}"
                                         class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
@@ -103,6 +103,9 @@
                         </div>
                         @if ($errors->has('images.*'))
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                        @endif
+                        @if (session('limitImgMsg'))
+                            <p class="ml-2 text-red-600 text-md mt-3">{{ session('limitImgMsg') }}</p>
                         @endif
                         @foreach ($errors->get('images') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
@@ -129,7 +132,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="unit" id="" value="{{ @$post->unit }}" />
+                            name="unit" id="unit" value="{{ @$post->unit }}" />
                     </div>
                     <div class="mb-5 flex">
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -152,7 +155,7 @@
                             ease-in-out
                             ml-12
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="weight" id="" value="{{ @$post->weight }}" />
+                            name="weight" id="weight" value="{{ @$post->weight }}" />
                         <select
                             class="form-select appearance-none
                                 w-[80px]
@@ -169,7 +172,7 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="weight_unit" aria-label="Chọn danh mục con cho sản phẩm">
+                            name="weight_unit" id="weight_unit" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="g" @if ($post->weight_unit == 'g') selected @endif>G</option>
                             <option value="kg" @if ($post->weight_unit == 'kg') selected @endif>KG</option>
                         </select>
@@ -198,7 +201,7 @@
                             ease-in-out
                             ml-[124px]
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="quantity" id="" value="{{ @$post->quantity }}" />
+                            name="quantity" id="quantity" value="{{ @$post->quantity }}" />
                         @foreach ($errors->get('quantity') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
@@ -216,7 +219,7 @@
                                         clip-rule="evenodd"></path>
                                 </svg>
                             </div>
-                            <input datepicker="" type="text" name="expire_at" datepicker
+                            <input datepicker="" type="text" name="expire_at" id="expire_at" datepicker
                                 value="{{ @$post->expire_at }}" datepicker-format="yyyy/mm/dd"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker-input"
                                 placeholder="Chọn hạn sử dụng">
@@ -245,7 +248,7 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="city" aria-label="Chọn danh mục con cho sản phẩm">
+                            name="city" id="city" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
                             <option value="Hà Nội" @if ($post->city == 'Hà Nội') selected @endif>Hà Nội</option>
                             <option value="Hồ Chí Minh" @if ($post->city == 'Hồ Chí Minh') selected @endif>Hồ Chí Minh
@@ -268,7 +271,7 @@
                                 ease-in-out
                                 m-0
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="district" aria-label="Chọn danh mục con cho sản phẩm">
+                            name="district" id="district" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn quận huyện</option>
                             <option value="Hoàng Mai" @if ($post->district == 'Hoàng Mai') selected @endif>Hoàng Mai
                             </option>
@@ -302,7 +305,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="address" id="" value="{{ @$post->address }}" />
+                            name="address" id="address" value="{{ @$post->address }}" />
                         @foreach ($errors->get('address') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
@@ -328,7 +331,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="phone" id="" value="{{ @$post->phone }}" />
+                            name="phone" id="phone" value="{{ @$post->phone }}" />
                         @foreach ($errors->get('phone') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
@@ -385,38 +388,48 @@
             <div class="w-full border border-gray-700 mt-10 h-32"></div>
         </div>
     </div>
-    @section('script')
     <script type="text/javascript">
+        function previewImg() {
+            var arrImgAdd = this.event.target.files;
+
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-images").append(`
+                    <div class="relative ">
+                        <img class="image_add img_preview mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                        <a href=""
+                            class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                    </div>
+                    `);
+            }
+
+            $(".product-image-delete").on("click", function(e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+            })
+        }
+
         $(document).ready(function() {
             $('.product-image-delete').click(function(e) {
                 e.preventDefault();
 
-                var url = "{{ route('web.posts.remove-image') }}";
-                var image_id = $(this).data('product-image-id');
-                var imageEl = $(this).parent();
-
-                $.ajax(url, {
-                type: 'POST',
-                data: {
-                    id: image_id,
-                },
-                success: function (data) {
-                    console.log('success');
-
-                    imageEl.remove();
-                },
-                error: function (e) {
-                    console.log('fail');
-                }
-                });
+                var product_image_id = $(this).data('product-image-id');
+                $(this).parent().css('display', 'none');
+                $(this).parent().append(`
+                        <input
+                            class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
+                            name="images_hidden[]" id="multiple_files"
+                            value="` + product_image_id + `">
+                `);
             });
 
-            $('#image').change(function(e) {
-                var fileName = e.target.files[0].name;
-
-                $('.custom-file-label').html(fileName);
-            });
         });
     </script>
-    @endsection
 </x-app-layout>

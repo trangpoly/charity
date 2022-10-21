@@ -109,8 +109,8 @@ class PostService
     {
         DB::beginTransaction();
         try {
-            $productData = $request->except(['images', '_token', '_method']);
-            $productData['avatar'] = $request->images[0]->hashName();
+            $productData = $request->except(['images', '_token', '_method', "images_hidden", "images_old"]);
+            // $productData['avatar'] = $request->images[0]->hashName();
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
@@ -122,7 +122,8 @@ class PostService
 
             $this->productRepository->update($id, $productData);
 
-            foreach ($request->images as $image) {
+            if($request->images) {
+                foreach ($request->images as $image) {
                 Storage::disk('public')->put('images', $image);
                 $productImage = [
                     'path' => $image->hashName(),
@@ -131,6 +132,8 @@ class PostService
 
                 $this->productImageRepository->create($productImage);
             }
+            }
+            
             DB::commit();
 
             return false;
