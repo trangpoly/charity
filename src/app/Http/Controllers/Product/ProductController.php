@@ -24,7 +24,6 @@ class ProductController extends BaseController
         $nearExpiryFood = $this->productService->getNearExpiryFood($product->id);
         $currentUser = $this->productService->getCurrentUser();
         $parentCategories = $this->productService->getParentCategories();
-
         $data = [
             'product' => $product,
             'recommend' => $recommend,
@@ -122,5 +121,18 @@ class ProductController extends BaseController
         $filterProducts = $this->productService->filter($sortExpireDate, $id);
 
         return response()->json($filterProducts);
+    }
+
+    public function addFavourite(Request $request)
+    {
+        $userId = $request->user_id;
+        $productId = $request->product_id;
+        $this->productService->addFavourite($userId, $productId);
+    }
+
+    public function removeFavourite(Request $request)
+    {
+        $favouriteId = $request->favourite_id;
+        $this->productService->removeFavourite($favouriteId);
     }
 }

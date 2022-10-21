@@ -1,5 +1,6 @@
 stages:
   - quality
+  - deploy
 .tags-default: &tags-default
   tags:
     - devops
@@ -7,6 +8,14 @@ stages:
 .only-default: &only-default
   only:
     - dev
+
+
+.init_ssh: &init_ssh |
+  eval $(ssh-agent -s)
+  echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  mkdir -p ~/.ssh
+  chmod 700 ~/.ssh
+  [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
 PHP Stan:
   image: lyni/phpqa:8.0
@@ -58,3 +67,14 @@ PHP CS:
     - git branch
     - cd src && composer i -n
     - phpcs --standard=PSR12 app
+
+dev:
+  image: lyni/php-cd:7.4-latest
+  stage: deploy
+  <<: *tags-default
+  script:
+    - *init_ssh
+    - /composer/vendor/bin/envoy run deploy --server=dev --npm=prod
+  only:
+    - develop
+
