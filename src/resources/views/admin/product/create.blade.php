@@ -39,13 +39,16 @@
             <div class=" mt-5">
                 <div class="flex">
                     <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
-                    <input type="file" id="file-input" name="avatar[]" accept="image/png, image/jpeg" onchange="preview()" multiple>
+                    <input class="text-sm text-gray-700" type="file" id="file-input"  required name="avatar[]" accept="image/png, image/jpeg" onchange="preview()" multiple>
                     <p  hidden id="num-of-files"></p>
                 </div>
                 <div class="flex ml-10 mt-2" id="images"></div>
-                @if ($errors->has('avatar'))
-                    <span class="text-red-700 text-sm"> {{ $errors->first('avatar') }}</span>
-                @endif
+                @if ($errors->has('avatar.*'))
+                <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+            @endif
+            @foreach ($errors->get('avatar') as $message)
+                <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+            @endforeach
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Unit<span class="text-red-700 ml-2">*</span></p>

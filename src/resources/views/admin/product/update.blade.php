@@ -5,8 +5,8 @@
         <div class="bg-blue-700 px-5 py-2">
             <p class="text-white font-semibold">Product Update</p>
         </div>
-        <form action="{{ route('web.admin.product.saveUpdate', $product->id) }}" method="POST" id="form-request" class="w-8/12 ml-24 mt-5"
-            enctype="multipart/form-data">
+        <form action="{{ route('web.admin.product.saveUpdate', $product->id) }}" method="POST" id="form-request"
+            class="w-8/12 ml-24 mt-5" enctype="multipart/form-data">
             @csrf
             <div class="flex mb-5">
                 <p class="text-black text-sm w-3/12">Sub-Category<span class="text-red-700 ml-2">*</span></p>
@@ -44,7 +44,8 @@
                         onchange="preview()" class=" text-gray-700 text-sm" multiple>
                     <p hidden id="num-of-files"></p>
                 </div>
-                <div class="flex ml-10 mt-2" id="images"></div>
+                <div class="flex space-x-4 mt-2" id="images">
+                </div>
             </div>
             <div class=" mt-5">
                 <div class="flex">
@@ -54,7 +55,8 @@
                     @foreach ($product->images as $item)
                         <div class="flex ml-20">
                             <img width="200px" height="150px" class="box-image mr-2 rounded-lg shadow-xl"
-                                src="{{ asset('storage/images/products/' . $item->path) }}" alt="">                            <a href="" data-product-image-id="{{ $item->id }}"
+                                src="{{ asset('storage/images/products/' . $item->path) }}" alt=""> <a
+                                href="" data-product-image-id="{{ $item->id }}"
                                 class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg" onclick="deleteImage('{{ $item->id }}')">
@@ -65,7 +67,13 @@
                         </div>
                     @endforeach
                 </div>
-                <p class="ml-2 text-red-600 text-md mt-3">{{session()->pull('msg')}}</p>
+                <p class="ml-2 text-red-600 text-md mt-3">{{ session()->pull('msg') }}</p>
+                @if ($errors->has('avatar.*'))
+                    <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                @endif
+                @foreach ($errors->get('avatar') as $message)
+                    <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                @endforeach
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Unit<span class="text-red-700 ml-2">*</span></p>
@@ -225,6 +233,7 @@
                     let img = document.createElement("img");
                     img.setAttribute("src", reader.result);
                     img.setAttribute("width", 200);
+                    img.setAttribute("height", 150);
                     figure.insertBefore(img, figCap);
                 }
                 imageContainer.appendChild(figure);
