@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.12.1/css/pro.min.css">
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-
+    <script src=
+    "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+            </script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     @vite(['resources/css/admin.scss', 'resources/js/admin.js'])

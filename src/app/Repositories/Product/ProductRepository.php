@@ -31,6 +31,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         })->get();
     }
 
+    public function delete($id)
+    {
+        return $this->model->destroy($id);
+    }
+
     public function getProductsBySubCategory($id)
     {
         return $this->model->whereHas('subCategory', function ($q) use ($id) {

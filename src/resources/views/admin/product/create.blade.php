@@ -26,7 +26,7 @@
             <div class="flex">
                 <p class="text-black w-3/12">Product Name<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="text" name="name" id="" class="w-full border border-gray-500">
+                    <input type="text" name="name" value="{{old('name') ?? ""}}" id="" class="w-full border border-gray-500">
                     @if ($errors->has('name'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('name') }}</span>
                     @endif
@@ -34,11 +34,15 @@
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Description</p>
-                <textarea type="text" name="desc" id="" class="w-9/12 h-20 border border-gray-500"> </textarea>
+                <textarea type="text" name="desc" id="" class="w-9/12 h-20 border border-gray-500">{{old('desc') ?? ""}} </textarea>
             </div>
-            <div class="flex mt-5">
-                <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
-                <input type="file" name="avatar[]" multiple class="text-gray-700 text-sm">
+            <div class=" mt-5">
+                <div class="flex">
+                    <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
+                    <input type="file" id="file-input" name="avatar[]" accept="image/png, image/jpeg" onchange="preview()" multiple>
+                    <p  hidden id="num-of-files"></p>
+                </div>
+                <div class="flex ml-10 mt-2" id="images"></div>
                 @if ($errors->has('avatar'))
                     <span class="text-red-700 text-sm"> {{ $errors->first('avatar') }}</span>
                 @endif
@@ -46,7 +50,7 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Unit<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="text" name="unit" id="" class="w-5/12 border border-gray-500">
+                    <input type="text" name="unit" value="{{old('unit') ?? ""}}" id="" class="w-5/12 border border-gray-500">
                     @if ($errors->has('unit'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('unit') }}</span>
                     @endif
@@ -56,7 +60,7 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Weight / Unit<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="number" name="weight" id="" class="w-2/12 border border-gray-500">
+                    <input type="number" name="weight" value="{{old('weight') ?? ""}}" id="" class="w-2/12 border border-gray-500">
                     @if ($errors->has('weight'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('weight') }}</span>
                     @endif
@@ -72,7 +76,7 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Quantity<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="number" name="quantity" id="" class="w-2/12 border border-gray-500">
+                    <input type="number" name="quantity" value="{{old('quantity') ?? ""}}" id="" class="w-2/12 border border-gray-500">
                     @if ($errors->has('quantity'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('quantity') }}</span>
                     @endif
@@ -81,7 +85,7 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Expiration date<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="date" name="expire_at" id=""
+                    <input type="date" name="expire_at" id="" value="{{old('expire_at') ?? ""}}"
                         class="w-2/12 h-7 border border-gray-500 text-sm text-gray-700">
                     @if ($errors->has('expire_at'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('expire_at') }}</span>
@@ -115,7 +119,7 @@
                             @endif
                         </div>
                     </div>
-                    <input type="text" name="address" id=""
+                    <input type="text" name="address" id="" value="{{old('address') ?? ""}}"
                         class="h-7 w-9/12 mt-5 border border-gray-500 text-sm text-gray-700"
                         placeholder="Enter detailed address infomation">
                 </div>
@@ -123,7 +127,7 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Phone Number<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="text" name="phone" id=""
+                    <input type="text" name="phone" id="" value="{{old('phone') ?? ""}}"
                         class="h-7 border border-gray-500 text-sm w-5/12">
                     @if ($errors->has('phone'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('phone') }}</span>
@@ -154,4 +158,29 @@
             </div>
         </form>
     </div>
+    <script>
+        let fileInput = document.getElementById("file-input");
+        let imageContainer = document.getElementById("images");
+        let numOfFiles = document.getElementById("num-of-files");
+
+        function preview() {
+            imageContainer.innerHTML = "";
+            numOfFiles.textContent = `${fileInput.files.length} Files Selected`;
+
+            for (i of fileInput.files) {
+                let reader = new FileReader();
+                let figure = document.createElement("figure");
+                let figCap = document.createElement("figcaption");
+                figure.appendChild(figCap);
+                reader.onload = () => {
+                    let img = document.createElement("img");
+                    img.setAttribute("src", reader.result);
+                    img.setAttribute("width", 200);
+                    figure.insertBefore(img, figCap);
+                }
+                imageContainer.appendChild(figure);
+                reader.readAsDataURL(i);
+            }
+        }
+    </script>
 @endsection

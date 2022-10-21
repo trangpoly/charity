@@ -68,9 +68,28 @@ class ProductController extends BaseController
 
     public function saveUpdate($id, ProductRequest $request)
     {
+        $status = $this->productService->updateProduct($id, $request);
+
+        if ($status == false) {
+            session(['msg' => 'San pham phai chua toi da 1 anh']);
+            return back();
+        }
+
+        if ($request->has('avatar')) {
+
+            $this->productService->createProductImage($id, $request);
+        }
+
         $this->productService->updateProduct($id, $request);
 
         return redirect()->route('web.admin.product.list');
+    }
+
+    public function delete($id)
+    {
+        $this->productService->delete($id);
+
+        return redirect()->back();
     }
 
     public function getProductsBySubCategory($id)

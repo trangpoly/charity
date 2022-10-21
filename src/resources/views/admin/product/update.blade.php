@@ -5,7 +5,7 @@
         <div class="bg-blue-700 px-5 py-2">
             <p class="text-white font-semibold">Product Update</p>
         </div>
-        <form action="{{ route('web.admin.product.saveUpdate', $product->id) }}" method="POST" class="w-8/12 ml-24 mt-5"
+        <form action="{{ route('web.admin.product.saveUpdate', $product->id) }}" method="POST" id="form-request" class="w-8/12 ml-24 mt-5"
             enctype="multipart/form-data">
             @csrf
             <div class="flex mb-5">
@@ -37,12 +37,35 @@
                 <p class="text-black w-3/12">Description</p>
                 <textarea type="text" name="desc" id="" class="w-9/12 h-20 border text-sm text-gray-700 border-gray-500">{{ $product->desc }}</textarea>
             </div>
-            <div class="flex mt-5">
-                <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
-                <input type="file" name="avatar[]" multiple class="text-gray-700 text-sm">
-                @if ($errors->has('avatar'))
-                    <span class="text-red-700 text-sm"> {{ $errors->first('avatar') }}</span>
-                @endif
+            <div class=" mt-5">
+                <div class="flex">
+                    <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
+                    <input type="file" id="file-input" name="avatar[]" accept="image/png, image/jpeg"
+                        onchange="preview()" class=" text-gray-700 text-sm" multiple>
+                    <p hidden id="num-of-files"></p>
+                </div>
+                <div class="flex ml-10 mt-2" id="images"></div>
+            </div>
+            <div class=" mt-5">
+                <div class="flex">
+                    <p class="text-black w-3/12">Update Images<span class="text-red-700 ml-2">*</span></p>
+                </div>
+                <div class="flex m-4">
+                    @foreach ($product->images as $item)
+                        <div class="flex ml-20">
+                            <img width="200px" height="150px" class="box-image mr-2 rounded-lg shadow-xl"
+                                src="{{ asset('storage/images/products/' . $item->path) }}" alt="">                            <a href="" data-product-image-id="{{ $item->id }}"
+                                class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" onclick="deleteImage('{{ $item->id }}')">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+                <p class="ml-2 text-red-600 text-md mt-3">{{session()->pull('msg')}}</p>
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Unit<span class="text-red-700 ml-2">*</span></p>
@@ -95,8 +118,8 @@
                 <div class="w-9/12">
                     <div class="flex">
                         <div class="flex-col w-9/12 h-10">
-                            <select class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6" name="city"
-                                id="">
+                            <select class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6"
+                                name="city" id="">
                                 <option value="">Select City</option>
                                 <option {{ $product->city == 'Ha Noi' ? 'selected' : '' }} value="Ha Noi">Ha noi
                                 </option>
@@ -162,4 +185,64 @@
             </div>
         </form>
     </div>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function() {
+            $('.product-image-delete').click(function(e) {
+                e.preventDefault();
+                $(this).parent().css('display', 'none');
+            });
+            $("#form-editPost").on("submit", function(e) {
+                e.preventDefault();
+                var imageIdHidden = [];
+                $(".product-image-delete:hidden").each(function() {
+                    imageIdHidden.push({
+                        id: $(this).attr("data-product-image-id")
+                    });
+                })
+                let formData = new FormData();
+                formData.append("image_id", $('.product-image-delete:hidden').data('product-image-id'));
+            });
+        });
+        let fileInput = document.getElementById("file-input");
+        let imageContainer = document.getElementById("images");
+        let numOfFiles = document.getElementById("num-of-files");
+
+        function preview() {
+            imageContainer.innerHTML = "";
+            numOfFiles.textContent = `${fileInput.files.length} Files Selected`;
+
+            for (i of fileInput.files) {
+                let reader = new FileReader();
+                let figure = document.createElement("figure");
+                let figCap = document.createElement("figcaption");
+                figure.appendChild(figCap);
+                reader.onload = () => {
+                    let img = document.createElement("img");
+                    img.setAttribute("src", reader.result);
+                    img.setAttribute("width", 200);
+                    figure.insertBefore(img, figCap);
+                }
+                imageContainer.appendChild(figure);
+                reader.readAsDataURL(i);
+            }
+        }
+
+        function deleteImage(id) {
+
+            var input = document.createElement("input");
+
+            input.setAttribute("type", "hidden");
+
+            input.setAttribute("name", "idImage[]");
+
+            input.setAttribute("value", id);
+
+            document.getElementById("form-request").appendChild(input);
+        }
+    </script>
 @endsection
