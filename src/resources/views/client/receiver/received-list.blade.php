@@ -123,12 +123,12 @@
                                 </div>
                             </div>
                             <p class="text-xl p-2 font-bold text-green-600">* Đã Nhận Sản Phẩm</p>
-                            <a href="#">
+                            <a href="{{ route('web.client.product.detail', ['id' => $item->product->id]) }}" target="_blank">
                                 <img class="absolute top-0 right-0"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
                                     width="30px" alt="">
                             </a>
-                            <a href="#"
+                            <a href="{{ route('web.client.product.detail', ['id' => $item->product->id]) }}"
                                 class="rounded-md py-2 px-8 text-blue-500 font-semibold text-lg hover:text-lime-700 underline">
                                 Bấm vào
                                 đây để nhận thêm sản phẩm!
