@@ -23,7 +23,8 @@
                     @foreach ($products as $item)
                         <div class="w-3/12 relative p-2">
                             <img class="h-fit"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                src="{{ Illuminate\Support\Facades\Storage::url('images/products/' .$item->images[0]->path)}}"
+                                width="250px"
                                 alt="">
                             <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
                             @if (in_array($item->stock, [-1, 0]))

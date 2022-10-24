@@ -19,6 +19,7 @@ class Admin extends BaseModel implements Authenticatable
     protected $fillable = [
         'name',
         'account',
+        'email',
         'password',
         'role',
         'status',

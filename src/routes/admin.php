@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Category\CategoryController;
@@ -28,6 +29,15 @@ Route::prefix('admin')->group(function () {
         Route::get('update/{id}', [ProductController::class, 'update'])->name('web.admin.product.update');
         Route::post('update/{id}', [ProductController::class, 'saveUpdate'])->name('web.admin.product.saveUpdate');
         Route::get('delete/{id}',[ProductController::class, 'delete'])->name('web.admin.product.delete');
+    });
+
+    Route::prefix('account')->group(function () {
+        Route::get('list', [AccountController::class, 'list'])->name('web.admin.account.list');
+        Route::get('create', [AccountController::class, 'create'])->name('web.admin.account.create');
+        Route::post('create', [AccountController::class, 'saveCreate'])->name('web.admin.account.saveCreate');
+        Route::get('update/{id}', [AccountController::class, 'update'])->name('web.admin.account.update');
+        Route::post('update/{id}', [AccountController::class, 'saveUpdate'])->name('web.admin.account.saveUpdate');
+        Route::get('delete/{id}',[AccountController::class, 'delete'])->name('web.admin.account.delete');
     });
 
     Route::prefix('category')->group(function () {

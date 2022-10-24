@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Models\VerificationOtp;
+use App\Repositories\Account\AccountRepository;
+use App\Repositories\Account\AccountRepositoryInterface;
 use App\Repositories\Banner\BannerRepository;
 use App\Repositories\Banner\BannerRepositoryInterface;
 use App\Repositories\Category\CategoryRepository;
@@ -53,5 +55,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepositoryInterface::class, OrderRepository::class);
         $this->app->bind(SliderRepositoryInterface::class, SliderRepository::class);
         $this->app->bind(FavouriteRepositoryInterface::class, FavouriteRepository::class);
+        $this->app->bind(AccountRepositoryInterface::class, AccountRepository::class);
     }
 }

@@ -135,7 +135,7 @@
                     <img style="float: right" width="27px"
                         src="https://cdn0.iconfinder.com/data/icons/octicons/1024/dashboard-512.png" alt="">
                 </a>
-                <a href="#"
+                <a href="{{route('web.admin.account.list')}}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Account Management
                     <img style="float: right" width="19px"
