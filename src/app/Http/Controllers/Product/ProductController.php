@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\admin\ProductRequest;
 use App\Models\Product;
+use App\Services\CategoryService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,11 @@ class ProductController extends BaseController
 {
     protected $productService;
 
-    public function __construct(ProductService $productService)
+    public function __construct(ProductService $productService, CategoryService $categoryService)
     {
         $this->productService = $productService;
+
+        $this->categoryService = $categoryService;
     }
 
     public function getProduct($id)
@@ -99,13 +102,14 @@ class ProductController extends BaseController
         return view('pages.product.sub-category', ['products' => $products, 'subCategory' => $subCategory]);
     }
 
-    public function submitSearch(Request $request)
+    public function submitSearch(Request $request, $id)
     {
+        $subCategory = $this->categoryService->getProductsBySubCategory($id);
+
         $search = $this->productService->search($request);
 
-        $subCategory = $search[0]->subCategory->category->subCategory;
-
         return view('pages.product.search', [
+            'id' => $id,
             'search' => $search,
             'subCategory' => $subCategory,
             'request' => $request

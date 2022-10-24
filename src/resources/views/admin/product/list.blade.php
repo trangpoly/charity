@@ -14,7 +14,7 @@
                     <select class="h-8 text-gray-600 text-sm w-full bg-white border border-gray-300 px-2"
                         id="products-search-category" name="category">
                         <option value="">Please select</option>
-                        @foreach ($subCategory->subCategory->category->subCategory as $fake)
+                        @foreach ($subCategory as $fake)
                             <option value="{{ $fake->name }}">{{ $fake->name }}</option>
                         @endforeach
                     </select>
