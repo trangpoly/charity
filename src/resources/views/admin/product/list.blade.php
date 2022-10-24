@@ -109,7 +109,7 @@
                                 @endif
                             </td>
                             <td class="py-4 px-6">
-                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/products/' .$item->images[0]->path) ?? ''}}"
+                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/products/' .$item->images[0]->path)}}"
                                     width="100px" alt="">
                             </td>
                             <td class="py-4 px-6">
