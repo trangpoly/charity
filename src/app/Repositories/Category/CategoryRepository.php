@@ -96,4 +96,9 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
     {
         return $this->model->where('parent_id', null)->get();
     }
+
+    public function getSubCategoriesProduct()
+    {
+        return $this->model->whereNot('parent_id', null)->get();
+    }
 }

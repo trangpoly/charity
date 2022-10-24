@@ -22,6 +22,8 @@ interface CategoryRepositoryInterface extends BaseRepositoryInterface
 
     public function getCategories($id);
 
+    public function getSubCategoriesProduct();
+
     public function getParentCategories();
 
     public function getSubCategories($id);

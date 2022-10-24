@@ -38,10 +38,10 @@ Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
 })->name('my-page.subscribe-receive');
 
-Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail');
+Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail')->middleware('auth');
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
 Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');
-Route::any('/search', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
+Route::any('/search/{id}', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
 Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
 Route::post('/add-favourite', [ProductController::class, 'addFavourite'])->name('web.client.product.add-favourite');
@@ -68,7 +68,7 @@ Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->
 Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
 Route::get('/posts/edit/{id}/{subCategoryId}', [PostController::class, 'edit'])->name('web.posts.edit');
 Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct'])->name('web.posts.remove-image');
-Route::put('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
+Route::post('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
 
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');

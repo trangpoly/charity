@@ -50,11 +50,27 @@ class PostController extends Controller
 
     public function deleteImageProduct(Request $request)
     {
-        $status = $this->postService->delImage($request->id);
+        foreach (json_decode($request->image_id_del, true) as $image_id_del) {
+            $this->postService->delImage($image_id_del["id"]);
+        }
     }
 
-    public function update(PostFormRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $newImage = $request->images ? count($request->images) : 0;
+        $hiddenImage = $request->images_hidden ? count($request->images_hidden) : 0;
+        $oldImage = $request->images_old ? count(json_decode($request->images_old)) : 0;
+        $limitImgMsg = 'Album khong qua 10';
+        if ($oldImage - $hiddenImage + $newImage > 10) {
+            return  redirect()->back()->with(['limitImgMsg' => $limitImgMsg]);
+        }
+
+        if ($request->images_hidden) {
+            foreach ($request->images_hidden as $image_hidden) {
+                $this->postService->delImage($image_hidden);
+            }
+        }
+
         $status = $this->postService->updateProduct($request, $id);
         $msg = $status ? 'Error! Cập nhập bài đăng thất bại.' : 'Bài Đăng của bạn đã được cập nhập !';
 

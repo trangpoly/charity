@@ -14,7 +14,7 @@
                     <select class="w-full h-7 text-gray-700 text-sm bg-white border border-gray-500" name="category_id"
                         id="">
                         <option value="">Please select</option>
-                        @foreach ($subCategory->subCategory->category->subCategory as $subCategory)
+                        @foreach ($subCategory as $subCategory)
                             <option value="{{ $subCategory->id }}">{{ $subCategory->name }}</option>
                         @endforeach
                     </select>
