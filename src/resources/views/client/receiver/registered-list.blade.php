@@ -78,8 +78,8 @@
                 </div>
             </div>
             <div class="w-full mt-10 box-orders">
-                @foreach ($registedList as $item)
-                    <div class="w-full flex border border-gray-300 rounded-md p-10 my-5 order-element" style="display: none">
+                @foreach ($registedList as $key => $item)
+                    <div id="order-box-{{ $key }}" class="w-full flex border border-gray-300 rounded-md p-10 my-5 order-element" style="display: none">
                         <div class="w-6/12">
                             <img src="{{ asset('storage/images/' . $item->product->avatar) }}" alt="">
                         </div>
@@ -123,15 +123,18 @@
                                     <p>Hạn sử dụng: {{ $item->product->expire_at }}</p>
                                 </div>
                             </div>
+                            <p class="text-xl p-2 font-bold text-yellow-400">* Đã Đăng Ký Nhận Sản Phẩm</p>
                             <div class="my-4">
-                                <a href="" id="undo-registed" data-order-id="{{ $item->id }}"
+                                <button type="button" id="undo-registed-{{ $key }}"
+                                    onclick="undoRegisted('{{ $item->id }}','{{ $key }}')"
                                     class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">HỦY
-                                    ĐĂNG KÍ</a>
+                                    ĐĂNG KÍ</button>
                             </div>
                             <div class="my-4">
-                                <a href="" id="confirm-received" data-order-id="{{ $item->id }}"
+                                <button type="button" id="confirm-received-{{ $key }}"
+                                    onclick="confirmReceived('{{ $item->id }}','{{ $key }}')"
                                     class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">
-                                    ĐÃ NHẬN</a>
+                                    ĐÃ NHẬN</button>
                             </div>
                             <a href="#">
                                 <img class="absolute top-0 right-0"
@@ -151,73 +154,71 @@
     </div>
     @section('script')
         <script type="text/javascript">
+        function undoRegisted(order_id, index) {
+            var url = "{{ route('web.client.undo-registered') }}";
+
             $(document).ready(function() {
-                $(".order-element").slice(0, 3).show();
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        id: order_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được chuyển trạng thái thành đã hủy đăng ký nhận');
 
-                if ($(".order-element").length > 3) {
-                    $(".box-orders").append(
-                        `<a href="" id="load-more"
-                            class="text-blue-500 hover:text-blue-800 text-xl float-right underline">
-                            Xem Thêm...
-                        </a>`
-                    );
-                }
-
-                $("#load-more").on("click", function(e) {
-                    e.preventDefault();
-
-                    $(".order-element:hidden").slice(0, 3).slideDown();
-                    if ($(".order-element:hidden").length == 0) {
-                        $("#load-more").remove();
+                        $('#order-box-'+index).remove();
+                    },
+                    error: function(e) {
+                        console.log('fail');
                     }
                 });
+            });
+        }
 
-                $('#undo-registed').click(function(e) {
-                    e.preventDefault();
+        function confirmReceived(order_id, index) {
+            var url = "{{ route('web.client.confirm-received') }}";
 
-                    var url = "{{ route('web.client.undo-registered') }}";
-                    var order_id = $(this).data('order-id');
-                    var orderEl = $(this).parent().parent().parent();
+            $(document).ready(function() {
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        id: order_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được chuyển trạng thái thành đã nhận');
 
-                    $.ajax(url, {
-                        type: 'POST',
-                        data: {
-                            id: order_id,
-                        },
-                        success: function(data) {
-                            console.log('success');
-
-                            orderEl.remove();
-                        },
-                        error: function(e) {
-                            console.log('fail');
-                        }
-                    });
-                });
-
-                $('#confirm-received').click(function(e) {
-                    e.preventDefault();
-
-                    var url = "{{ route('web.client.confirm-received') }}";
-                    var order_id = $(this).data('order-id');
-                    var orderEl = $(this).parent().parent().parent();
-
-                    $.ajax(url, {
-                        type: 'POST',
-                        data: {
-                            id: order_id,
-                        },
-                        success: function(data) {
-                            console.log('success');
-
-                            orderEl.remove();
-                        },
-                        error: function(e) {
-                            console.log('fail');
-                        }
-                    });
+                        $('#order-box-'+index).remove();
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
                 });
             });
+        }
+
+        $(document).ready(function() {
+            $(".order-element").slice(0, 3).show();
+
+            if ($(".order-element").length > 3) {
+                $(".box-orders").append(
+                    `<a href="" id="load-more"
+                        class="text-blue-500 hover:text-blue-800 text-xl float-right underline">
+                        Xem Thêm...
+                    </a>`
+                );
+            }
+
+            $("#load-more").on("click", function(e) {
+                e.preventDefault();
+
+                $(".order-element:hidden").slice(0, 3).slideDown();
+                if ($(".order-element:hidden").length == 0) {
+                    $("#load-more").remove();
+                }
+            });
+        });
         </script>
     @endsection
 </x-app-layout>
