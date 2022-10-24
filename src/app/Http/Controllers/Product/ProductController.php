@@ -13,6 +13,8 @@ class ProductController extends BaseController
 {
     protected $productService;
 
+    protected $categoryService;
+
     public function __construct(ProductService $productService, CategoryService $categoryService)
     {
         $this->productService = $productService;

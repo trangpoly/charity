@@ -65,10 +65,15 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         $dateEnd = $request->dateEnd;
 
-        $query = $request->expired == 1 ? $query->whereBetween('expire_at', [Carbon::now()->toDateString(), Carbon::now()->adddays(3)->toDateString()])
-            : $query;
+        $query = $request->expired == 1 ?
+            $query->whereBetween('expire_at', [Carbon::now()
+                ->toDateString(), Carbon::now()
+                ->adddays(3)
+                ->toDateString()]) : $query;
 
-        if ($dateStart && $dateEnd) $query->whereBetween('expire_at', [$dateStart, $dateEnd]);
+        if ($dateStart && $dateEnd) {
+            $query->whereBetween('expire_at', [$dateStart, $dateEnd]);
+        };
 
         return $query->get();
     }
