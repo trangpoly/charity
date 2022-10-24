@@ -8,78 +8,39 @@
     </header>
     <div class="flex max-w-8xl mx-auto mt-10">
         <div class="w-4/12  border border-gray-300 h-fit">
-            <a href="{{ route('web.client.giver-posts') }}"
-                class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Danh sách sản phẩm tặng</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </a>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Danh sách sản phẩm nhận</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Danh sách yêu thích</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Hủy tài khoản</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex">
-                    <p class="w-11/12 py-10">Đăng xuất</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
+            @include('client.partials.account-function-list')
         </div>
         <div class="w-8/12 ml-10">
             <h2 class="font-semibold text-2xl text-lime-700">Danh sách sản phẩm nhận</h2>
             <div class="mt-8 flex w-full items-center text-xl text-gray-700 space-x-16">
-                <div class="font-semibold text-gray-600 border-b-4 border-lime-200">
+                <div class="bg-gray-100 hover:text-gray-600
+                    @if (url()->current() == route('web.client.registered'))
+                    border-lime-200 border-b-4 text-gray-600 font-semibold
+                    @endif hover:border-lime-200 hover:font-semibold hover:border-b-4 text-gray-500">
                     <a href="{{ route('web.client.registered') }}">
                         Đã đăng kí nhận
                     </a>
                 </div>
-                <div
-                    class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
-
+                <div class="bg-gray-100 hover:text-gray-600
+                    @if (url()->current() == route('web.client.received'))
+                    border-lime-200 border-b-4 text-gray-600 font-semibold
+                    @endif hover:border-lime-200 hover:font-semibold hover:border-b-4 text-gray-500">
                     <a href="{{ route('web.client.received') }}">
                         Đã nhận
                     </a>
                 </div>
-                <div
-                    class="text-gray-500 hover:font-semibold border-b-4 bg-gray-100 hover:text-gray-600 hover:border-b-4 hover:border-lime-200">
+                <div class="bg-gray-100 hover:text-gray-600
+                    @if (url()->current() == route('web.client.canceled'))
+                    border-lime-200 border-b-4 text-gray-600 font-semibold
+                    @endif hover:border-lime-200 hover:font-semibold hover:border-b-4 text-gray-500">
                     <a href="{{ route('web.client.canceled') }}">
                         Đã hủy
                     </a>
                 </div>
             </div>
             <div class="w-full mt-10 box-orders">
-                @foreach ($registedList as $item)
-                    <div class="w-full flex border border-gray-300 rounded-md p-10 my-5 order-element" style="display: none">
+                @foreach ($registedList as $key => $item)
+                    <div id="order-box-{{ $key }}" class="w-full flex border border-gray-300 rounded-md p-10 my-5 order-element" style="display: none">
                         <div class="w-6/12">
                             <img src="{{ asset('storage/images/' . $item->product->avatar) }}" alt="">
                         </div>
@@ -123,25 +84,23 @@
                                     <p>Hạn sử dụng: {{ $item->product->expire_at }}</p>
                                 </div>
                             </div>
+                            <p class="text-xl p-2 font-bold text-yellow-400">* Đã Đăng Ký Nhận Sản Phẩm</p>
                             <div class="my-4">
-                                <a href="" id="undo-registed" data-order-id="{{ $item->id }}"
+                                <button type="button" id="undo-registed-{{ $key }}"
+                                    onclick="undoRegisted('{{ $item->id }}','{{ $key }}')"
                                     class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800">HỦY
-                                    ĐĂNG KÍ</a>
+                                    ĐĂNG KÍ</button>
                             </div>
                             <div class="my-4">
-                                <a href="" id="confirm-received" data-order-id="{{ $item->id }}"
+                                <button type="button" id="confirm-received-{{ $key }}"
+                                    onclick="confirmReceived('{{ $item->id }}','{{ $key }}')"
                                     class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">
-                                    ĐÃ NHẬN</a>
+                                    ĐÃ NHẬN</button>
                             </div>
-                            <a href="#">
+                            <a href="{{ route('web.client.product.detail', ['id' => $item->product->id]) }}" target="_blank">
                                 <img class="absolute top-0 right-0"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_2/u66.svg?pageId=c04ce93b-70a8-47e2-8d2f-1680ee11aaa2"
                                     width="30px" alt="">
-                            </a>
-                            <a href="#"
-                                class="rounded-md py-2 px-8 text-blue-500 font-semibold text-lg hover:text-lime-700 underline">
-                                Bấm vào
-                                đây để nhận thêm sản phẩm!
                             </a>
                         </div>
                     </div>
@@ -151,73 +110,71 @@
     </div>
     @section('script')
         <script type="text/javascript">
+        function undoRegisted(order_id, index) {
+            var url = "{{ route('web.client.undo-registered') }}";
+
             $(document).ready(function() {
-                $(".order-element").slice(0, 3).show();
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        id: order_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được chuyển trạng thái thành đã hủy đăng ký nhận');
 
-                if ($(".order-element").length > 3) {
-                    $(".box-orders").append(
-                        `<a href="" id="load-more"
-                            class="text-blue-500 hover:text-blue-800 text-xl float-right underline">
-                            Xem Thêm...
-                        </a>`
-                    );
-                }
-
-                $("#load-more").on("click", function(e) {
-                    e.preventDefault();
-
-                    $(".order-element:hidden").slice(0, 3).slideDown();
-                    if ($(".order-element:hidden").length == 0) {
-                        $("#load-more").remove();
+                        $('#order-box-'+index).remove();
+                    },
+                    error: function(e) {
+                        console.log('fail');
                     }
                 });
+            });
+        }
 
-                $('#undo-registed').click(function(e) {
-                    e.preventDefault();
+        function confirmReceived(order_id, index) {
+            var url = "{{ route('web.client.confirm-received') }}";
 
-                    var url = "{{ route('web.client.undo-registered') }}";
-                    var order_id = $(this).data('order-id');
-                    var orderEl = $(this).parent().parent().parent();
+            $(document).ready(function() {
+                $.ajax(url, {
+                    type: 'POST',
+                    data: {
+                        id: order_id,
+                    },
+                    success: function(data) {
+                        console.log('success');
+                        alert('Sản phẩm đã được chuyển trạng thái thành đã nhận');
 
-                    $.ajax(url, {
-                        type: 'POST',
-                        data: {
-                            id: order_id,
-                        },
-                        success: function(data) {
-                            console.log('success');
-
-                            orderEl.remove();
-                        },
-                        error: function(e) {
-                            console.log('fail');
-                        }
-                    });
-                });
-
-                $('#confirm-received').click(function(e) {
-                    e.preventDefault();
-
-                    var url = "{{ route('web.client.confirm-received') }}";
-                    var order_id = $(this).data('order-id');
-                    var orderEl = $(this).parent().parent().parent();
-
-                    $.ajax(url, {
-                        type: 'POST',
-                        data: {
-                            id: order_id,
-                        },
-                        success: function(data) {
-                            console.log('success');
-
-                            orderEl.remove();
-                        },
-                        error: function(e) {
-                            console.log('fail');
-                        }
-                    });
+                        $('#order-box-'+index).remove();
+                    },
+                    error: function(e) {
+                        console.log('fail');
+                    }
                 });
             });
+        }
+
+        $(document).ready(function() {
+            $(".order-element").slice(0, 3).show();
+
+            if ($(".order-element").length > 3) {
+                $(".box-orders").append(
+                    `<a href="" id="load-more"
+                        class="text-blue-500 hover:text-blue-800 text-xl float-right underline">
+                        Xem Thêm...
+                    </a>`
+                );
+            }
+
+            $("#load-more").on("click", function(e) {
+                e.preventDefault();
+
+                $(".order-element:hidden").slice(0, 3).slideDown();
+                if ($(".order-element:hidden").length == 0) {
+                    $("#load-more").remove();
+                }
+            });
+        });
         </script>
     @endsection
 </x-app-layout>

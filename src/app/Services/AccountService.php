@@ -12,7 +12,8 @@ class AccountService extends BaseService
 {
     protected $accountRepository;
 
-    public function __construct(AccountRepositoryInterface $accountRepository) {
+    public function __construct(AccountRepositoryInterface $accountRepository)
+    {
         $this->accountRepository = $accountRepository;
     }
 
@@ -58,5 +59,4 @@ class AccountService extends BaseService
     {
         return $this->accountRepository->delete($id);
     }
-
 }

@@ -132,31 +132,31 @@
             <div class="w-full border border-gray-300 mt-10 h-32"></div>
         </div>
     </div>
-        <script>
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var element = $("#faker").children();
-            $(document).ready(function() {
-                $("#expire_at").change(function() {
-                    var expire_at = $("#expire_at").val();
-                    $.ajax({
-                        method: 'POST',
-                        url: "{{ route('web.client.product.filter', $products[0]->subCategory->id) }}",
-                        data: {
-                            expire_at: expire_at,
-                        },
-                        dataType: 'json',
-                        success: function(data) {
-                            console.log(data);
-                            $('#faker').children().remove();
-                            // $("#count").remove();
-                            // $("#count").innerHTML(
-                            //     `Tong san pham: ` + dlength);
-                            $.each(data, function(key, value) {
-                                $("#faker").prepend(`
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var element = $("#faker").children();
+        $(document).ready(function() {
+            $("#expire_at").change(function() {
+                var expire_at = $("#expire_at").val();
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('web.client.product.filter', $products[0]->subCategory->id) }}",
+                    data: {
+                        expire_at: expire_at,
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        $('#faker').children().remove();
+                        // $("#count").remove();
+                        // $("#count").innerHTML(
+                        //     `Tong san pham: ` + dlength);
+                        $.each(data, function(key, value) {
+                            $("#faker").prepend(`
                                 <div class="w-3/12 relative p-2">
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
@@ -180,10 +180,10 @@
                                     </div>
                                 </div>
                                 `)
-                            })
-                        }
-                    });
+                        })
+                    }
                 });
             });
-        </script>
+        });
+    </script>
 </x-app-layout>
