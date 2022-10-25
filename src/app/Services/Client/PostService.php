@@ -109,7 +109,14 @@ class PostService
     {
         DB::beginTransaction();
         try {
-            $productData = $request->except(['images', '_token', '_method', "images_hidden", "images_old", "images_remove"]);
+            $productData = $request->except([
+                'images',
+                '_token',
+                '_method',
+                "images_hidden",
+                "images_old",
+                "images_remove"
+            ]);
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
