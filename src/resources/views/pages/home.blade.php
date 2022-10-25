@@ -68,10 +68,10 @@
                         <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">
                             @foreach ($category->productsByParentCategory->take(4) as $item)
                                 <a href="{{ route('web.client.product.detail', $item->id) }}" class="w-3/12">
-                                    <div class="h-36 relative mx-2">
+                                    <div class="h-48 relative mx-2">
                                         <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
                                             class="object-fill h-full w-full" alt="">
-                                        <img class="absolute top-28 right-2" width="25px"
+                                        <img class="absolute bottom-4 right-2" width="25px"
                                             src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                             alt="">
                                     </div>
