@@ -121,8 +121,6 @@ class PostService
 
             $this->productRepository->update($id, $productData);
 
-
-
             if ($request->images) {
                 foreach ($request->images as $image) {
                     if (!in_array($image->getClientOriginalName(), json_decode($request->images_remove))) {
