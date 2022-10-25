@@ -24,6 +24,23 @@ class Order extends BaseModel
 
     public function giver()
     {
-        return $this->belongsTo(User::class, 'giver_id', 'id');
+        return $this->belongsTo(User::class, 'giver_id', 'id')->withTrashed();
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id', 'id')->withTrashed();
+    }
+
+    public function subCategory()
+    {
+        return $this->hasOneThrough(
+            Category::class,
+            Product:: class,
+            'id',
+            'id',
+            'product_id',
+            'category_id'
+        );
     }
 }

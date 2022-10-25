@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -12,12 +13,16 @@ class OrderService extends BaseService
 
     protected $productRepository;
 
+    protected $categoryRepository;
+
     public function __construct(
         OrderRepositoryInterface $orderRepository,
-        ProductRepositoryInterface $productRepository
+        ProductRepositoryInterface $productRepository,
+        CategoryRepositoryInterface $categoryRepository
     ) {
         $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function createOrUpdate($product, $request)
@@ -52,5 +57,15 @@ class OrderService extends BaseService
 
         $this->productRepository->update($product->id, ['stock' => $stock]);
         $this->orderRepository->update($order->id, ['status' => 2]);
+    }
+
+    public function getOrders()
+    {
+        return $this->orderRepository->getOrdersDetail();
+    }
+
+    public function getSubCategory()
+    {
+        return $this->categoryRepository->getSubCategoriesProduct();
     }
 }
