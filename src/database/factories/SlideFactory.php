@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Slider>
  */
-class SliderFactory extends Factory
+class SlideFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,7 @@ class SliderFactory extends Factory
     {
         return [
             'path' => 'https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_nh_n_2/u22.jpg?pageId=8f514a22-c1be-4f2a-b41a-27e1948fc3b1',
-            'status' => 1
+            'status' => rand(0, 1)
         ];
     }
 }

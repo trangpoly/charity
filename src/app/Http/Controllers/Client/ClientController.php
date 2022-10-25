@@ -5,21 +5,21 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Services\BannerService;
 use App\Services\CategoryService;
-use App\Services\SliderService;
+use App\Services\SlideService;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
-    protected $sliderService;
+    protected $slideService;
     protected $categoryService;
     protected $bannerService;
 
     public function __construct(
-        SliderService $sliderService,
+        SlideService $slideService,
         CategoryService $categoryService,
         BannerService $bannerService
     ) {
-        $this->sliderService = $sliderService;
+        $this->slideService = $slideService;
         $this->categoryService = $categoryService;
         $this->bannerService = $bannerService;
     }
@@ -27,7 +27,7 @@ class ClientController extends Controller
     public function home()
     {
         $data = [];
-        $data['sliders'] = $this->sliderService->getSliders();
+        $data['slides'] = $this->slideService->getSlides();
         $data['categories'] = $this->categoryService->getProductsByParentCategory();
         $data['banners'] = $this->bannerService->getBanners();
 
