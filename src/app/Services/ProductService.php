@@ -175,4 +175,9 @@ class ProductService extends BaseService
     {
         return $this->favouriteRepostitory->delete($favouriteId);
     }
+
+    public function makeStock($id, $data)
+    {
+        return $this->productRepository->update($id, $data);
+    }
 }

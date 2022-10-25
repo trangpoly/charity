@@ -82,9 +82,10 @@
                         </label>
                         <input
                             class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
-                            name="images[]" id="multiple_files" type="file" multiple="" multiple
+                            name="images[]" id="multiple_files" type="file" value="{{ $post->images }}" multiple
                             onchange="previewImg()">
                         <input type="hidden" name="images_old" value={{ $post->images }}>
+                        <input type="hidden" name="images_remove" id="imgRemove" value="" hidden>
                         <div class="flex m-4 box-images">
                             @foreach ($post->images as $item)
                                 <div class="relative">
@@ -390,14 +391,14 @@
     </div>
     <script type="text/javascript">
         function previewImg() {
+            $(".img_preview").remove()
             var arrImgAdd = this.event.target.files;
-
             for (var i = 0; i < arrImgAdd.length; i++) {
                 $(".box-images").append(`
                     <div class="relative ">
                         <img class="image_add img_preview mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
                             src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
-                        <a href=""
+                        <a href="" data-key = ${i}
                             class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
                             <svg className="w-6 h-6" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -408,13 +409,22 @@
                     </div>
                     `);
             }
-
+            var imgRemove = [];
             $(".product-image-delete").on("click", function(e) {
                 e.preventDefault();
+
                 $(this).parent('div').remove();
-                x--;
-            })
-        }
+                var key = $(this).attr("data-key");
+                           
+                for (let i = 0; i < arrImgAdd.length; i++) {
+                    if (i == key) {
+                        imgRemove.push(arrImgAdd[i].name)
+                    }
+                }
+                console.log(imgRemove);
+                $("#imgRemove").val(JSON.stringify(imgRemove))
+        })
+    }
 
         $(document).ready(function() {
             $('.product-image-delete').click(function(e) {
