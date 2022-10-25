@@ -55,15 +55,13 @@ class BannerService extends BaseService
 
     public function update($banner)
     {
-        if($banner['path'] != "")
-        {
+        if ($banner['path'] != "") {
             $bannerDetail = $this->bannerRepository->find($banner['id']);
-            
-            if($bannerDetail->path == $banner['path'])
-            {
+
+            if ($bannerDetail->path == $banner['path']) {
                 return $this->bannerRepository->update($banner["id"], ["path" => $banner["path"]]);
             }
-            
+
             Storage::disk('public')->put('banners', $banner['path']);
             $banner["path"] = $banner["path"]->hashName();
         }
