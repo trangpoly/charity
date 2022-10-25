@@ -92,6 +92,8 @@ class ProductController extends BaseController
     {
         $this->productService->delete($id);
 
+        session(['msg' => 'Delete successfully !']);
+
         return redirect()->back();
     }
 

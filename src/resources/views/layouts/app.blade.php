@@ -27,7 +27,7 @@
         </main>
 
         <!-- Page Footer -->
-        <footer class="bg-lime-200 pt-5 px-10 mt-5">
+        <footer class="bg-lime-200 pt-5 px-10">
             @include('layouts.footer')
         </footer>
     </div>
@@ -35,6 +35,8 @@
     <script src="https://unpkg.com/flowbite@1.5.3/dist/datepicker.js"></script>
     <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {{-- <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script>
         $(document).ready(function() {
           $.ajaxSetup({

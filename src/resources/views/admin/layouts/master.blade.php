@@ -105,7 +105,7 @@
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u26.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9">
                         </div>
                         <div class="ml-2 capitalize flex ">
-                            {{-- <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ Auth::guard('admin')->user()->name }}</h1> --}}
+                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ Auth::guard('admin')->user()->name }}</h1>
                             <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
                         </div>
                     </button>

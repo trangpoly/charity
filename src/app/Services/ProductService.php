@@ -76,7 +76,7 @@ class ProductService extends BaseService
         $productId = $this->productRepository->create($product);
 
         foreach ($request->avatar as $images) {
-            Storage::disk('public')->put('images/products/', $images);
+            Storage::disk('public')->put('images/', $images);
             $productImage = [
                 'path' => $images->hashName(),
                 'product_id' => $productId->id
@@ -119,7 +119,7 @@ class ProductService extends BaseService
     public function createProductImage($id, $request)
     {
         foreach ($request->avatar as $images) {
-            Storage::disk('public')->put('images/products/', $images);
+            Storage::disk('public')->put('images/', $images);
             $productImage = [
                 'path' => $images->hashName(),
                 'product_id' => $id
