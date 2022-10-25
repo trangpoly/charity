@@ -1,6 +1,6 @@
 <x-app-layout>
     {{-- Alert Message --}}
-    @if(session('msg'))
+    @if (session('msg'))
         @if (session('status') == false)
             <div id="alert-border-3" class="flex p-4 mb-4 bg-green-100 border-t-4 border-green-500 dark:bg-green-200"
                 role="alert">
@@ -56,60 +56,69 @@
 
     <div class="flex max-w-8xl mx-auto mt-6 space-x-8 mb-10">
         <div class="w-8/12">
-            @foreach ($data["categories"] as $category)
-            @if(!empty($category->productsByParentCategory->toArray())) 
-                <div class="w-full mt-10">
-                    <div class="flex">
-                        <h2 class="font-semibold text-3xl text-lime-700 w-10/12">{{$category->name}}</h2>
-                        <a href="" class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
-                            ></a>
-                    </div>
-                    <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">   
-                       @foreach ( $category->productsByParentCategory->take(4) as $item)
-                                <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12">
+            @foreach ($data['categories'] as $category)
+                @if (!empty($category->productsByParentCategory->toArray()))
+                    <div class="w-full mt-10">
+                        <div class="flex">
+                            <h2 class="font-semibold text-3xl text-lime-700 w-10/12">{{ $category->name }}</h2>
+                            <a href="{{ route('web.client.category.list', $category->id) }}"
+                                class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
+                                ></a>
+                        </div>
+                        <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">
+                            @foreach ($category->productsByParentCategory->take(4) as $item)
+                                <a href="{{ route('web.client.product.detail', $item->id) }}" class="w-3/12">
                                     <div class="h-36 relative mx-2">
                                         <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
-                                        class="object-fill h-full w-full" alt="">
+                                            class="object-fill h-full w-full" alt="">
                                         <img class="absolute top-28 right-2" width="25px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        alt="">
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            alt="">
                                     </div>
-                                    <h3 class="text-2xl h-10 mx-2">{{$item->name}}</h3>
+                                    <h3 class="text-2xl h-10 mx-2">{{ $item->name }}</h3>
                                     <div class="flex py-2 space-x-4 h-16 items-center mx-2">
                                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                             class="w-1/12 h-fit mb-0" alt="">
-                                        <p class="text-lg">{{$item->district . "," . $item->city}}</p>
+                                        <p class="text-lg">{{ $item->district . ',' . $item->city }}</p>
                                     </div>
                                     <div class="flex space-x-4 h-8 items-center mx-2">
                                         @php
-                                            $expireDate = mktime(0,0,0, date('m'), date('d') + 3, date('Y'));
+                                            $expireDate = mktime(0, 0, 0, date('m'), date('d') + 3, date('Y'));
                                             $expireDate = date('Y-m-d', $expireDate);
                                             $now = date('Y-m-d');
                                         @endphp
-                                        @if($item->expire_at >= $now && $item->expire_at <= $expireDate)
+                                        @if ($item->expire_at >= $now && $item->expire_at <= $expireDate)
                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                            class="w-1/12 h-fit" alt="">
+                                                class="w-1/12 h-fit" alt="">
                                             <p class="text-orange-400 text-lg">
-                                                {{$item->expire_at}}
+                                                {{ $item->expire_at }}
                                             </p>
                                         @else
                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                                            class="w-1/12 h-fit" alt="">
+                                                class="w-1/12 h-fit" alt="">
                                             <p class="text-black text-lg">
-                                                {{$item->expire_at}}
+                                                {{ $item->expire_at }}
                                             </p>
                                         @endif
                                     </div>
-                                    
+
                                 </a>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
             @endforeach
         </div>
         <div class="w-4/12 h-fit">
-            <div class="w-full border border-gray-300 h-60"></div>
+            @foreach ($data['banners'] as $banner)
+                @if ($banner->index_position == 1 && $banner->path !== "")
+                    <div class="w-full border border-gray-300 h-72">
+                        <img id="top-banner" class="object-fill h-full w-full"
+                            src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                            alt="">
+                    </div>
+                @endif
+            @endforeach
             <div class="w-full border border-gray-300 h-fit mt-10">
                 <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
                     <div class="w-full flex items-center text-center py-4">
@@ -118,22 +127,39 @@
                         <p class="text-3xl">Tìm kiếm theo danh mục</p>
                     </div>
                 </div>
-                @foreach ($data["categories"] as $category)
+                @foreach ($data['categories'] as $category)
                     @if (!$category->parent_id)
-                        <a href="{{ route("web.client.category.list", $category->id) }}" class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
+                        <a href="{{ route('web.client.category.list', $category->id) }}"
+                            class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
                             <div class="w-full flex border-b border-lime-500">
                                 <img src="{{ Illuminate\Support\Facades\Storage::url("images/$category->image") }}"
                                     class="w-3/12 p-5" alt="">
-                                <p class="w-10/12 py-10">{{$category->name}}</p>
+                                <p class="w-10/12 py-10">{{ $category->name }}</p>
                             </div>
-                        </a> 
+                        </a>
                     @endif
-                   
                 @endforeach
-                
+
             </div>
-            <div class="w-full border border-gray-300 mt-10 h-32"></div>
-            <div class="w-full border border-gray-300 mt-10 h-32"></div>
+            @foreach ($data['banners'] as $banner)
+                @if ($banner->index_position == 2 && $banner->path !== "")
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                        <img id="top-banner" class="object-fill h-full w-full"
+                            src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                            alt="">
+                    </div>
+                @endif
+            @endforeach
+
+            @foreach ($data['banners'] as $banner)
+                @if ($banner->index_position == 3 && $banner->path !== "")
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                        <img id="top-banner" class="object-fill h-full w-full"
+                            src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                            alt="">
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
     <div class="w-full justify-center my-10 flex space-x-4">

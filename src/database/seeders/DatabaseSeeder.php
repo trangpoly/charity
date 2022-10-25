@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Banner;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
@@ -18,12 +19,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Product::factory(5)->create();
+        // Product::factory(5)->create();
 
         // Slider::factory(5)->create();
 
         // Category::factory(10)->create();
 
         // User::factory(1)->create();
+
+        Banner::factory(3)->create();
     }
 }

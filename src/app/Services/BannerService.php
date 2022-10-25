@@ -17,7 +17,7 @@ class BannerService extends BaseService
         $this->bannerRepository = $bannerRepository;
     }
 
-    public function getData()
+    public function getBanners()
     {
         return $this->bannerRepository->all();
     }
@@ -51,5 +51,23 @@ class BannerService extends BaseService
 
             return true;
         }
+    }
+
+    public function update($banner)
+    {
+        if($banner['path'] != "")
+        {
+            $bannerDetail = $this->bannerRepository->find($banner['id']);
+            
+            if($bannerDetail->path == $banner['path'])
+            {
+                return $this->bannerRepository->update($banner["id"], ["path" => $banner["path"]]);
+            }
+            
+            Storage::disk('public')->put('banners', $banner['path']);
+            $banner["path"] = $banner["path"]->hashName();
+        }
+
+        return $this->bannerRepository->update($banner["id"], ["path" => $banner["path"]]);
     }
 }
