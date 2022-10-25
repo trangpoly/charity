@@ -22,6 +22,26 @@ class BannerController extends BaseController
 
     public function setting()
     {
+
+
+        if (empty($this->bannerService->getBanners()->toArray())) {
+            $banners['top'] = [
+                "path" => "",
+                "index_position" => 1
+            ];
+            $banners['mid'] = [
+                "path" => "",
+                "index_position" => 2
+            ];
+            $banners['bot'] = [
+                "path" => "",
+                "index_position" => 3
+            ];
+            foreach ($banners as $banner) {
+                $this->bannerService->create($banner);
+            }
+        }
+
         $banners = $this->bannerService->getBanners();
 
         return view('admin.pages.banners.banner-setting', ['banners' => $banners]);

@@ -109,7 +109,14 @@ class PostService
     {
         DB::beginTransaction();
         try {
-            $productData = $request->except(['images', '_token', '_method', "images_hidden", "images_old"]);
+            $productData = $request->except([
+                'images',
+                '_token',
+                '_method',
+                "images_hidden",
+                "images_old",
+                "images_remove"
+            ]);
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
@@ -123,13 +130,15 @@ class PostService
 
             if ($request->images) {
                 foreach ($request->images as $image) {
-                    Storage::disk('public')->put('images', $image);
-                    $productImage = [
-                        'path' => $image->hashName(),
-                        'product_id' => $id,
-                    ];
+                    if (!in_array($image->getClientOriginalName(), json_decode($request->images_remove))) {
+                        Storage::disk('public')->put('images', $image);
 
-                    $this->productImageRepository->create($productImage);
+                        $productImage = [
+                            'path' => $image->hashName(),
+                            'product_id' => $id,
+                        ];
+                        $this->productImageRepository->create($productImage);
+                    }
                 }
             }
 

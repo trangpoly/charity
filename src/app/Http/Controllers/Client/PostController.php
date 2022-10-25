@@ -57,12 +57,12 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        $preImageRemove = $request->images_remove ? count(json_decode($request->images_remove)) : 0;
         $newImage = $request->images ? count($request->images) : 0;
         $hiddenImage = $request->images_hidden ? count($request->images_hidden) : 0;
         $oldImage = $request->images_old ? count(json_decode($request->images_old)) : 0;
         $limitImgMsg = 'Album khong qua 10';
-        if ($oldImage - $hiddenImage + $newImage > 10) {
+        if ($oldImage - $hiddenImage + $newImage - $preImageRemove > 10) {
             return  redirect()->back()->with(['limitImgMsg' => $limitImgMsg]);
         }
 
