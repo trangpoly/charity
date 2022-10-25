@@ -57,6 +57,7 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $newImage = $request->images ? count($request->images) : 0;
         $hiddenImage = $request->images_hidden ? count($request->images_hidden) : 0;
         $oldImage = $request->images_old ? count(json_decode($request->images_old)) : 0;
