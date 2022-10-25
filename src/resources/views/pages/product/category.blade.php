@@ -26,7 +26,7 @@
                             @endif
                             <div class="w-3/12 relative">
                                 <img class="h-fit"
-                                    src="{{ Illuminate\Support\Facades\Storage::url('images/products/' .$faker->images[0]->path)}}"
+                                    src="{{ Illuminate\Support\Facades\Storage::url('images/' .$faker->avatar)}}"
                                     width="250px"
                                     alt="">
                                 <h3 class="text-2xl mt-2 h-16">{{ $faker->name }}</h3>

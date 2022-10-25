@@ -41,8 +41,12 @@
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Password<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
-                    <input type="password" name="password" value="{{ $account->password }}" id=""
+                    <input type="password" name="password" id="password" value="{{ $account->password }}"
                         class="w-full border border-gray-500">
+                    <div class="flex space-x-2">
+                        <input type="checkbox" onclick="showPassword()">
+                        <p class="mt-1 text-gray-600">Show Password</p>
+                    </div>
                     @if ($errors->has('password'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('password') }}</span>
                     @endif
@@ -87,3 +91,13 @@
         </form>
     </div>
 @endsection
+<script>
+    function showPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

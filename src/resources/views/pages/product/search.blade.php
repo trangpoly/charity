@@ -23,7 +23,7 @@
                         @foreach ($search as $item)
                             <div class="w-3/12 relative p-2">
                                 <img class="h-fit"
-                                    src="{{ Illuminate\Support\Facades\Storage::url('images/products/' . $item->images[0]->path) }}"
+                                    src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
                                     style="width: 250px; height: 200px;" alt="">
                                 <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
                                 @if (in_array($item->stock, [-1, 0]))
