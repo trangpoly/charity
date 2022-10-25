@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,3 +61,5 @@ Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('we
 Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
 Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
 Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');
+
+Route::get('admin/order', [OrderController::class, 'getOrders'])->name('web.admin.order.list');

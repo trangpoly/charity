@@ -81,7 +81,7 @@
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u50.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Người đăng: {{ $product->giver->name }}</p>
+                                    <p>Người đăng: {{ $product->giver->name ?? '' }}</p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
                                     <img class="h-fit"

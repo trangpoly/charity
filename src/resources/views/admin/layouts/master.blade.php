@@ -163,7 +163,7 @@
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u28.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
                         alt="">
                 </a>
-                <a href="#"
+                <a href="{{route('web.admin.order.list')}}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Order Management
                     <img style="float: right" width="22px" height="18"
