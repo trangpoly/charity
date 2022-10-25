@@ -23,28 +23,24 @@
                     @foreach ($products as $item)
                         <div class="w-3/12 relative p-2">
                             <img class="h-fit"
-                                src="{{ Illuminate\Support\Facades\Storage::url('images/' .$item->avatar)}}"
-                                width="250px"
-                                alt="">
+                                src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
+                                width="250px" alt="">
                             <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
                             @if (in_array($item->stock, [-1, 0]))
                                 <p>Het hang !!!</p>
                             @endif
-                            <div class="flex py-2 space-x-4 h-28">
+                            <div class="flex py-2 space-x-4 h-15">
                                 <img class="h-fit"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                     width="18px" alt="">
                                 <p class="text-lg">{{ $item->address }}</p>
                             </div>
                             <div class="flex py-2 space-x-4  ">
-                                <img class="h-fit"
+                                <img class="h-fit mt-1"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                     width="15px" alt="">
                                 <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
                             </div>
-                            <img class="absolute top-40 right-2" width="25px"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                alt="">
                         </div>
                     @endforeach
                 </div>
@@ -58,7 +54,7 @@
         <div class="w-4/12 h-fit">
             <div class="w-full border border-gray-300 h-60"></div>
             <div class="w-full border border-gray-300 h-fit mt-10">
-                <form action="{{ route('web.client.product.submitSearch') }}" method="POST">
+                <form action="{{ route('web.client.product.submitSearch', $products[0]->subCategory->category->id) }}" method="POST">
                     @csrf
                     <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
                         <div class="w-full flex items-center text-center py-4">
