@@ -3,9 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Slider extends BaseModel
+class Slide extends BaseModel
 {
     use HasFactory;
     use Uuid;
