@@ -22,5 +22,6 @@
     php artisan config:clear
     php artisan view:clear
     php artisan cache:clear
+    npm i
     npm run build
 @endtask
