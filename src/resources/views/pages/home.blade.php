@@ -58,14 +58,14 @@
         <div class="w-8/12">
             @foreach ($data['categories'] as $category)
                 @if (!empty($category->productsByParentCategory->toArray()))
-                    <div class="w-full mt-10">
+                    <div class="w-full mb-10">
                         <div class="flex">
                             <h2 class="font-semibold text-3xl text-lime-700 w-10/12">{{ $category->name }}</h2>
                             <a href="{{ route('web.client.category.list', $category->id) }}"
-                                class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
+                                class="font-base text-right text-xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
                                 ></a>
                         </div>
-                        <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">
+                        <div class="w-full flex border border-gray-300 rounded-md mt-5 py-4 px-2">
                             @foreach ($category->productsByParentCategory->take(4) as $item)
                                 <a href="{{ route('web.client.product.detail', $item->id) }}" class="w-3/12">
                                     <div class="h-48 relative mx-2">
@@ -163,8 +163,13 @@
         </div>
     </div>
     <div class="w-full justify-center my-10 flex space-x-4">
-        <p class="text-3xl hover:text-lime-700">Trở về đầu trang</p>
+        <p class="text-3xl hover:text-lime-700 backToTop">Trở về đầu trang</p>
         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u29.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-            width="40px" alt="">
+            width="45px" alt="">
     </div>
+    <script>
+        $(".backToTop").on("click",function(){
+           $(window).scrollTop(0);
+       });
+       </script>
 </x-app-layout>
