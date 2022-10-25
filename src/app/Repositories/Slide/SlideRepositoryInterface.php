@@ -10,5 +10,5 @@ interface SlideRepositoryInterface extends BaseRepositoryInterface
 
     public function countSlideActive();
 
-    // public function getSlides();
+    public function getSlides();
 }
