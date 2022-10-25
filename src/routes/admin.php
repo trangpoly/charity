@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +31,15 @@ Route::prefix('admin')->group(function () {
         Route::get('delete/{id}',[ProductController::class, 'delete'])->name('web.admin.product.delete');
     });
 
+    Route::prefix('account')->group(function () {
+        Route::get('list', [AccountController::class, 'list'])->name('web.admin.account.list');
+        Route::get('create', [AccountController::class, 'create'])->name('web.admin.account.create');
+        Route::post('create', [AccountController::class, 'saveCreate'])->name('web.admin.account.saveCreate');
+        Route::get('update/{id}', [AccountController::class, 'update'])->name('web.admin.account.update');
+        Route::post('update/{id}', [AccountController::class, 'saveUpdate'])->name('web.admin.account.saveUpdate');
+        Route::get('delete/{id}',[AccountController::class, 'delete'])->name('web.admin.account.delete');
+    });
+
     Route::prefix('category')->group(function () {
         Route::get('/', [CategoryController::class, 'listCategory'])->name('web.admin.category.list');
         Route::get('add', [CategoryController::class, 'addCategory'])->name('web.admin.category.add');
@@ -50,3 +61,5 @@ Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('we
 Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
 Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
 Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');
+
+Route::get('admin/order', [OrderController::class, 'getOrders'])->name('web.admin.order.list');

@@ -31,4 +31,12 @@ class OrderController extends BaseController
 
         return redirect()->route('web.client.product.detail', ['id' => $product->id]);
     }
+
+    public function getOrders()
+    {
+        $orders = $this->orderService->getOrders();
+        $categories = $this->orderService->getSubCategory();
+
+        return view('admin.pages.order.list')->with(['orders' => $orders, 'categories' => $categories]);
+    }
 }

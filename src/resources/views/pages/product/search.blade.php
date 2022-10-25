@@ -14,55 +14,55 @@
                 </div>
                 <div class="w-2/12 mt-8">
                     <p class="font-base text-xl mt-2 text-gray-700 ">Tong san pham:
-                        {{ count($search) }}  </p>
+                        {{ count($search) }} </p>
                 </div>
             </div>
             <div class="w-full border rounded-xl border-gray-300 mt-4">
                 <div id="faker" class="w-full flex flex-wrap rounded-md p-5 ">
-                    @foreach ($search as $item)
-                        <div class="w-3/12 relative p-2">
-                            <img class="h-fit"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                alt="">
-                            <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
-                            @if (in_array($item->stock, [-1, 0]))
-                                <p>Het hang !!!</p>
-                            @endif
-                            <div class="flex py-2 space-x-4 h-28">
+                    @if (!$search->isEmpty())
+                        @foreach ($search as $item)
+                            <div class="w-3/12 relative p-2">
                                 <img class="h-fit"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="18px" alt="">
-                                <p class="text-lg">{{ $item->address }}</p>
+                                    src="{{ Illuminate\Support\Facades\Storage::url('images/products/' . $item->images[0]->path) }}"
+                                    style="width: 250px; height: 200px;" alt="">
+                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                                @if (in_array($item->stock, [-1, 0]))
+                                    <p>Het hang !!!</p>
+                                @endif
+                                <div class="flex py-2 space-x-4 h-28">
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                        width="18px" alt="">
+                                    <p class="text-lg">{{ $item->address }}</p>
+                                </div>
+                                <div class="flex py-2 space-x-4  ">
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        width="15px" alt="">
+                                    <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
+                                </div>
+                                <img class="absolute top-40 right-2" width="25px"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                    alt="">
                             </div>
-                            <div class="flex py-2 space-x-4  ">
-                                <img class="h-fit"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    width="15px" alt="">
-                                <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
-                            </div>
-                            <img class="absolute top-40 right-2" width="25px"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                alt="">
-                        </div>
-                    @endforeach
+                        @endforeach
+                    @else
+                        <h3>Khong co san pham ma ban muon tim kiem !!!</h3>
+                    @endif
                 </div>
                 <div class="w-full mb-2 mr-6">
-                    {{-- <p class="">
-                        {{$search->appends([$request])->links()}}
-                    </p> --}}
                 </div>
             </div>
         </div>
         <div class="w-4/12 h-fit">
             <div class="w-full border border-gray-300 h-60"></div>
             <div class="w-full border border-gray-300 h-fit mt-10">
-                <form action="{{ route('web.client.product.submitSearch') }}" method="GET">
+                <form action="{{ route('web.client.product.submitSearch', $id) }}" method="GET">
                     @csrf
                     <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
                         <div class="w-full flex items-center text-center py-4">
                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u36.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                 class="w-2/12 p-5" alt="">
-                            {{-- <p class="text-3xl">Tìm kiếm {{ $search[0]->subCategory->category->name }}</p> --}}
                         </div>
                     </div>
                     <div class="w-full flex text-lg px-5 text-gray-800 hover:bg-lime-100">
@@ -141,7 +141,7 @@
                     var expire_at = $("#expire_at").val();
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('web.client.product.filter', $search[0]->subCategory->id) }}",
+                        url: "{{ route('web.client.product.filter', $search[0]->subCategory->id ?? '') }}",
                         data: {
                             expire_at: expire_at,
                         },

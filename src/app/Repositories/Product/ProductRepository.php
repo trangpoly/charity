@@ -48,23 +48,34 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function getSubCategory()
     {
-        return $this->model->with('subCategory')->first();
+        return $this->model->with('subCategory')->get();
     }
 
     public function search($request)
     {
-        $subCate = $request->subCate ? $request->subCate : [];
+        $query = $this->model->where([]);
 
-        $city = $request->city;
+        $query = $request->city ? $query->where($request->only('city')) : $query;
 
-        $district = $request->district;
+        $query = $request->district ? $query->where($request->only('district')) : $query;
+
+        $query = $request->subCate ? $query->whereIn('category_id', $request->subCate) : $query;
 
         $dateStart = $request->dateStart;
 
         $dateEnd = $request->dateEnd;
 
-        return $this->model->orWhere('city', $city)->orWhere('district', $district)->orWhereIn('category_id', $subCate)
-            ->orWhereBetween('expire_at', [$dateStart, $dateEnd])->get();
+        $query = $request->expired == 1 ?
+            $query->whereBetween('expire_at', [Carbon::now()
+                ->toDateString(), Carbon::now()
+                ->adddays(3)
+                ->toDateString()]) : $query;
+
+        if ($dateStart && $dateEnd) {
+            $query->whereBetween('expire_at', [$dateStart, $dateEnd]);
+        };
+
+        return $query->get();
     }
 
     public function filter($sortExpireDate, $id)

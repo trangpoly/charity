@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // Admin::factory(5)->create();
+
         // Product::factory(5)->create();
 
         // Slider::factory(5)->create();
@@ -27,6 +29,6 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(1)->create();
 
-        Banner::factory(3)->create();
+        // Banner::factory(3)->create();
     }
 }

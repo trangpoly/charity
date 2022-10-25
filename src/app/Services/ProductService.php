@@ -51,7 +51,7 @@ class ProductService extends BaseService
 
     public function getSubCategory()
     {
-        return $this->productRepository->getSubCategory();
+        return $this->categoryRepository->getSubCategoriesProduct();
     }
 
     public function saveCreate($request)

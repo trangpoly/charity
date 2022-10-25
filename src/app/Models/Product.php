@@ -37,12 +37,12 @@ class Product extends BaseModel
 
     public function receivers()
     {
-        return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id');
+        return $this->belongsToMany(User::class, 'orders', 'product_id', 'receiver_id')->withTrashed();
     }
 
     public function giver()
     {
-        return $this->belongsTo(User::class, 'owner_id', 'id');
+        return $this->belongsTo(User::class, 'owner_id', 'id')->withTrashed();
     }
 
     public function subCategory()
