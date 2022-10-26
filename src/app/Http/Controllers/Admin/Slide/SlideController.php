@@ -61,4 +61,9 @@ class SlideController extends BaseController
 
         return redirect()->route('web.admin.slide.list')->with(['msg' => $msg, 'status' => $status]);
     }
+
+    public function deleteSlide(Request $request)
+    {
+        return $this->slideService->deleteSlide($request->id);
+    }
 }

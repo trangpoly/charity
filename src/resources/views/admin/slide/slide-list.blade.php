@@ -118,7 +118,7 @@
                 </thead>
                 <tbody>
                     @foreach ($slides as $key => $slide)
-                    <tr
+                    <tr id="item-box-{{ 1+$key }}"
                         class="bg-white border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <td class="py-4 px-6 text-black">
                             {{ 1+$key++ }}
@@ -154,20 +154,20 @@
                         </td>
                         <td class="py-4 px-6 flex space-x-3">
                             <a href="#">
-                                <img width="32px"
+                                <img width="30px"
                                     src="https://www.pngitem.com/pimgs/m/514-5143309_eye-open-font-awesome-green-eye-icon-font.png"
                                     alt="">
                             </a>
                             <a href="{{ route('web.admin.slide.edit', ['id' => $slide->id]) }}">
-                                <img width="32px"
+                                <img width="30px"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                     alt="">
                             </a>
-                            <a href="#" onclick="return confirm('Xác nhận xóa ?')">
+                            <button id="btn-del-{{ $key }}" onclick="delSlide('{{ $slide->id }}','{{ $key }}')">
                                 <img width="30px"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                     alt="">
-                            </a>
+                            </button>
                         </td>
                     </tr>
                     @endforeach
@@ -239,6 +239,33 @@
                 }
             });
         });
+    }
+
+    function delSlide(slide_id, index) {
+        var url = "{{ route('web.admin.slide.delete') }}";
+
+        if (confirm("Are You Sure You Want To Delete This Slide ?") == true) {
+            $(document).ready(function() {
+            $.ajax(url, {
+                type: 'DELETE',
+                data: {
+                    id: slide_id,
+                },
+                success: function(data) {
+                    if (data) {
+                        console.log('success');
+                        alert('Slide Was Deleted !');
+                        $('#item-box-'+index).remove();
+                    } else {
+                        alert('Cannot Delete Slide Is Being Active !');
+                    }
+                },
+                error: function(e) {
+                    console.log('fail');
+                }
+            });
+        });
+        }
     }
 
     $(document).ready(function() {
