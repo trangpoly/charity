@@ -30,7 +30,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function list()
     {
         return $this->model->with('images')->with('orders', function ($q) {
-            $q->where('status', 1);
+            $q->whereIn('status', [0,1]);
         })->get();
     }
 
@@ -80,7 +80,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function filter($sortExpireDate, $id)
     {
-        return $this->model->orderBy('expire_at', $sortExpireDate)->where('category_id', $id)->get();
+        return $this->model->whereRelation('subCategory', 'parent_id', $id)->orderBy('expire_at', $sortExpireDate)->get();
     }
 
     public function getRecommend($currentProductId, $categoryId)

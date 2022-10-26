@@ -7,14 +7,14 @@
             </div>
             <div class="flex ">
                 <div class="space-x-4 mt-8 w-10/12">
-                    <label class="text-xl mt-2">Sap xep theo</label>
-                    <select class="w-2/12 border border-gray-300" name="expire_date" id="expire_at">
-                        <option value="desc">Sap het han</option>
-                        <option value="asc">Ngay het han xa nhat</option>
+                    <label class="text-xl mt-2">Sắp xếp theo</label>
+                    <select class="w-3/12 border border-gray-300" name="expire_date" id="expire_at">
+                        <option value="desc">Sắp hết hạn</option>
+                        <option value="asc">Ngày hết hạn xa nhất</option>
                     </select>
                 </div>
                 <div class="w-2/12 mt-8">
-                    <p id="count" class="font-base text-xl mt-2 text-gray-700 ">Tong san pham:
+                    <p id="count" class="font-base text-xl mt-2 text-gray-700 ">Tổng sản phẩm:
                         {{ count($products) }} </p>
                 </div>
             </div>
@@ -22,25 +22,27 @@
                 <div id="faker" class="w-full flex flex-wrap rounded-md p-5 ">
                     @foreach ($products as $item)
                         <div class="w-3/12 relative p-2">
-                            <img class="h-fit"
-                                src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
-                                width="250px" alt="">
-                            <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
-                            @if (in_array($item->stock, [-1, 0]))
-                                <p>Het hang !!!</p>
-                            @endif
-                            <div class="flex py-2 space-x-4 h-15">
+                            <a href="{{ route('web.client.product.detail', $item->id) }}">
                                 <img class="h-fit"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                    width="18px" alt="">
-                                <p class="text-lg">{{ $item->address }}</p>
-                            </div>
-                            <div class="flex py-2 space-x-4  ">
-                                <img class="h-fit mt-1"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    width="15px" alt="">
-                                <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
-                            </div>
+                                    src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
+                                    width="250px" alt="">
+                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                                @if (in_array($item->stock, [-1, 0]))
+                                    <p>Hết hàng !!!</p>
+                                @endif
+                                <div class="flex py-2 space-x-4 h-15">
+                                    <img class="h-fit"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                        width="18px" alt="">
+                                    <p class="text-lg">{{ $item->address }}</p>
+                                </div>
+                                <div class="flex py-2 space-x-4  ">
+                                    <img class="h-fit mt-1"
+                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        width="15px" alt="">
+                                    <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
+                                </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>
@@ -54,7 +56,8 @@
         <div class="w-4/12 h-fit">
             <div class="w-full border border-gray-300 h-60"></div>
             <div class="w-full border border-gray-300 h-fit mt-10">
-                <form action="{{ route('web.client.product.submitSearch', $products[0]->subCategory->category->id) }}" method="POST">
+                <form action="{{ route('web.client.product.submitSearch', $products[0]->subCategory->category->id) }}"
+                    method="POST">
                     @csrf
                     <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
                         <div class="w-full flex items-center text-center py-4">
@@ -65,7 +68,7 @@
                     </div>
                     <div class="w-full flex text-lg px-5 text-gray-800 hover:bg-lime-100">
                         <div class="w-full pb-5 border-b border-lime-500">
-                            <p class="w-10/12 py-5 text-2xl font-semibold">Chon danh muc</p>
+                            <p class="w-10/12 py-5 text-2xl font-semibold">Chọn danh mục</p>
                             <div class="grid grid-cols-2 w-full">
                                 @foreach ($subCategory as $subCate)
                                     <div class="space-x-4">
@@ -146,17 +149,13 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        console.log(data);
                         $('#faker').children().remove();
-                        // $("#count").remove();
-                        // $("#count").innerHTML(
-                        //     `Tong san pham: ` + dlength);
                         $.each(data, function(key, value) {
                             $("#faker").prepend(`
                                 <div class="w-3/12 relative p-2">
                                     <img class="h-fit"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        alt="">
+                                    src="` + `/storage/images/` + this.avatar+ `"
+                                    width="250px" alt="">
                                     <h3 class="text-2xl mt-2 h-16">${ value.name }</h3>
                                     <div class="flex py-2 space-x-4 h-28">
                                         <img class="h-fit"
@@ -169,10 +168,6 @@
                                             src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                             width="15px" alt="">
                                         <p class="text-orange-400 text-lg">${ value.expire_at }</p>
-                                    </div>
-                                    <img class="absolute top-40 right-2" width="25px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        alt="">
                                     </div>
                                 </div>
                                 `)
