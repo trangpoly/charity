@@ -129,10 +129,9 @@
                             <select class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6"
                                 name="city" id="">
                                 <option value="">Select City</option>
-                                <option {{ $product->city == 'Ha Noi' ? 'selected' : '' }} value="Ha Noi">Ha noi
+                                <option {{ $product->city == 'Hà Nội' ? 'selected' : '' }} value="Hà Nội">Hà Nội
                                 </option>
-                                <option {{ $product->city == 'Ninh Binh' ? 'selected' : '' }} value="Ninh Binh">Ninh
-                                    Binh</option>
+                                <option {{ $product->city == 'Ninh Bình' ? 'selected' : '' }} value="Ninh Bình">Ninh Bình</option>
                             </select>
                             @if ($errors->has('city'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('city') }}</span>
@@ -142,9 +141,13 @@
                             <select class="bg-white border border-gray-500 text-gray-700 text-sm w-4/12  h-6"
                                 name="district" id="">
                                 <option value="">Select District</option>
-                                <option {{ $product->district == 'Cau Giay' ? 'selected' : '' }} value="Cau Giay">Cau Giay
+                                <option {{ $product->district == 'Cầu Giấy' ? 'selected' : '' }} value="Cầu Giấy">Cầu Giấy
                                 </option>
-                                <option {{ $product->district == 'Ha Dong' ? 'selected' : '' }} value="Ha Dong">Ha Dong
+                                <option {{ $product->district == 'Hà Đông' ? 'selected' : '' }} value="Hà Đông">Hà Đông
+                                </option>
+                                <option {{ $product->district == 'Kim Sơn' ? 'selected' : '' }} value="Kim Sơn">Kim Sơn
+                                </option>
+                                <option {{ $product->district == 'Yên Khánh' ? 'selected' : '' }} value="Yên Khánh">Yên Khánh
                                 </option>
                             </select>
                             @if ($errors->has('district'))

@@ -103,8 +103,8 @@
                             <select class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6" name="city"
                                 id="">
                                 <option value="">Select City</option>
-                                <option value="Ha Noi">Ha noi</option>
-                                <option value="Ninh Binh">Ninh Binh</option>
+                                <option value="Hà Nội">Hà Nội</option>
+                                <option value="Ninh Bình">Ninh Bình</option>
                             </select>
                             @if ($errors->has('city'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('city') }}</span>
@@ -114,8 +114,10 @@
                             <select class="bg-white border border-gray-500 text-gray-700 text-sm w-4/12  h-6"
                                 name="district" id="">
                                 <option value="">Select District</option>
-                                <option value="Cau Giay">Cau Giay</option>
-                                <option value="Ha Dong">Ha Dong</option>
+                                <option value="Cầu Giấy">Cầu Giấy</option>
+                                <option value="Hà Đông">Hà Đông</option>
+                                <option value="Kim Sơn">Kim Sơn</option>
+                                <option value="Yên Khánh">Yên Khánh</option>
                             </select>
                             @if ($errors->has('district'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('district') }}</span>

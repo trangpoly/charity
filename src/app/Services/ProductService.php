@@ -67,6 +67,7 @@ class ProductService extends BaseService
             'weight_unit' => $request->weight_unit,
             'district' => $request->district,
             'city' => $request->city,
+            'stock' => $request->quantity,
             'address' => $request->address,
             'phone' => $request->phone,
             'status' => $request->status,

@@ -22,25 +22,27 @@
                     @if (!$search->isEmpty())
                         @foreach ($search as $item)
                             <div class="w-3/12 relative p-2">
-                                <img class="h-fit"
-                                    src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
-                                    style="width: 250px; height: 200px;" alt="">
-                                <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
-                                @if (in_array($item->stock, [-1, 0]))
-                                    <p>Het hang !!!</p>
-                                @endif
-                                <div class="flex py-2 space-x-4 h-15">
+                                <a href="{{ route('web.client.product.detail', $item->id) }}">
                                     <img class="h-fit"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="18px" alt="">
-                                    <p class="text-lg">{{ $item->address }}</p>
-                                </div>
-                                <div class="flex py-2 space-x-4  ">
-                                    <img class="h-fit mt-1"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        width="15px" alt="">
-                                    <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
-                                </div>
+                                        src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
+                                        style="width: 250px; height: 200px;" alt="">
+                                    <h3 class="text-2xl mt-2 h-16">{{ $item->name }}</h3>
+                                    @if (in_array($item->stock, [-1, 0]))
+                                        <p>Het hang !!!</p>
+                                    @endif
+                                    <div class="flex py-2 space-x-4 h-15">
+                                        <img class="h-fit"
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                            width="18px" alt="">
+                                        <p class="text-lg">{{ $item->address }}</p>
+                                    </div>
+                                    <div class="flex py-2 space-x-4  ">
+                                        <img class="h-fit mt-1"
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            width="15px" alt="">
+                                        <p class="text-orange-400 text-lg">{{ $item->expire_at }}</p>
+                                    </div>
+                                </a>
                             </div>
                         @endforeach
                     @else
@@ -139,7 +141,7 @@
                     var expire_at = $("#expire_at").val();
                     $.ajax({
                         method: 'POST',
-                        url: "{{ route('web.client.product.filter', $search[0]->subCategory->id ?? '') }}",
+                        url: "{{ route('web.client.product.filter', $search[0]->subCategory->category ?? '') }}",
                         data: {
                             expire_at: expire_at,
                         },
@@ -151,8 +153,8 @@
                                 $("#faker").prepend(`
                                 <div class="w-3/12 relative p-2">
                                     <img class="h-fit"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u31.jpg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        alt="">
+                                    src="` + `/storage/images/` + this.avatar + `"
+                                     style="width:250px; height:200px" alt="">
                                     <h3 class="text-2xl mt-2 h-16">${ value.name }</h3>
                                     <div class="flex py-2 space-x-4 h-28">
                                         <img class="h-fit"
@@ -166,10 +168,7 @@
                                             width="15px" alt="">
                                         <p class="text-orange-400 text-lg">${ value.expire_at }</p>
                                     </div>
-                                    <img class="absolute top-40 right-2" width="25px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        alt="">
-                                    </div>
+
                                 </div>
                                 `)
                             })

@@ -25,29 +25,51 @@
                                 @break
                             @endif
                             <div class="w-3/12 relative">
-                                <img class="h-fit"
-                                    src="{{ Illuminate\Support\Facades\Storage::url('images/' .$faker->avatar)}}"
-                                     style="width:250px; height:220px"
-                                    alt="">
-                                <h3 class="text-2xl mt-2 h-16">{{ $faker->name }}</h3>
-                                @if (in_array($faker->stock, [-1, 0]))
-                                    <p>Het hang !!!</p>
-                                @endif
-                                <div class="flex py-2 space-x-4 h-15">
+                                <a href="{{ route('web.client.product.detail', $faker->id) }}">
                                     <img class="h-fit"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
-                                        width="18px" alt="">
-                                    <p class="text-lg">{{ $faker->address }}</p>
-                                </div>
-                                <div class="flex py-2 space-x-4  ">
-                                    <img class="h-fit mt-1"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        width="15px" alt="">
-                                    <p class="text-orange-400 text-lg">{{ $faker->expire_at }}</p>
-                                </div>
-                                {{-- <img class="absolute top-40 right-2" width="25px"
-                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                    alt=""> --}}
+                                        src="{{ Illuminate\Support\Facades\Storage::url('images/' . $faker->avatar) }}"
+                                        style="width:250px; height:220px" alt="">
+                                    <h3 class="text-2xl mt-2 h-16">{{ $faker->name }}</h3>
+                                    @if (in_array($faker->stock, [-1, 0]))
+                                        <p>Het hang !!!</p>
+                                    @endif
+                                    <div class="flex py-2 space-x-4 h-18">
+                                        <img class="h-fit"
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                            width="18px" alt="">
+                                        <p class="text-lg">{{ $faker->address }}</p>
+                                    </div>
+
+                                    <div class="flex py-2 space-x-4 ">
+                                        {{-- <img class="h-fit mt-1"
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            width="15px" alt="">
+                                        <p class="text-orange-400 text-lg">{{ $faker->expire_at }}</p> --}}
+                                        @php
+                                            $now = date('Y-m-d');
+                                        @endphp
+
+                                        @if ($faker->expire_at == $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                                class="w-1/12 h-fit" alt="">
+                                            <p class="text-orange-400 text-lg">
+                                                {{ $faker->expire_at }}
+                                            </p>
+                                        @elseif ($faker->expire_at > $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                                class="w-1/12 h-fit" alt="">
+                                            <p class="text-orange-400 text-lg">
+                                            <p>Het han su dung !!!</p>
+                                            </p>
+                                        @else
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                                class="w-1/12 h-fit" alt="">
+                                            <p class="text-black text-lg">
+                                                {{ $faker->expire_at }}
+                                            </p>
+                                        @endif
+                                    </div>
+                                </a>
                             </div>
                         @endforeach
                     </div>
@@ -74,10 +96,10 @@
                         <p class="w-10/12 py-5 text-2xl font-semibold">Chon danh muc</p>
                         <div class="grid grid-cols-2 w-full">
                             @foreach ($subCategory as $subCate)
-                                    <div class="space-x-4">
-                                        <input class="mx-4 h-6 w-6" name="subCate[]" value="{{ $subCate->id }}"
-                                            type="checkbox" id="">{{ $subCate->name }}
-                                    </div>
+                                <div class="space-x-4">
+                                    <input class="mx-4 h-6 w-6" name="subCate[]" value="{{ $subCate->id }}"
+                                        type="checkbox" id="">{{ $subCate->name }}
+                                </div>
                             @endforeach
                         </div>
                     </div>
@@ -90,8 +112,8 @@
                                 <label class="w">Tinh thanh</label>
                                 <select class="w-8/12 h-10" name="city" id="">
                                     <option value="">Select</option>
-                                    <option value="Ha Noi">Ha Noi</option>
-                                    <option value="Ninh Binh">Ninh Binh</option>
+                                    <option value="Hà Nội">Hà Nội</option>
+                                    <option value="Ninh Bình">Ninh Bình</option>
 
                                 </select>
                             </div>
@@ -99,8 +121,10 @@
                                 <label class="w">Quan huyen</label>
                                 <select class="w-8/12 h-10" name="district" id="">
                                     <option value="">Select</option>
-                                    <option value="Cau Giay">Cau Giay</option>
-                                    <option value="Ha Dong">Ha Dong</option>
+                                    <option value="Cầu Giấy">Cầu Giấy</option>
+                                    <option value="Hà Đông">Hà Đông</option>
+                                    <option value="Kim Sơn">Kim Sơn</option>
+                                    <option value="Yên Khánh">Yên Khánh</option>
                                 </select>
                             </div>
                         </div>
@@ -118,7 +142,8 @@
                 </div>
                 <div class="w-full flex text-2xl px-5  text-gray-800 hover:bg-lime-100">
                     <div class="w-full space-x-4 mt-4 mb-4">
-                        <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thuc pham sap het han
+                        <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thuc pham sap het
+                        han
                     </div>
                 </div>
                 <div class="w-full flex text-2xl px-5  text-with-800 hover:bg-lime-100">
