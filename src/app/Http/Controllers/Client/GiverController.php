@@ -54,7 +54,7 @@ class GiverController extends Controller
             "stock" => -1
         ];
 
-        $this->productService->updateProduct($id, $data);
+        $this->productService->makeStock($id, $data);
 
         return redirect()->back();
     }

@@ -68,4 +68,9 @@ class BannerService extends BaseService
 
         return $this->bannerRepository->update($banner["id"], ["path" => $banner["path"]]);
     }
+
+    public function create($banner)
+    {
+        return $this->bannerRepository->create($banner);
+    }
 }

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', ' Products')
 @section('content')
-    <div class="container">
+    <div class="container ml-8 mt-5">
         <form action="" method="" class="w-full h-fix">
             <div class="input flex mb-5 space-x-4">
                 <div class="">
@@ -40,15 +40,17 @@
                 <button type="reset" class="bg-white text-blue-500 py-1 px-10 border border-gray-300">Reset</button>
             </div>
         </form>
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+
+
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg p-2">
             <a href="{{ route('web.admin.product.create') }}"
-                class="z-10 flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
+                class="z-10 flex space-x-4 px-2 mr-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
                 <p class="text-black text-sm">Create new</p>
                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                     alt="">
             </a>
-            <table id="table-products" class="w-full pt-2 text-lg text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-md text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
+            <table id="table-products" class="pt-2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-base text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="py-3 px-6">
                             No
@@ -82,9 +84,9 @@
                 <tbody>
                     @foreach ($products as $item)
                         <tr
-                            class="bg-white border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            class="bg-white  text-base border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="py-4 px-6 text-black">
-                                #
+                                {{$loop->iteration}}
                             </td>
                             <td scope="row"
                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -110,13 +112,13 @@
                                 @endif
                             </td>
                             <td class="py-4 px-6">
-                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/products/' . $item->images[0]->path) }}"
+                                <img src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
                                     width="100px" alt="">
                             </td>
                             <td class="py-4 px-6">
                                 {{ $item->expire_at }}
                             </td>
-                            <td class="py-4 px-6 flex space-x-6">
+                            <td class="py-4 mt-10 px-6 flex space-x-6">
                                 <a href="{{ route('web.admin.product.update', $item->id) }}">
                                     <img width="32px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
@@ -135,6 +137,35 @@
             </table>
         </div>
     </div>
+    @if (session()->has('msg'))
+        <div class="flex justify-end sticky bottom-0">
+            <div id="toast-success"
+                class="flex items-center p-4 mb-4 w-full max-w-xs text-gray-700 bg-white rounded-lg shadow" role="alert">
+                <div
+                    class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ml-3 text-sm font-normal">{{ session()->pull('msg') }}</div>
+                <button type="button"
+                    class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-700 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+                    data-dismiss-target="#toast-success" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    @endif
     <script type="text/javascript">
         $(document).ready(function() {
             $('#table-products').DataTable({
@@ -182,6 +213,7 @@
                     )
                     .draw();
             });
+            $('#toast-success').fadeOut(5000);
         });
     </script>
 @endsection

@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', ' Accounts')
 @section('content')
-    <div class="container">
+    <div class="container ml-8 mt-5 shadow-xl">
         <form action="" method="" class="w-full h-fix">
             <div class="input flex mb-5 space-x-4">
                 <div class="">
@@ -35,9 +35,9 @@
                 <button type="reset" class="bg-white text-blue-500 py-1 px-10 border border-gray-300">Reset</button>
             </div>
         </form>
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg p-2">
             <a href="{{ route('web.admin.account.create') }}"
-                class="z-10 flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
+                class="z-10 flex space-x-4 px-2 mr-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
                 <p class="text-black text-sm">Create new</p>
                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                     alt="">
@@ -73,7 +73,7 @@
                         <tr
                             class="bg-white border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="py-4 px-6 text-black">
-                                #
+                                {{$loop->iteration}}
                             </td>
                             <td scope="row"
                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
