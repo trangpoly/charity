@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin\Account;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Http\Requests\admin\AccountRequest;
 use App\Http\Requests\admin\AccountUpdateRequest;
 use App\Services\AccountService;
 use Illuminate\Http\Request;
 
-class AccountController extends Controller
+class AccountController extends BaseController
 {
     protected $accountService;
 

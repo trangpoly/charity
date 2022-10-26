@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', ' Products')
 @section('content')
-    <div class="container ml-8 mt-5 shadow-xl">
+    <div class="container ml-8 mt-5">
         <form action="" method="" class="w-full h-fix">
             <div class="input flex mb-5 space-x-4">
                 <div class="">
@@ -40,15 +40,17 @@
                 <button type="reset" class="bg-white text-blue-500 py-1 px-10 border border-gray-300">Reset</button>
             </div>
         </form>
-        <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+
+
+        <div class="overflow-x-auto relative shadow-md sm:rounded-lg p-2">
             <a href="{{ route('web.admin.product.create') }}"
-                class="z-10 flex space-x-4 px-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
+                class="z-10 flex space-x-4 px-2 mr-2 py-1 bg-yellow-500 border border-gray-300 rounded-md absolute right-0">
                 <p class="text-black text-sm">Create new</p>
                 <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u131.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                     alt="">
             </a>
-            <table id="table-products" class="w-full pt-2 text-lg text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-md text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
+            <table id="table-products" class="pt-2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-base text-white bg-blue-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="py-3 px-6">
                             No
@@ -82,9 +84,9 @@
                 <tbody>
                     @foreach ($products as $item)
                         <tr
-                            class="bg-white border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            class="bg-white  text-base border-b text-black dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="py-4 px-6 text-black">
-                                #
+                                {{$loop->iteration}}
                             </td>
                             <td scope="row"
                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -116,7 +118,7 @@
                             <td class="py-4 px-6">
                                 {{ $item->expire_at }}
                             </td>
-                            <td class="py-4 px-6 flex space-x-6">
+                            <td class="py-4 mt-10 px-6 flex space-x-6">
                                 <a href="{{ route('web.admin.product.update', $item->id) }}">
                                     <img width="32px"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"

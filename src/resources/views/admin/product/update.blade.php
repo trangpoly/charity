@@ -55,7 +55,7 @@
                     @foreach ($product->images as $item)
                         <div class="flex ml-20">
                             <img width="200px" height="150px" class="box-image mr-2 rounded-lg shadow-xl"
-                                src="{{ asset('storage/images/products/' . $item->path) }}" alt=""> <a
+                                src="{{ asset('storage/images/' . $item->path) }}" alt=""> <a
                                 href="" data-product-image-id="{{ $item->id }}"
                                 class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
