@@ -119,7 +119,7 @@ class OrderService extends BaseService
             $attribute['received_date'] = null;
             $product = $this->productRepository->find($order->product_id);
             $stock = $product->stock + $order->quantity;
-            
+
             $this->productRepository->update($product->id, ['stock' => $stock]);
         }
 
