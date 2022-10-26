@@ -55,6 +55,7 @@ class UserController extends BaseController
     public function deactivateUser($id)
     {
         $this->userService->deactivateUser($id);
+        session(['msg' => 'Deactivate user successfully !']);
 
         return redirect()->route('web.admin.user.list');
     }

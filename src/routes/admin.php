@@ -63,3 +63,6 @@ Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name
 Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');
 
 Route::get('admin/order', [OrderController::class, 'getOrders'])->name('web.admin.order.list');
+Route::get('admin/order/edit/{id}', [OrderController::class, 'showEditForm'])->name('web.admin.order.edit');
+Route::post('admin/order/edit/{id}', [OrderController::class, 'updateOrder'])->name('web.admin.order.update');
+Route::get('admin/order/delete/{id}', [OrderController::class, 'deleteOrder'])->name('web.admin.order.delete');

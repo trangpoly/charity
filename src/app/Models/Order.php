@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends BaseModel
 {
     use HasFactory;
     use Uuid;
+    use SoftDeletes;
 
     protected $fillable = [
         'product_id',

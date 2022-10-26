@@ -1,5 +1,5 @@
 @extends('admin.layouts.master')
-@section('title', 'User Management')
+@section('title', 'Order Management')
 @section('content')
     <div class="container">
         <form action="" method="" class="w-full h-fix">
@@ -47,6 +47,9 @@
                             Category name
                         </th>
                         <th scope="col" class="py-3 px-6">
+                            Quantity
+                        </th>
+                        <th scope="col" class="py-3 px-6">
                             Giver's name
                         </th>
                         <th scope="col" class="py-3 px-6">
@@ -75,6 +78,9 @@
                             <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$item->subCategory->name ?? ''}}
                             </td>
+                            <td scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{$item->quantity ?? ''}}
+                            </td>
                             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {{$item->giver->name ?? ''}}
                             </td>
@@ -82,16 +88,16 @@
                                 {{$item->receiver->name ?? ''}}
                             </td>
                             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
-                                {{$item->status == 0 ? 'reserved' : ($item->status == 1 ? 'given' : 'cancelled')}}
+                                {{$item->status == 0 ? 'registered' : ($item->status == 1 ? 'received' : 'cancelled')}}
                             </td>
                             <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">
                                 {{$item->received_date ?? ''}}
                             </td>
                             <td class="py-4 px-6 flex space-x-4">
-                                <a href="{{route('web.admin.user.edit', ['id' => $item->id])}}">
+                                <a href="{{route('web.admin.order.edit', ['id' => $item->id])}}">
                                     <img class="" width="32px" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021" alt="">
                                 </a>
-                                <a onclick= "return confirm('Are you sure you want to deactivate this user?')" href="{{route('web.admin.user.deactivate', ['id' =>$item->id])}}" class="cursor-pointer">
+                                <a onclick= "return confirm('Are you sure you want to deactivate this user?')" href="{{route('web.admin.order.delete', ['id' =>$item->id])}}" class="cursor-pointer">
                                     <img width="30px" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u110.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021" alt="">
                                 </a>
                             </td>
@@ -132,7 +138,7 @@
 
                 $('#table-orders')
                     .DataTable()
-                    .column(3)
+                    .column(4)
                     .search(
                         $('#giver-search').val()
                     )
@@ -140,7 +146,7 @@
 
                 $('#table-orders')
                     .DataTable()
-                    .column(4)
+                    .column(5)
                     .search(
                         $('#recipient-search').val()
                     )
