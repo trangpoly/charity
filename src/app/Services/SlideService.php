@@ -24,9 +24,9 @@ class SlideService extends BaseService
 
     public function activeSlide($id)
     {
-        $activeSlides = $this->slideRepository->countSlideActive();
+        $activeSlides = $this->slideRepository->getSlidesActive();
 
-        if ($activeSlides >= 3) {
+        if ($activeSlides->count() >= 3) {
             return false;
         } else {
             $attribute['status'] = 0;
@@ -52,9 +52,9 @@ class SlideService extends BaseService
     {
         DB::beginTransaction();
         try {
-            $activeSlides = $this->slideRepository->countSlideActive();
+            $activeSlides = $this->slideRepository->getSlidesActive();
 
-            if ($request->status == 0 && $activeSlides >= 3) {
+            if ($request->status == 0 && $activeSlides->count() >= 3) {
                 return true;
             } else {
                 $attribute = [
@@ -67,6 +67,52 @@ class SlideService extends BaseService
                 DB::commit();
 
                 return false;
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+
+            return true;
+        }
+    }
+
+    public function findSlide($id)
+    {
+        return $this->slideRepository->find($id);
+    }
+
+    public function updateSlide($id, $request)
+    {
+        DB::beginTransaction();
+        try {
+            $activeSlides = $this->slideRepository->getSlidesActive();
+
+            foreach ($activeSlides as $slide) {
+                if ($request->status == 0 && $activeSlides->count() >= 3) {
+                    if ($slide->id == $id) {
+                        $attribute = [
+                            'path' => $request->image->hashName(),
+                            'status' => $request->status,
+                        ];
+                        Storage::disk('public')->put('images', $request->image);
+                        $this->slideRepository->update($id, $attribute);
+                        DB::commit();
+
+                        return false;
+                    }
+
+                    return true;
+                } else {
+                    $attribute = [
+                        'path' => $request->image->hashName(),
+                        'status' => $request->status,
+                    ];
+                    Storage::disk('public')->put('images', $request->image);
+                    $this->slideRepository->update($id, $attribute);
+                    DB::commit();
+
+                    return false;
+                }
             }
         } catch (Exception $e) {
             Log::error($e);

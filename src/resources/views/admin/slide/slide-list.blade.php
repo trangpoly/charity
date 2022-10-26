@@ -158,7 +158,7 @@
                                     src="https://www.pngitem.com/pimgs/m/514-5143309_eye-open-font-awesome-green-eye-icon-font.png"
                                     alt="">
                             </a>
-                            <a href="#">
+                            <a href="{{ route('web.admin.slide.edit', ['id' => $slide->id]) }}">
                                 <img width="32px"
                                     src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                     alt="">

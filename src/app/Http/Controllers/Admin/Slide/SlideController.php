@@ -46,4 +46,19 @@ class SlideController extends BaseController
 
         return redirect()->route('web.admin.slide.list')->with(['msg' => $msg, 'status' => $status]);
     }
+
+    public function editSlide($id)
+    {
+        $slide = $this->slideService->findSlide($id);
+
+        return view('admin.slide.slide-edit', ['slide' => $slide]);
+    }
+
+    public function updateSlide($id, Request $request)
+    {
+        $status = $this->slideService->updateSlide($id, $request);
+        $msg = $status ? 'Error! Something went wrong.' : 'Update Slide Successfully !';
+
+        return redirect()->route('web.admin.slide.list')->with(['msg' => $msg, 'status' => $status]);
+    }
 }
