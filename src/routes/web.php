@@ -109,4 +109,6 @@ Route::prefix('admin')->group(function () {
     Route::post('slide/disable', [SlideController::class, 'disableSlide'])->name('web.admin.slide.disable');
     Route::get('slide/create', [SlideController::class, 'createSlide'])->name('web.admin.slide.create');
     Route::post('slide/create', [SlideController::class, 'storeSlide'])->name('web.admin.slide.store');
+    Route::get('slide/edit/{id}', [SlideController::class, 'editSlide'])->name('web.admin.slide.edit');
+    Route::put('slide/edit/{id}', [SlideController::class, 'updateSlide'])->name('web.admin.slide.update');
 });
