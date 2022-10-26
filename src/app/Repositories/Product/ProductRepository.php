@@ -100,7 +100,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $this->model
             ->whereNotIn('stock', [-1, 0])
             ->where('id', '<>', $currentProductId)
-            ->whereBetween('expire_at', [Carbon::now()->toDateString(), Carbon::now()->adddays(3)->toDateString()])
+            ->whereBetween('expire_at', [Carbon::now()->toDateString(), Carbon::now()->adddays(2)->toDateString()])
             ->inRandomOrder()
             ->limit(4)
             ->get();

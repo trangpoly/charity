@@ -71,7 +71,7 @@
                                         width="25px" alt="">
                                     <p>
                                         Địa chỉ:
-                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))
+                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0]) : false))
                                             {{$product->address . ', '}}
                                         @endif
                                         {{ $product->district . ', ' . $product->city }}
@@ -88,21 +88,8 @@
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u52.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
                                     <p>Liên hệ:
-                                        @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? $product->orders[0]->status == 2 : true))
-                                            @php
-                                                $length = 3;
-                                                $phone = str_split($product->phone);
-                                                foreach($phone as $key => $num)
-                                                {
-                                                    if($key > 2 && $length > 0 && is_numeric($num)) {
-                                                        echo '*';
-                                                        $length--;
-                                                        continue;
-                                                    }
-
-                                                    echo $num;
-                                                }
-                                            @endphp
+                                        @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [1,2]) : true))
+                                            {{$product->hidePhoneNumber()}}
                                         @else
                                             {{$product->phone}}
                                         @endif
@@ -224,6 +211,9 @@
                 @endif
 
             </div>
+            @php
+                $now = date('Y-m-d');
+            @endphp
             @if ($recommend->isNotEmpty())
                 <div class="w-full mt-10">
                     <div class="flex">
@@ -248,24 +238,19 @@
                                          <p class="text-lg">{{$item->district . ", " . $item->city}}</p>
                                      </div>
                                      <div class="flex space-x-4 h-8 items-center mx-2">
-                                         @php
-                                             $expireDate = mktime(0,0,0, date('m'), date('d') + 3, date('Y'));
-                                             $expireDate = date('Y-m-d', $expireDate);
-                                             $now = date('Y-m-d');
-                                         @endphp
-                                         @if($item->expire_at >= $now && $item->expire_at <= $expireDate)
-                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                             class="w-1/12 h-fit" alt="">
-                                             <p class="text-orange-400 text-lg">
-                                                 {{$item->expire_at}}
-                                             </p>
-                                         @else
-                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                                             class="w-1/12 h-fit" alt="">
-                                             <p class="text-black text-lg">
-                                                 {{$item->expire_at}}
-                                             </p>
-                                         @endif
+                                        @if($item->expire_at == $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            class="w-1/12 h-fit" alt="">
+                                            <p class="text-orange-400 text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @else
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                            class="w-1/12 h-fit" alt="">
+                                            <p class="text-black text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @endif
                                      </div>
                                  </a>
                          @endforeach
@@ -296,11 +281,19 @@
                                         <p class="text-lg">{{$item->district . ", " . $item->city}}</p>
                                     </div>
                                     <div class="flex space-x-4 h-8 items-center mx-2">
-                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        @if($item->expire_at == $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                             class="w-1/12 h-fit" alt="">
-                                        <p class="text-orange-400 text-lg">
-                                            {{$item->expire_at}}
-                                        </p>
+                                            <p class="text-orange-400 text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @else
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                            class="w-1/12 h-fit" alt="">
+                                            <p class="text-black text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @endif
                                     </div>
                                 </a>
                          @endforeach
