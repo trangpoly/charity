@@ -33,4 +33,17 @@ class SlideController extends BaseController
     {
         $this->slideService->disableSlide($request->id);
     }
+
+    public function createSlide()
+    {
+        return view('admin.slide.slide-create');
+    }
+
+    public function storeSlide(Request $request)
+    {
+        $status = $this->slideService->storeSlide($request);
+        $msg = $status ? 'Error! Something went wrong.' : 'Create Slide Successfully !';
+
+        return redirect()->route('web.admin.slide.list')->with(['msg' => $msg, 'status' => $status]);
+    }
 }

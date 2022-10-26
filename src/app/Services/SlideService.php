@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\Slide\SlideRepositoryInterface;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class SlideService extends BaseService
 {
@@ -42,5 +46,33 @@ class SlideService extends BaseService
     public function getSlides()
     {
         return $this->slideRepository->getSlides();
+    }
+
+    public function storeSlide($request)
+    {
+        DB::beginTransaction();
+        try {
+            $activeSlides = $this->slideRepository->countSlideActive();
+
+            if ($request->status == 0 && $activeSlides >= 3) {
+                return true;
+            } else {
+                $attribute = [
+                    'path' => $request->image->hashName(),
+                    'status' => $request->status,
+                ];
+
+                Storage::disk('public')->put('images', $request->image);
+                $this->slideRepository->create($attribute);
+                DB::commit();
+
+                return false;
+            }
+        } catch (Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+
+            return true;
+        }
     }
 }
