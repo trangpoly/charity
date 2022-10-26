@@ -51,7 +51,7 @@ class OrderController extends BaseController
     {
         $msg = $this->orderService->updateOrder($request, $id);
 
-        if($msg) {
+        if ($msg) {
             session(['msg' => $msg]);
 
             return redirect()->back();
@@ -65,12 +65,12 @@ class OrderController extends BaseController
     {
         $status = $this->orderService->deleteOrder($id);
 
-        if(!$status) {
+        if (!$status) {
             session(['error' => 'Delete fail, orders are waiting to be received !']);
         } else {
             session(['msg' => 'Delete order successfully !']);
         }
 
-        return redirect()->route('web.admin.order.list'); 
+        return redirect()->route('web.admin.order.list');
     }
 }

@@ -59,16 +59,15 @@ class Product extends BaseModel
     {
         return $this->belongsTo(Favourite::class, 'id', 'product_id');
     }
-    
+
     public function hidePhoneNumber()
     {
         $phone = str_split($this->phone);
         $phone_length = count($phone);
         $phone_hide = '';
 
-        foreach($phone as $key => $num)
-        {
-            if($key >= $phone_length - 6 && is_numeric($num)) {
+        foreach ($phone as $key => $num) {
+            if ($key >= $phone_length - 6 && is_numeric($num)) {
                 $phone_hide = $phone_hide . '*';
                 continue;
             }

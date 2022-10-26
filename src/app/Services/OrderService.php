@@ -84,15 +84,14 @@ class OrderService extends BaseService
             'status' => $request->status,
             'received_date' => $order->received_date,
         ];
-        
-        if($request->status == 1 && $order->status != 1) {
+
+        if ($request->status == 1 && $order->status != 1) {
             $attribute['received_date'] = Carbon::now()->toDateString();
 
-            if($order->status == 2) {
-                // check so luong product
+            if ($order->status == 2) {
                 $product = $this->productRepository->find($order->product_id);
 
-                if($order->quantity > $product->stock) {
+                if ($order->quantity > $product->stock) {
                     return 'Số lượng sản phẩm không đủ';
                 }
 
@@ -101,14 +100,13 @@ class OrderService extends BaseService
             }
         }
 
-        if($request->status == 0) {
+        if ($request->status == 0) {
             $attribute['received_date'] = null;
 
-            if($order->status == 2) {
-                // check so luong product
+            if ($order->status == 2) {
                 $product = $this->productRepository->find($order->product_id);
 
-                if($order->quantity > $product->stock) {
+                if ($order->quantity > $product->stock) {
                     return 'Số lượng sản phẩm không đủ';
                 }
 
@@ -117,11 +115,11 @@ class OrderService extends BaseService
             }
         }
 
-        if($request->status == 2 && $order->status != 2) {
+        if ($request->status == 2 && $order->status != 2) {
             $attribute['received_date'] = null;
-            //update lai qty product
             $product = $this->productRepository->find($order->product_id);
             $stock = $product->stock + $order->quantity;
+            
             $this->productRepository->update($product->id, ['stock' => $stock]);
         }
 
@@ -134,7 +132,7 @@ class OrderService extends BaseService
     {
         $order = $this->orderRepository->find($id);
 
-        if($order->status == 0) {
+        if ($order->status == 0) {
             return false;
         }
 
