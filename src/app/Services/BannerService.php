@@ -19,41 +19,29 @@ class BannerService extends BaseService
 
     public function getBanners()
     {
-        return $this->bannerRepository->all();
-    }
-
-    public function upload($request)
-    {
-        DB::beginTransaction();
-        try {
-            $bannerImgs = $request->image;
-
-            foreach ($bannerImgs as $key => $image) {
-                $findIndexImg = $this->bannerRepository->findIndex($key);
-                Storage::disk('public')->put('images', $image);
-                $imgData = [
-                    'path' => $image->hashName(),
-                    'index_position' => $key,
-                ];
-                if ($findIndexImg) {
-                    $updateId = $findIndexImg->id;
-                    $this->bannerRepository->update($updateId, $imgData);
-                } else {
-                    $this->bannerRepository->create($imgData);
-                }
+        $banners = $this->bannerRepository->all();
+        if (empty($banners->toArray())) {
+            $banners['top'] = [
+                "path" => "",
+                "index_position" => 1
+            ];
+            $banners['mid'] = [
+                "path" => "",
+                "index_position" => 2
+            ];
+            $banners['bot'] = [
+                "path" => "",
+                "index_position" => 3
+            ];
+            foreach ($banners as $banner) {
+                $this->bannerRepository->create($banner);
             }
-            DB::commit();
-
-            return false;
-        } catch (Exception $e) {
-            Log::error($e);
-            DB::rollBack();
-
-            return true;
         }
+
+        return $banners;
     }
 
-    public function update($banner)
+    public function upload($banner)
     {
         if ($banner['path'] != "") {
             $bannerDetail = $this->bannerRepository->find($banner['id']);
@@ -67,10 +55,5 @@ class BannerService extends BaseService
         }
 
         return $this->bannerRepository->update($banner["id"], ["path" => $banner["path"]]);
-    }
-
-    public function create($banner)
-    {
-        return $this->bannerRepository->create($banner);
     }
 }
