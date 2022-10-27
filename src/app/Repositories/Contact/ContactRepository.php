@@ -11,5 +11,4 @@ class ContactRepository extends BaseRepository implements ContactRepositoryInter
     {
         return Contact::class;
     }
-
 }

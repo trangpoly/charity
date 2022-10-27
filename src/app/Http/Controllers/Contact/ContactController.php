@@ -16,7 +16,6 @@ class ContactController extends BaseController
     public function __construct(ContactService $contactService)
     {
         $this->contactService = $contactService;
-
     }
 
     public function formContact()
