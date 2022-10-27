@@ -47,8 +47,10 @@
             <div class=" h-fit border border-slate-400 rounded-md p-7">
                 <div class="flex w-full">
                     <div class="w-6/12 md:shrink-0 ">
-                        <img src="{{ Illuminate\Support\Facades\Storage::url("images/$product->avatar") }}"
+                        <div class="w-full">
+                            <img class="object-fill h-full w-full" src="{{ Illuminate\Support\Facades\Storage::url("images/$product->avatar") }}"
                             alt="">
+                        </div>
                         <div class="grid grid-cols-3 gap-4 mt-4">
                             @foreach ($product->images as $item)
                                 <div>
