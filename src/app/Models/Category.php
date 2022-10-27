@@ -41,6 +41,6 @@ class Category extends BaseModel
 
     public function favourites()
     {
-        return $this->hasManyThrough(Product::class, Favourite::class, 'product_id','category_id',  'id', 'id');
+        return $this->hasManyThrough(Product::class, Favourite::class, 'product_id', 'category_id', 'id', 'id');
     }
 }
