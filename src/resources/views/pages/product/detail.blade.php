@@ -64,14 +64,14 @@
                             <h2 class="font-semibold text-3xl text-slate-800">{{ $product->name }}</h2>
                         </div>
                         <div class="flex justify-between border-b border-lime-600">
-                            <div class="mt-5 text-lg text-slate-700 pb-10">
+                            <div class="mt-5 text-lg text-slate-700 pb-10 w-11/12">
                                 <div class="flex py-2 space-x-4">
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
                                     <p>
                                         Địa chỉ:
-                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0, 1]) : false))
+                                        @if ($currentUser->id == $product->owner_id || (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [0]) : false))
                                             {{$product->address . ', '}}
                                         @endif
                                         {{ $product->district . ', ' . $product->city }}
@@ -87,7 +87,13 @@
                                     <img class="h-fit"
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u52.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                         width="25px" alt="">
-                                    <p>Liên hệ: {{ $product->phone }}</p>
+                                    <p>Liên hệ:
+                                        @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? in_array($product->orders[0]->status, [1,2]) : true))
+                                            {{$product->hidePhoneNumber()}}
+                                        @else
+                                            {{$product->phone}}
+                                        @endif
+                                    </p>
                                 </div>
                                 <div class="flex py-2 space-x-4">
                                     <img class="h-fit"
@@ -115,13 +121,13 @@
                                     <p>Hạn sử dụng: {{$product->expire_at}}</p>
                                 </div>
                             </div>
-                            <div class="pl-2 mt-6 flex flex-col space-y-5">
+                            <div class="pl-2 mt-6 flex flex-col space-y-5 w-1/12">
                                 <a href="#">
-                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u106.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
+                                    <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u106.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
                                         width="30px" alt="">
                                 </a>
                                 @if ($currentUser->id == $product->owner_id)
-                                    <a href="#">
+                                    <a href="{{route('web.posts.edit', ['id' => $product->id, 'subCategoryId' => $product->subCategory->id ])}}">
                                         <img class="h-fit" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/chi_ti_t_s_n_ph_m_-_ng__i_t_ng/u134.svg?pageId=04d69dba-73c1-476e-b61e-a826cf89da1e"
                                         width="30px" alt="">
                                     </a>
@@ -205,6 +211,9 @@
                 @endif
 
             </div>
+            @php
+                $now = date('Y-m-d');
+            @endphp
             @if ($recommend->isNotEmpty())
                 <div class="w-full mt-10">
                     <div class="flex">
@@ -229,24 +238,19 @@
                                          <p class="text-lg">{{$item->district . ", " . $item->city}}</p>
                                      </div>
                                      <div class="flex space-x-4 h-8 items-center mx-2">
-                                         @php
-                                             $expireDate = mktime(0,0,0, date('m'), date('d') + 3, date('Y'));
-                                             $expireDate = date('Y-m-d', $expireDate);
-                                             $now = date('Y-m-d');
-                                         @endphp
-                                         @if($item->expire_at >= $now && $item->expire_at <= $expireDate)
-                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                             class="w-1/12 h-fit" alt="">
-                                             <p class="text-orange-400 text-lg">
-                                                 {{$item->expire_at}}
-                                             </p>
-                                         @else
-                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                                             class="w-1/12 h-fit" alt="">
-                                             <p class="text-black text-lg">
-                                                 {{$item->expire_at}}
-                                             </p>
-                                         @endif
+                                        @if($item->expire_at == $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            class="w-1/12 h-fit" alt="">
+                                            <p class="text-orange-400 text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @else
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                            class="w-1/12 h-fit" alt="">
+                                            <p class="text-black text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @endif
                                      </div>
                                  </a>
                          @endforeach
@@ -277,11 +281,19 @@
                                         <p class="text-lg">{{$item->district . ", " . $item->city}}</p>
                                     </div>
                                     <div class="flex space-x-4 h-8 items-center mx-2">
-                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                        @if($item->expire_at == $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                             class="w-1/12 h-fit" alt="">
-                                        <p class="text-orange-400 text-lg">
-                                            {{$item->expire_at}}
-                                        </p>
+                                            <p class="text-orange-400 text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @else
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                            class="w-1/12 h-fit" alt="">
+                                            <p class="text-black text-lg">
+                                                {{$item->expire_at}}
+                                            </p>
+                                        @endif
                                     </div>
                                 </a>
                          @endforeach

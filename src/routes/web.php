@@ -8,7 +8,6 @@ use App\Http\Controllers\Client\Auth\RegisterUserController;
 use App\Http\Controllers\Client\ReceiverController;
 use App\Http\Controllers\Client\PostController;
 use App\Http\Controllers\Admin\Category\CategoryController;
-use App\Http\Controllers\Admin\Slide\SlideController;
 use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
@@ -107,8 +106,4 @@ Route::prefix('admin')->group(function () {
 
     Route::get('banner', [BannerController::class, 'setting'])->name('web.admin.banner.setting');
     Route::post('banner', [BannerController::class, 'uploadBanner'])->name('web.admin.banner.upload');
-
-    Route::get('slide', [SlideController::class, 'getSlideList'])->name('web.admin.slide.list');
-    Route::post('slide/active', [SlideController::class, 'activeSlide'])->name('web.admin.slide.active');
-    Route::post('slide/disable', [SlideController::class, 'disableSlide'])->name('web.admin.slide.disable');
 });

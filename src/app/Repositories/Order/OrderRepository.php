@@ -55,4 +55,9 @@ class OrderRepository extends BaseRepository implements OrderRepositoryInterface
     {
         return $this->model->with('product', 'giver', 'receiver', 'subCategory')->get();
     }
+
+    public function getOrderDetail($id)
+    {
+        return $this->model->with('product', 'giver', 'receiver')->findOrFail($id);
+    }
 }

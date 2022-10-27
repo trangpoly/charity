@@ -17,9 +17,9 @@ class SlideRepository extends BaseRepository implements SlideRepositoryInterface
         return $this->model->get();
     }
 
-    public function countSlideActive()
+    public function getSlidesActive()
     {
-        return $this->model->where('status', 0)->count();
+        return $this->model->where('status', 0)->get();
     }
 
     public function getSlides()

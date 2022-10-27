@@ -5,6 +5,7 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
+use App\Http\Controllers\Admin\Slide\SlideController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,17 @@ Route::middleware('check.admin')->prefix('admin')->group(function () {
         Route::any('search', [CategoryController::class, 'searchCategory'])->name('web.admin.category.search');
         Route::post('pagination', [CategoryController::class, 'paginationCategory'])->name('web.admin.category.pagination');
     });
+
+    Route::prefix('slide')->group(function () {
+        Route::get('/', [SlideController::class, 'getSlideList'])->name('web.admin.slide.list');
+        Route::post('active', [SlideController::class, 'activeSlide'])->name('web.admin.slide.active');
+        Route::post('disable', [SlideController::class, 'disableSlide'])->name('web.admin.slide.disable');
+        Route::get('create', [SlideController::class, 'createSlide'])->name('web.admin.slide.create');
+        Route::post('create', [SlideController::class, 'storeSlide'])->name('web.admin.slide.store');
+        Route::get('edit/{id}', [SlideController::class, 'editSlide'])->name('web.admin.slide.edit');
+        Route::put('edit/{id}', [SlideController::class, 'updateSlide'])->name('web.admin.slide.update');
+        Route::delete('delete', [SlideController::class, 'deleteSlide'])->name('web.admin.slide.delete');
+    });
 });
 
 Route::middleware('check.admin')->group(function () {
@@ -71,4 +83,8 @@ Route::middleware('check.admin')->group(function () {
     Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');
 
     Route::get('admin/order', [OrderController::class, 'getOrders'])->name('web.admin.order.list');
+    Route::get('admin/order/edit/{id}', [OrderController::class, 'showEditForm'])->name('web.admin.order.edit');
+    Route::post('admin/order/edit/{id}', [OrderController::class, 'updateOrder'])->name('web.admin.order.update');
+    Route::get('admin/order/delete/{id}', [OrderController::class, 'deleteOrder'])->name('web.admin.order.delete');
 });
+
