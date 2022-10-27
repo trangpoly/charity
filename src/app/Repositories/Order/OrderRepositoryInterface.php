@@ -13,4 +13,8 @@ interface OrderRepositoryInterface extends BaseRepositoryInterface
     public function getreceivedList($userId);
 
     public function getcanceledList($userId);
+
+    public function getOrdersDetail();
+
+    public function getOrderDetail($id);
 }

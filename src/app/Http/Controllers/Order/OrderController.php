@@ -39,4 +39,38 @@ class OrderController extends BaseController
 
         return view('admin.pages.order.list')->with(['orders' => $orders, 'categories' => $categories]);
     }
+
+    public function showEditForm($id)
+    {
+        $order = $this->orderService->getOrder($id);
+
+        return view('admin.pages.order.edit')->with('order', $order);
+    }
+
+    public function updateOrder(Request $request, $id)
+    {
+        $msg = $this->orderService->updateOrder($request, $id);
+
+        if ($msg) {
+            session(['msg' => $msg]);
+
+            return redirect()->back();
+        }
+        session(['msg' => 'Update order successfully !']);
+
+        return redirect()->route('web.admin.order.list');
+    }
+
+    public function deleteOrder($id)
+    {
+        $status = $this->orderService->deleteOrder($id);
+
+        if (!$status) {
+            session(['error' => 'Delete fail, orders are waiting to be received !']);
+        } else {
+            session(['msg' => 'Delete order successfully !']);
+        }
+
+        return redirect()->route('web.admin.order.list');
+    }
 }
