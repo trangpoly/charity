@@ -105,7 +105,8 @@
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u26.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9">
                         </div>
                         <div class="ml-2 capitalize flex ">
-                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ Auth::guard('admin')->user()->name }}</h1>
+                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">
+                                {{ Auth::guard('admin')->user()->name }}</h1>
                             <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
                         </div>
                     </button>
@@ -150,7 +151,7 @@
                     <img style="float: right" width="27px"
                         src="https://cdn0.iconfinder.com/data/icons/octicons/1024/dashboard-512.png" alt="">
                 </a>
-                <a href="{{route('web.admin.account.list')}}"
+                <a href="{{ route('web.admin.account.list') }}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Account Management
                     <img style="float: right" width="19px"
@@ -178,7 +179,7 @@
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u28.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
                         alt="">
                 </a>
-                <a href="{{route('web.admin.order.list')}}"
+                <a href="{{ route('web.admin.order.list') }}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Order Management
                     <img style="float: right" width="22px" height="18"
@@ -190,6 +191,13 @@
                     Banner Management
                     <img style="float: right"
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u18.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
+                        alt="">
+                </a>
+                <a href="{{ route('web.admin.contact.list') }}"
+                    class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
+                    Contact Management
+                    <img style="float: right; height:25px; width:23px"
+                        src="https://cdn-icons-png.flaticon.com/512/15/15895.png"
                         alt="">
                 </a>
                 <a href="#"
@@ -215,11 +223,11 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         $(document).ready(function() {
-          $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-          });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         });
     </script>
     @yield('script')

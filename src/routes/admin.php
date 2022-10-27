@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Account\AccountController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,7 @@ Route::middleware('check.admin')->prefix('admin')->group(function () {
         Route::post('create', [ProductController::class, 'saveCreate'])->name('web.admin.product.saveCreate');
         Route::get('update/{id}', [ProductController::class, 'update'])->name('web.admin.product.update');
         Route::post('update/{id}', [ProductController::class, 'saveUpdate'])->name('web.admin.product.saveUpdate');
-        Route::get('delete/{id}',[ProductController::class, 'delete'])->name('web.admin.product.delete');
+        Route::get('delete/{id}', [ProductController::class, 'delete'])->name('web.admin.product.delete');
     });
 
     Route::prefix('account')->group(function () {
@@ -37,7 +38,12 @@ Route::middleware('check.admin')->prefix('admin')->group(function () {
         Route::post('create', [AccountController::class, 'saveCreate'])->name('web.admin.account.saveCreate');
         Route::get('update/{id}', [AccountController::class, 'update'])->name('web.admin.account.update');
         Route::post('update/{id}', [AccountController::class, 'saveUpdate'])->name('web.admin.account.saveUpdate');
-        Route::get('delete/{id}',[AccountController::class, 'delete'])->name('web.admin.account.delete');
+        Route::get('delete/{id}', [AccountController::class, 'delete'])->name('web.admin.account.delete');
+    });
+
+    Route::prefix('contact')->group(function () {
+        Route::get('list', [ContactController::class, 'list'])->name('web.admin.contact.list');
+        Route::get('delete/{id}', [ContactController::class, 'delete'])->name('web.admin.contact.detele');
     });
 
     Route::prefix('category')->group(function () {
@@ -55,11 +61,14 @@ Route::middleware('check.admin')->prefix('admin')->group(function () {
     });
 });
 
-Route::get('admin/user', [UserController::class, 'getUsers'])->name('web.admin.user.list');
-Route::get('admin/user/create', [UserController::class, 'showCreateForm'])->name('web.admin.user.form');
-Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('web.admin.user.store');
-Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
-Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
-Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');
+Route::middleware('check.admin')->group(function () {
 
-Route::get('admin/order', [OrderController::class, 'getOrders'])->name('web.admin.order.list');
+    Route::get('admin/user', [UserController::class, 'getUsers'])->name('web.admin.user.list');
+    Route::get('admin/user/create', [UserController::class, 'showCreateForm'])->name('web.admin.user.form');
+    Route::post('admin/user/create', [UserController::class, 'storeUser'])->name('web.admin.user.store');
+    Route::get('admin/user/edit/{id}', [UserController::class, 'showEditForm'])->name('web.admin.user.edit');
+    Route::post('admin/user/edit/{id}', [UserController::class, 'updateUser'])->name('web.admin.user.update');
+    Route::get('admin/user/deactivate/{id}', [UserController::class, 'deactivateUser'])->name('web.admin.user.deactivate');
+
+    Route::get('admin/order', [OrderController::class, 'getOrders'])->name('web.admin.order.list');
+});

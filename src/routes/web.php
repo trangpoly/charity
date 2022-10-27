@@ -13,6 +13,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
+use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,9 @@ Route::get('/',[ClientController::class, 'home'])->name('home');
 Route::get('/contact', function () {
     return view('pages.contact');
 })->name('web.client.contact');
+
+Route::get('/contact',[ContactController::class, 'formContact'])->name('web.client.formContact');
+Route::post('/contact',[ContactController::class, 'saveContact'])->name('web.client.saveContact');
 
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
