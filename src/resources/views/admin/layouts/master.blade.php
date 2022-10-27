@@ -201,7 +201,7 @@
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u18.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
                         alt="">
                 </a>
-                <a href="#"
+                <a href="{{ route('web.admin.slide.list') }}"
                     class="p-5 capitalize font-medium text-md
                     @if (url()->current() == route('web.admin.slide.list')) bg-blue-500 text-white
                     @endif hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
