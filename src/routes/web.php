@@ -43,6 +43,8 @@ Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
 })->name('my-page.subscribe-receive');
 
+Route::get('search',[ ProductController::class,'searchByNameAndSort'])->name("web.client.product.search");
+
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail')->middleware('auth');
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
 Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');

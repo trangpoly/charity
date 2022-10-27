@@ -181,4 +181,9 @@ class ProductService extends BaseService
     {
         return $this->productRepository->update($id, $data);
     }
+
+    public function searchProductByName($data)
+    {
+        return $this->productRepository->searchProductByName($data);
+    }
 }

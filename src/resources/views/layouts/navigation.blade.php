@@ -8,30 +8,17 @@
             </a>
         </div>
         <!-- Search -->
-        <form class="flex lg:w-4/12 sm:w-6/12 bg-white bg-clip-padding border-2 border-solid border-gray-300 ">
-            <div class="form-group w-11/12">
-                <input type="text"
-                    class="form-control
-                block
-                w-full
-                px-3
-                h-10
-                py-1.5
-                text-base
-                text-gray-300
-                transition
-                ease-in-out
-                m-0
-                border-none
-                focus:text-gray-700 focus:bg-white"
-                    id="search" placeholder="Vui lòng nhập từ khóa tìm kiếm">
-            </div>
-            <div class="w-1/12 my-auto">
-                <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/input_otp__login_/u5.svg?pageId=cb3eaa6f-36ec-4b13-8994-f53fdbe69b29"
-                    width="20px" height="20px" alt="">
+        <form action="{{ route("web.client.product.search") }}" class="flex lg:w-4/12 sm:w-6/12 bg-white bg-clip-padding">
+            <div class="relative w-full">
+                <div class="flex absolute inset-y-0 right-4 items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
+                <input type="text" id="simple-search" name="name_product" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  block w-full pl-10 p-2.5 focus:outline-none" placeholder="Vui lòng nhập từ khóa tìm kiếm">
+                <input type="hidden" name="sort" value="0" hidden>
             </div>
 
         </form>
+
         <!-- Menu -->
         <div class="lg:flex w-4/12 ml-10 text-center items-center text-base text-gray-700 sm:hidden">
             <div class="w-1/4">

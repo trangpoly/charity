@@ -59,11 +59,15 @@
             @foreach ($data['categories'] as $category)
                 @if (!empty($category->productsByParentCategory->toArray()))
                     <div class="w-full mb-10">
-                        <div class="flex">
+                        <div class="flex h-fit">
                             <h2 class="font-semibold text-3xl text-lime-700 w-10/12">{{ $category->name }}</h2>
                             <a href="{{ route('web.client.category.list', $category->id) }}"
-                                class="font-base text-right text-xl text-gray-700 w-2/12 hover:text-orange-400">Xem thêm
-                                ></a>
+                                class="flex w-2/12 place-content-end relative hover:color-orange-400">
+                                <span class="font-base text-xl text-gray-700 mr-6">Xem thêm</span> 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="absolute bottom-4 h-3 mx-2 fill-gray-700">
+                                    <path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" style="text-color: grey"/>
+                                </svg>
+                            </a>
                         </div>
                         <div class="w-full flex border border-gray-300 rounded-md mt-5 py-4 px-2">
                             @foreach ($category->productsByParentCategory->take(4) as $item)
@@ -79,21 +83,27 @@
                                     <div class="flex py-2 space-x-4 h-16 items-center mx-2">
                                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                             class="w-1/12 h-fit mb-0" alt="">
-                                        <p class="text-lg">{{ $item->district . ',' . $item->city }}</p>
+                                        <p class="text-lg">{{ $item->district . ', ' . $item->city }}</p>
                                     </div>
                                     <div class="flex space-x-4 h-8 items-center mx-2">
                                         @php
-                                            $expireDate = mktime(0, 0, 0, date('m'), date('d') + 3, date('Y'));
+                                            $expireDate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
                                             $expireDate = date('Y-m-d', $expireDate);
                                             $now = date('Y-m-d');
                                         @endphp
-                                        @if ($item->expire_at >= $now && $item->expire_at <= $expireDate)
+                                        @if ($item->expire_at == $now)
                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                                 class="w-1/12 h-fit" alt="">
                                             <p class="text-orange-400 text-lg">
                                                 {{ $item->expire_at }}
                                             </p>
-                                        @else
+                                        @elseif($item->expire_at < $now)
+                                            <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                                class="w-1/12 h-fit" alt="">
+                                            <p class="text-orange-400 text-lg">
+                                                Đã hết hạn
+                                            </p>
+                                        @else($item->expire_at > $now)
                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
                                                 class="w-1/12 h-fit" alt="">
                                             <p class="text-black text-lg">
@@ -121,20 +131,24 @@
             @endforeach
             <div class="w-full border border-gray-300 h-fit mt-10">
                 <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
-                    <div class="w-full flex items-center text-center py-4">
+                    <div class="w-full flex items-center text-center py-2 px-4 space-x-4">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u36.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            class="w-2/12 p-5" alt="">
-                        <p class="text-3xl">Tìm kiếm theo danh mục</p>
+                            class="w-2/12 p-3" alt="">
+                        <p class="text-2xl">Tìm kiếm theo danh mục</p>
                     </div>
                 </div>
                 @foreach ($data['categories'] as $category)
                     @if (!$category->parent_id)
                         <a href="{{ route('web.client.category.list', $category->id) }}"
-                            class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
+                            class="w-full flex text-lg px-1 font-semibold text-gray-800 hover:bg-lime-100">
                             <div class="w-full flex border-b border-lime-500">
-                                <img src="{{ Illuminate\Support\Facades\Storage::url("images/$category->image") }}"
-                                    class="w-3/12 p-5" alt="">
-                                <p class="w-10/12 py-10">{{ $category->name }}</p>
+                                <div class="image w-3/12 py-5 px-4">
+                                    <img src="{{ Illuminate\Support\Facades\Storage::url("images/$category->image") }}"
+                                    class="object-fill" alt="">
+                                </div>
+                                
+                                <p class="w-10/12 py-8 text-gray-9
+                                00">{{ $category->name }}</p>
                             </div>
                         </a>
                     @endif
@@ -162,14 +176,19 @@
             @endforeach
         </div>
     </div>
-    <div class="w-full justify-center my-10 flex space-x-4">
-        <p class="text-3xl hover:text-lime-700 backToTop">Trở về đầu trang</p>
-        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u29.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-            width="45px" alt="">
+    <div class="w-1/3 my-10 m-auto">
+        <a class="backToTop flex space-x-4 justify-center">
+            <p class="text-2xl">Trở về đầu trang</p>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-10 fill-lime-700">
+                <path d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z"/>
+            </svg>  
+        </a>
+        
     </div>
     <script>
         $(".backToTop").on("click",function(){
            $(window).scrollTop(0);
        });
+
        </script>
 </x-app-layout>
