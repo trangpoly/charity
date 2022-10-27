@@ -139,7 +139,7 @@
     </div>
     <script>
         $(document).ready(function() {
-            $('#toast-success').fadeOut(5000);
+            $('#toast-notify').fadeOut(4000);
         });
     </script>
 </x-app-layout>
