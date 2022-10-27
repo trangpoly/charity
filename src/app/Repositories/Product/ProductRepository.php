@@ -90,6 +90,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->whereNotIn('stock', [-1, 0])
             ->where('expire_at', '>=', Carbon::now()->toDateString())
             ->where('id', '<>', $currentProductId)
+            ->with('favourites', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -101,6 +104,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->whereNotIn('stock', [-1, 0])
             ->where('id', '<>', $currentProductId)
             ->whereBetween('expire_at', [Carbon::now()->toDateString(), Carbon::now()->adddays(2)->toDateString()])
+            ->with('favourites', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })
             ->inRandomOrder()
             ->limit(4)
             ->get();

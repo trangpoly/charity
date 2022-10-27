@@ -24,7 +24,7 @@ class FormRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/',
+            'phone_number' => 'bail|required|regex:/^(0[3-5-7-8-9])+([0-9]{8})$/|unique:users,phone_number',
         ];
     }
 }

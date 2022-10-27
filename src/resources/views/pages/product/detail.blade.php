@@ -226,10 +226,19 @@
                         @foreach ( $recommend as $item)
                                  <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12">
                                      <div class="h-36 relative mx-2">
-                                         <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
-                                         class="object-fill h-full w-full" alt=""><img class="absolute top-28 right-2" width="25px"
-                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                         alt="">
+                                        <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
+                                        class="object-fill h-full w-full" alt="">
+                                        
+                                        @if ($item->favourite == null)
+                                            <img class="absolute top-28 right-2" width="25px"
+                                            src="https://e7.pngegg.com/pngimages/789/854/png-clipart-heart-shape-symbol-heart-border-love-text.png"
+                                            alt="">
+                                        @else
+                                            <img class="absolute top-28 right-2" width="25px"
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            alt="">
+                                        @endif
+                                        
                                      </div>
                                      <h3 class="text-2xl h-10 mx-2">{{$item->name}}</h3>
                                      <div class="flex py-2 space-x-4 h-16 items-center mx-2">
@@ -270,9 +279,17 @@
                                 <a href="{{ route("web.client.product.detail", $item->id) }}" class="w-3/12">
                                     <div class="h-36 relative mx-2">
                                         <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
-                                        class="object-fill h-full w-full" alt=""><img class="absolute top-28 right-2" width="25px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                        alt="">
+                                        class="object-fill h-full w-full" alt="">
+                                        
+                                        @if ($item->favourite == null)
+                                            <img class="absolute top-28 right-2" width="25px"
+                                            src="https://e7.pngegg.com/pngimages/789/854/png-clipart-heart-shape-symbol-heart-border-love-text.png"
+                                            alt="">
+                                        @else
+                                            <img class="absolute top-28 right-2" width="25px"
+                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            alt="">
+                                        @endif
                                     </div>
                                     <h3 class="text-2xl h-10 mx-2">{{$item->name}}</h3>
                                     <div class="flex py-2 space-x-4 h-16 items-center mx-2">
