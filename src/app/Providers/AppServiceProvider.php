@@ -12,6 +12,8 @@ use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Client\RegisterUserRepository;
 use App\Repositories\Client\RegisterUserRepositoryInterface;
+use App\Repositories\Contact\ContactRepository;
+use App\Repositories\Contact\ContactRepositoryInterface;
 use App\Repositories\Favourite\FavouriteRepository;
 use App\Repositories\Favourite\FavouriteRepositoryInterface;
 use App\Repositories\Order\OrderRepository;
@@ -53,5 +55,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SlideRepositoryInterface::class, SlideRepository::class);
         $this->app->bind(FavouriteRepositoryInterface::class, FavouriteRepository::class);
         $this->app->bind(AccountRepositoryInterface::class, AccountRepository::class);
+        $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
     }
 }

@@ -20,7 +20,7 @@
             <div class="w-6/12">
                 <ul class="list-none mb-0">
                     <li class="my-2">
-                        <a href="{{ route('web.client.contact') }}" class="text-black hover:text-lime-600 underline">Liên Hệ</a>
+                        <a href="{{ route('web.client.formContact') }}" class="text-black hover:text-lime-600 underline">Liên Hệ</a>
                     </li>
                     <li class="my-2">
                         <a href="#!" class="text-black hover:text-lime-600 underline">Điều khoản sử
