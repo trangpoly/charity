@@ -8,6 +8,7 @@ use App\Http\Requests\Client\Auth\PhoneOtpRequest;
 use App\Models\User;
 use App\Models\VerificationOtp;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthSessionController extends BaseController
@@ -62,6 +63,7 @@ class AuthSessionController extends BaseController
             $this->verificationOtpModel->where('otp', $request->otp)
                 ->where('phone_number', $phoneNumber)
                 ->delete();
+            $this->userpModel->where('id', Auth::user()->id)->update(['lastLogin' => Carbon::now()]);
 
             return redirect()->route('home');
         }
@@ -71,10 +73,7 @@ class AuthSessionController extends BaseController
 
     public function logout(Request $request)
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        Auth::guard('web')->logout();
 
         return redirect()->route('home');
     }

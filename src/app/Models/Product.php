@@ -60,6 +60,11 @@ class Product extends BaseModel
         return $this->belongsTo(Favourite::class, 'id', 'product_id');
     }
 
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'product_id', 'id');
+    }
+
     public function hidePhoneNumber()
     {
         $phone = str_split($this->phone);
