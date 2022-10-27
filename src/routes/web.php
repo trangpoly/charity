@@ -12,6 +12,7 @@ use App\Http\Controllers\Client\ClientController;
 use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
+use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,15 +36,20 @@ Route::get('/contact', function () {
     return view('pages.contact');
 })->name('web.client.contact');
 
+Route::get('/contact',[ContactController::class, 'formContact'])->name('web.client.formContact');
+Route::post('/contact',[ContactController::class, 'saveContact'])->name('web.client.saveContact');
+
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
 })->name('my-page.subscribe-receive');
+
+Route::get('search',[ ProductController::class,'searchByNameAndSort'])->name("web.client.product.search");
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail')->middleware('auth');
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
 Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');
 Route::any('/search/{id}', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
-Route::post('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
+Route::any('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 
 Route::post('/add-favourite', [ProductController::class, 'addFavourite'])->name('web.client.product.add-favourite');
 Route::post('/remove-favourite', [ProductController::class, 'removeFavourite'])->name('web.client.product.remove-favourite');

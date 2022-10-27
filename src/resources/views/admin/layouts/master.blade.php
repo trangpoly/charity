@@ -20,51 +20,34 @@
 </head>
 
 <body class="bg-gray-100">
-    @if (session()->has('msg'))
+    @if (session('msg'))
         <div class="flex justify-end fixed top-0 right-0 z-40">
-            <div id="toast-notify"
-                class="flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow"
-                role="alert">
-                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Check icon</span>
+            <div id="{{ session('status') ? 'toast-danger' : 'toast-notify' }}"
+                class="flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow" role="alert">
+                <div
+                    class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 {{ session('status') ? 'text-red-500 bg-red-100' : 'text-green-500 bg-green-100' }} rounded-lg">
+                    @if (session('status') == false)
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="sr-only">Check icon</span>
+                    @else
+                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="sr-only">Error icon</span>
+                    @endif
                 </div>
-                <div class="ml-3 text-sm text-black font-medium">{{ session()->pull('msg') }}</div>
-                <button type="button"
+                <div class="ml-3 text-sm font-medium {{ session('status') ? 'text-red-500' : 'text-green-500' }}">{{ session('msg') }}</div>
+                <button type="button" id="btn-close-alert"
                     class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-7 w-7"
-                    data-dismiss-target="#toast-notify" aria-label="Close">
-                    <span class="sr-only">Close</span>
-                    <svg aria-hidden="true" class="w-5 h-5 mt-1 ml-1" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </div>
-        </div>
-    @endif
-    @if (session()->has('error'))
-        <div class="flex justify-end fixed top-0 right-0 z-40">
-            <div id="toast-notify"
-                class="flex items-center p-4 mb-4 w-full max-w-xs text-gray-500 bg-white rounded-lg shadow"
-                role="alert">
-                <div class="inline-flex flex-shrink-0 justify-center items-center w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-green-800 dark:text-green-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                      
-                    <span class="sr-only">Check icon</span>
-                </div>
-                <div class="ml-3 text-sm text-black font-medium">{{ session()->pull('error') }}</div>
-                <button type="button"
-                    class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex h-7 w-7"
-                    data-dismiss-target="#toast-notify" aria-label="Close">
+                    aria-label="Close">
                     <span class="sr-only">Close</span>
                     <svg aria-hidden="true" class="w-5 h-5 mt-1 ml-1" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -131,7 +114,8 @@
                                 src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u26.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9">
                         </div>
                         <div class="ml-2 capitalize flex ">
-                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">{{ Auth::guard('admin')->user()->name }}</h1>
+                            <h1 class="text-sm text-gray-800 font-semibold m-0 p-0 leading-none">
+                                {{ Auth::guard('admin')->user()->name }}</h1>
                             <i class="fad fa-chevron-down ml-2 text-xs leading-none"></i>
                         </div>
                     </button>
@@ -176,7 +160,7 @@
                     <img style="float: right" width="27px"
                         src="https://cdn0.iconfinder.com/data/icons/octicons/1024/dashboard-512.png" alt="">
                 </a>
-                <a href="{{route('web.admin.account.list')}}"
+                <a href="{{ route('web.admin.account.list') }}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Account Management
                     <img style="float: right" width="19px"
@@ -204,7 +188,7 @@
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u28.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
                         alt="">
                 </a>
-                <a href="{{route('web.admin.order.list')}}"
+                <a href="{{ route('web.admin.order.list') }}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Order Management
                     <img style="float: right" width="22px" height="18"
@@ -214,8 +198,23 @@
                 <a href="{{ route('web.admin.banner.setting') }}"
                     class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
                     Banner Management
-                    <img style="float: right"
+                    <img style="float: right" width="20px"
                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/dashboard/u18.svg?pageId=0cba15eb-7ac6-481d-a4e3-2d242946c3b9"
+                        alt="">
+                </a>
+                <a href="{{ route('web.admin.slide.list') }}"
+                    class="p-5 capitalize font-medium text-md
+                    @if (url()->current() == route('web.admin.slide.list')) bg-blue-500 text-white
+                    @endif hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
+                    Slide Management
+                    <img style="float: right" width="27px"
+                        src="https://cdn4.iconfinder.com/data/icons/user-interface-583/32/Interface_Elements_interface_ui_slideshow_slide_show_carousel-512.png" alt="">
+                </a>
+                <a href="{{ route('web.admin.contact.list') }}"
+                    class="p-5 capitalize font-medium text-md hover:bg-blue-500 hover:text-white transition ease-in-out duration-500">
+                    Contact Management
+                    <img style="float: right; height:25px; width:23px"
+                        src="https://cdn-icons-png.flaticon.com/512/15/15895.png"
                         alt="">
                 </a>
                 <a href="#"
@@ -241,11 +240,11 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         $(document).ready(function() {
-          $.ajaxSetup({
-            headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-          });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
         });
     </script>
     @yield('script')

@@ -30,7 +30,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function list()
     {
         return $this->model->with('images')->with('orders', function ($q) {
-            $q->where('status', 1);
+            $q->whereIn('status', [0, 1]);
         })->get();
     }
 
@@ -80,7 +80,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function filter($sortExpireDate, $id)
     {
-        return $this->model->orderBy('expire_at', $sortExpireDate)->where('category_id', $id)->get();
+        return $this->model->whereRelation('subCategory', 'parent_id', $id)
+            ->orderBy('expire_at', $sortExpireDate)->get();
     }
 
     public function getRecommend($currentProductId, $categoryId)
@@ -143,5 +144,24 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         })->whereHas("giver", function ($e) use ($userId) {
             $e->where("id", $userId);
         })->with("receivers")->get();
+    }
+
+    public function searchProductByName($data)
+    {
+        if ($data['sort'] == '0') {
+            return $this->model->where('name', 'like', "$data[name_product]%")->paginate(12);
+        }
+
+        if ($data['sort'] == 'sap-het-han') {
+            return $this->model->where('name', 'like', "$data[name_product]%")
+                ->orderBy('expire_at', 'asc')
+                ->paginate(12);
+        }
+
+        if ($data['sort'] == 'ngay-sap-het-han') {
+            return $this->model->where('name', 'like', "$data[name_product]%")
+                ->orderBy('expire_at', 'desc')
+                ->paginate(12);
+        }
     }
 }

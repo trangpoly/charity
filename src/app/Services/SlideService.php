@@ -61,7 +61,6 @@ class SlideService extends BaseService
                     'path' => $request->image->hashName(),
                     'status' => $request->status,
                 ];
-
                 Storage::disk('public')->put('images', $request->image);
                 $this->slideRepository->create($attribute);
                 DB::commit();

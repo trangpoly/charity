@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         // Admin::factory(5)->create();
 
-        // Product::factory(5)->create();
+        Product::factory(3)->create();
 
         // Slide::factory(15)->create();
 

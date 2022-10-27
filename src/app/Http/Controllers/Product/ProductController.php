@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\admin\ProductRequest;
 use App\Models\Product;
+use App\Services\BannerService;
 use App\Services\CategoryService;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
@@ -15,11 +16,18 @@ class ProductController extends BaseController
 
     protected $categoryService;
 
-    public function __construct(ProductService $productService, CategoryService $categoryService)
-    {
+    protected $bannerService;
+
+    public function __construct(
+        ProductService $productService,
+        CategoryService $categoryService,
+        BannerService $bannerService
+    ) {
         $this->productService = $productService;
 
         $this->categoryService = $categoryService;
+
+        $this->bannerService = $bannerService;
     }
 
     public function getProduct($id)
@@ -141,5 +149,16 @@ class ProductController extends BaseController
     {
         $favouriteId = $request->favourite_id;
         $this->productService->removeFavourite($favouriteId);
+    }
+
+    public function searchByNameAndSort(Request $request)
+    {
+        $data = [];
+        $data['categories'] = $this->categoryService->getProductsByParentCategory();
+        $data['banners'] = $this->bannerService->getBanners();
+        $data['nameProduct'] = $request->name_product;
+        $data['products'] = $this->productService->searchProductByName($request->all());
+
+        return view("pages.product.search-by-name", ["data" => $data]);
     }
 }
