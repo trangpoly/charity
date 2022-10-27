@@ -41,7 +41,7 @@ class AuthLoginController extends Controller
 
     public function logout(Request $request)
     {
-        if(Auth::guard('web')->check()) {
+        if (Auth::guard('web')->check()) {
             Auth::guard('admin')->logout();
 
             return redirect()->route('web.admin.login.create');

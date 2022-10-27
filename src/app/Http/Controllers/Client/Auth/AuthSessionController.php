@@ -73,7 +73,7 @@ class AuthSessionController extends BaseController
 
     public function logout(Request $request)
     {
-        if(Auth::guard('admin')->check()) {
+        if (Auth::guard('admin')->check()) {
             Auth::guard('web')->logout();
 
             return redirect()->route('home');
