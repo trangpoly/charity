@@ -128,9 +128,19 @@ class PostService
 
             $this->productRepository->update($id, $productData);
 
+            $images_remove = json_decode($request->images_remove);
+
             if ($request->images) {
                 foreach ($request->images as $image) {
-                    if (!in_array($image->getClientOriginalName(), json_decode($request->images_remove))) {
+                    if ($images_remove && !in_array($image->getClientOriginalName(), $images_remove)) {
+                        Storage::disk('public')->put('images', $image);
+
+                        $productImage = [
+                            'path' => $image->hashName(),
+                            'product_id' => $id,
+                        ];
+                        $this->productImageRepository->create($productImage);
+                    } elseif ($images_remove == null) {
                         Storage::disk('public')->put('images', $image);
 
                         $productImage = [

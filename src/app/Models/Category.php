@@ -38,4 +38,9 @@ class Category extends BaseModel
     {
         return $this->belongsTo(Category::class, 'parent_id', 'id');
     }
+
+    public function favourites()
+    {
+        return $this->hasManyThrough(Product::class, Favourite::class, 'product_id', 'category_id', 'id', 'id');
+    }
 }

@@ -6,7 +6,6 @@
         <div class="w-full h-screen p-4">
             <form action="{{ route('web.admin.banner.upload') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div id="box-top-banner" class="relative w-1/3 mt-2 bg-white border-2 border-gray-700">
                     <div class="flex justify-center items-center">
                         <label id="label-top-banner" for="top-banner-input"
@@ -30,7 +29,6 @@
                                 d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-
                 </div>
                 {{-- Search Bar --}}
                 <div class="w-1/3 h-64 mt-2 bg-white border-2 border-gray-700">
@@ -38,7 +36,7 @@
                 <div class="relative w-1/3 mt-2 bg-white border-2 border-gray-700">
                     <div class="flex justify-center items-center">
                         <label id="label-mid-banner" for="mid-banner-input"
-                            class="h-52 justify-center items-center w-full bg-gray-50 cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100">
+                            class="h-56 justify-center items-center w-full bg-gray-50 cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100">
                             <img id="mid-banner" class="object-fill h-full w-full"
                                 src="{{ $banners[1]->path == '' ? 'https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/create_category/u40.svg?pageId=fc344ff3-0f48-40b8-905b-b57fafc3e11c' : asset('/storage/banners/' . $banners[1]->path) }}"
                                 alt="">
@@ -58,12 +56,11 @@
                                 d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
-
                 </div>
                 <div class="relative w-1/3 mt-2 bg-white border-2 border-gray-700">
                     <div class="flex justify-center items-center">
                         <label id="label-bot-banner" for="bot-banner-input"
-                            class="h-52 justify-center items-center w-full bg-gray-50 cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100">
+                            class="h-56 justify-center items-center w-full bg-gray-50 cursor-pointer dark:hover:bg-bray-800 hover:bg-gray-100">
                             <img id="bot-banner" class="object-fill h-full w-full"
                                 src="{{ $banners[2]->path == '' ? 'https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/create_category/u40.svg?pageId=fc344ff3-0f48-40b8-905b-b57fafc3e11c' : asset('/storage/banners/' . $banners[2]->path) }}"
                                 alt="">
@@ -111,28 +108,26 @@
                     onchange="previewTopBanner()" class="hidden" />
                 `);
                 $("#label-top-banner").children().append(`
-                <input id="top-banner-input" type="file" name="path_banner_top"
-                                        onchange="previewTopBanner()" class="hidden" />
+                    <input id="top-banner-input" type="file" name="path_banner_top"
+                    onchange="previewTopBanner()" class="hidden" />
                 `);
             });
         }
-
         function previewMidBanner() {
             document.getElementById('mid-banner').src = URL.createObjectURL(this.event.target.files[0]);
             $("#removeMidImg").css('display', 'block');
             $('#removeMidImg').on('click', function() {
                 $("#mid-banner-input").remove();
                 $("#mid-banner-input").append(`
-                    <input id="mid-banner-input" type="file" name="path_banner_midp"
+                    <input id="mid-banner-input" type="file" name="path_banner_mid"
+                    onchange="previewMidBanner()" class="hidden" />
+                `);
+                $("#label-mid-banner").children().append(`
+                    <input id="mid-banner-input" type="file" name="path_banner_mid"
                     onchange="previewMidBanner()" class="hidden" />
                 `);
             });
-            $("#label-mid-banner").children().append(`
-                <input id="mid-banner-input" type="file" name="path_banner_mid"
-                                        onchange="previewMidBanner()" class="hidden" />
-                `);
         }
-
         function previewBotBanner() {
             document.getElementById('bot-banner').src = URL.createObjectURL(this.event.target.files[0]);
             $("#removeBotImg").css('display', 'block');
@@ -143,12 +138,11 @@
                     onchange="previewBotBanner()" class="hidden" />
                 `);
                 $("#label-bot-banner").children().append(`
-                <input id="bot-banner-input" type="file" name="path_banner_bot"
-                                        onchange="previewBotBanner()" class="hidden" />
+                    <input id="bot-banner-input" type="file" name="path_banner_bot"
+                    onchange="previewBotBanner()" class="hidden" />
                 `);
             });
         }
-
         $(document).ready(function() {
             $('#removeTopImg').on('click', function() {
                 $("#top-banner").attr('src',
@@ -158,7 +152,6 @@
                 $("#top-banner-input").attr('value', "");
                 $("#path_banner_top_old").attr('value', "");
             });
-
             $('#removeMidImg').on('click', function() {
                 $("#mid-banner").attr('src',
                     'https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/create_category/u40.svg?pageId=fc344ff3-0f48-40b8-905b-b57fafc3e11c'
@@ -167,7 +160,6 @@
                 $("#mid-banner-input").attr('value', "");
                 $("#path_banner_mid_old").attr('value', "");
             });
-
             $('#removeBotImg').on('click', function() {
                 $("#bot-banner").attr('src',
                     'https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/create_category/u40.svg?pageId=fc344ff3-0f48-40b8-905b-b57fafc3e11c'
