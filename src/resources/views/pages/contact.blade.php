@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container py-24 px-6 mx-auto flex bg-white">
+    <div class="container py-24 px-6 mx-auto bg-white">
         <!-- Section: Design Block -->
         <section class="mb-32 text-gray-800">
             <div class="flex flex-wrap">
