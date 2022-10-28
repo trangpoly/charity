@@ -111,23 +111,29 @@ class ProductController extends BaseController
 
         $subCategory = $products[0]->subCategory->category->subCategory;
 
-        return view('pages.product.sub-category', ['products' => $products, 'subCategory' => $subCategory, 'id' => $id]);
+        return view('pages.product.sub-category', [
+            'products' => $products,
+            'subCategory' => $subCategory,
+            'id' => $id
+        ]);
     }
 
     public function filter($id)
     {
         if ($_GET['sort']) {
-
             $sortExpireDate = $_GET['sort'];
 
             $filterProducts = $this->productService->filter($sortExpireDate, $id);
         } else {
-
             $filterProducts = $this->productService->getProductsBySubCategory($id);
         }
         $subCategory = $this->categoryService->getSubCategoriesProduct();
 
-        return view('pages.product.sub-category', ['products' => $filterProducts, 'subCategory' => $subCategory, 'id' => $id]);
+        return view('pages.product.sub-category', [
+            'products' => $filterProducts,
+            'subCategory' => $subCategory,
+            'id' => $id
+        ]);
     }
 
     public function submitSearch(Request $request, $id)
@@ -151,14 +157,13 @@ class ProductController extends BaseController
         $subCate = $_GET['subCate'];
 
         if ($_GET['sort']) {
-
             $sortExpireDate = $_GET['sort'];
 
             $filterProducts = $this->productService->filterSearch($sortExpireDate, $id, $subCate);
         } else {
-
             $filterProducts = $this->productService->search($id);
         }
+
         $subCategory = $this->categoryService->getSubCategoriesProduct();
 
         return view('pages.product.search', [
