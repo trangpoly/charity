@@ -246,10 +246,15 @@
                 <div class="w-full mt-10">
                     <div class="flex">
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Đề xuất cho bạn</h2>
-                        <a href="{{ route('web.client.subCategory.list', $product->subCategory->id) }}"
-                            class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem
-                            thêm
-                            ></a>
+                        <a href="{{ route('web.client.subCategory.list', $product->subCategory->id) }}" class="flex w-2/12 place-content-end relative hover:color-orange-400">
+                            <span class="font-base text-xl text-gray-700 mr-6">Xem thêm</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
+                                class="absolute bottom-4 h-3 mx-2 fill-gray-700">
+                                <path
+                                    d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
+                                    style="text-color: grey" />
+                            </svg>
+                        </a>
                     </div>
                     <div class="w-full flex border border-gray-300 rounded-md mt-5 p-5">
                         @foreach ($recommend as $item)
@@ -259,13 +264,18 @@
                                         class="object-fill h-full w-full" alt="">
 
                                     @if ($item->favourite == null)
-                                        <img class="absolute top-28 right-2" width="25px"
-                                            src="https://e7.pngegg.com/pngimages/789/854/png-clipart-heart-shape-symbol-heart-border-love-text.png"
-                                            alt="">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-8 absolute bottom-2 right-2 fill-white" viewBox="0 0 512 512">
+                                            <path
+                                                d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                                        </svg>
                                     @else
-                                        <img class="absolute top-28 right-2" width="25px"
-                                            src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                            alt="">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-8 absolute bottom-2 right-2 fill-orange-400"
+                                            viewBox="0 0 512 512">
+                                            <path
+                                                d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                                        </svg>
                                     @endif
 
                                 </div>
