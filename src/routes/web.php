@@ -38,6 +38,9 @@ Route::get('/contact', function () {
 
 Route::get('/contact',[ContactController::class, 'formContact'])->name('web.client.formContact');
 Route::post('/contact',[ContactController::class, 'saveContact'])->name('web.client.saveContact');
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('web.client.about');
 
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
