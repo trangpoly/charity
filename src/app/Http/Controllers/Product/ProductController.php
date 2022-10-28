@@ -153,12 +153,13 @@ class ProductController extends BaseController
 
     public function searchByNameAndSort(Request $request)
     {
-        $data = [];
-        $data['categories'] = $this->categoryService->getProductsByParentCategory();
-        $data['banners'] = $this->bannerService->getBanners();
-        $data['nameProduct'] = $request->name_product;
-        $data['products'] = $this->productService->searchProductByName($request->all());
-
-        return view("pages.product.search-by-name", ["data" => $data]);
+        $data = [
+            'categories' => $this->categoryService->getProductsByParentCategory(),
+            'banners' => $this->bannerService->getBanners(),
+            'nameProduct' => $request->name_product,
+            'products' => $this->productService->searchProductByName($request->all()),
+            'sort' => $request->sort
+        ];
+        return view("pages.product.search-by-name", $data);
     }
 }

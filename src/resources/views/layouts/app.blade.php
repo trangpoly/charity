@@ -22,7 +22,7 @@
         @include('layouts.navigation')
 
         <!-- Page Content -->
-        <main style="min-height: calc(100vh - 342px)">
+        <main class="pt-24" style="min-height: calc(100vh - 344px)">
             {{ $slot }}
         </main>
 

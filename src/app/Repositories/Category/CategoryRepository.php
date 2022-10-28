@@ -3,6 +3,7 @@
 namespace App\Repositories\Category;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Repositories\BaseRepository;
 use PDO;
 

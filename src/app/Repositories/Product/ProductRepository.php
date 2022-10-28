@@ -143,19 +143,23 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     public function searchProductByName($data)
     {
         if ($data['sort'] == '0') {
-            return $this->model->where('name', 'like', "$data[name_product]%")->paginate(12);
+            return $this->model->where('name', 'like', "$data[name_product]%")
+                ->with('favourite')
+                ->paginate(8);
         }
 
         if ($data['sort'] == 'sap-het-han') {
             return $this->model->where('name', 'like', "$data[name_product]%")
+                ->with('favourite')
                 ->orderBy('expire_at', 'asc')
-                ->paginate(12);
+                ->paginate(8);
         }
 
         if ($data['sort'] == 'ngay-sap-het-han') {
             return $this->model->where('name', 'like', "$data[name_product]%")
+                ->with('favourite')
                 ->orderBy('expire_at', 'desc')
-                ->paginate(12);
+                ->paginate(8);
         }
     }
 }

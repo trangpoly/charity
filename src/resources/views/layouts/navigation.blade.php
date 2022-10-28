@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b-2 border-gray-200">
+<nav x-data="{ open: false }" class="bg-white border-b-2 border-gray-200 fixed top-0 left-0 w-full z-50">
     <!-- Primary Navigation Menu -->
     <div class="flex max-w-8xl mx-auto h-24 items-center">
         <!-- Logo -->
