@@ -3,10 +3,10 @@
 
 <div id="controls-carousel" class="relative" data-carousel="static">
     <!-- Carousel wrapper -->
-    <div class="relative h-56 overflow-hidden md:h-96">
-         @foreach ($data["slides"] as $slide)
+    <div class="relative overflow-hidden" style="height: 32rem">
+         @foreach ($slides as $slide)
             <div class="hidden duration-700 ease-in-out absolute inset-0 transition-all transform" data-carousel-item="">
-                <img src="{{$slide->path}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <img src="{{asset("storage/images/$slide->path")}}" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
             </div>
          @endforeach
     </div>

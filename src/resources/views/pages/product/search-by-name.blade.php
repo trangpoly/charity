@@ -2,12 +2,12 @@
     <div class="flex max-w-8xl mx-auto mt-6 space-x-8 mb-10">
         <div class="w-8/12">
             <div class="flex">
-                <p>Kết quả tìm kiếm cho "<span class="name_product">{{ $data['nameProduct'] }}</span>"</p>
+                <p>Kết quả tìm kiếm cho "<span class="name_product">{{ $nameProduct }}</span>"</p>
             </div>
             <div class="flex">
                 <form id="formSearch" action="{{ route('web.client.product.search') }}" method="GET"
                     class="space-x-4 mt-8 w-10/12">
-                    <input type="hidden" name="name_product" value="{{ $data['nameProduct'] }}" id="">
+                    <input type="hidden" name="name_product" value="{{ $nameProduct }}" id="">
                     <label class="text-xl mt-2">Sắp xếp theo</label>
                     <select class="w-3/12 border border-gray-300" name="sort" id="sort">
                         <option value="0"></option>
@@ -17,19 +17,38 @@
                 </form>
                 <div class="w-2/12 mt-8">
                     <p id="count" class="font-base text-lg mt-2 text-gray-700 ">Tổng sản phẩm:
-                        {{ count($data['products']) }}
+                        {{ count($products) }}
                     </p>
                 </div>
             </div>
             <div class="w-full flex flex-wrap border border-gray-300 rounded-md mt-5 py-4 px-2">
-                @foreach ($data['products'] as $item)
+                @foreach ($products as $item)
                     <a href="{{ route('web.client.product.detail', $item->id) }}" class="w-3/12 mt-5">
                         <div class="h-48 relative mx-2">
                             <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
                                 class="object-fill h-full w-full" alt="">
-                            <img class="absolute bottom-4 right-2" width="25px"
-                                src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u121.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                                alt="">
+                            @if (!Auth::user())
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 absolute bottom-2 right-2 fill-white" viewBox="0 0 512 512">
+                                    <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
+                                </svg>
+                            @endif
+
+                            @if (Auth::user())
+                                @if ($item->favourite && $item->favourite->user_id == Auth::user()->id)
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 absolute bottom-2 right-2 fill-orange-400" viewBox="0 0 512 512">
+                                        <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 absolute bottom-2 right-2 fill-white" viewBox="0 0 512 512">
+                                        <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
+                                    </svg>
+                                @endif
+                                
+                            @endif
+                            {{-- <svg xmlns="http://www.w3.org/2000/svg" class="w-8 absolute bottom-4 right-2 fill-orange-400" viewBox="0 0 512 512">
+                                <path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/>
+                            </svg> --}}
+                                
                         </div>
                         <h3 class="text-2xl h-10 mx-2">{{ $item->name }}</h3>
                         <div class="flex py-2 space-x-4 h-16 items-center mx-2">
@@ -63,18 +82,22 @@
                                 </p>
                             @endif
                         </div>
-
+                        @if ($item->stock == 0 || $item->stock == -1)
+                                        <div class="flex py-2 space-x-4 h-8 items-center mx-2">
+                                            <p class="text-base">Hết hàng!</p>
+                                        </div>
+                                    @endif
                     </a>
                 @endforeach
             </div>
             <div class="w-full mb-2 mr-6">
-                <p class="">
-                    {{ $data['products']->links() }}
+                <p id="link-paginate">
+                    {{ $products->withPath("search?name_product=$nameProduct&sort=$sort")->links() }}
                 </p>
             </div>
         </div>
         <div class="w-4/12 h-fit">
-            @foreach ($data['banners'] as $banner)
+            @foreach ($banners as $banner)
                 @if ($banner->index_position == 1 && $banner->path !== '')
                     <div class="w-full border border-gray-300 h-72">
                         <img id="top-banner" class="object-fill h-full w-full"
@@ -91,7 +114,7 @@
                         <p class="text-2xl">Tìm kiếm theo danh mục</p>
                     </div>
                 </div>
-                @foreach ($data['categories'] as $category)
+                @foreach ($categories as $category)
                     @if (!$category->parent_id)
                         <a href="{{ route('web.client.category.list', $category->id) }}"
                             class="w-full flex text-lg px-1 font-semibold text-gray-800 hover:bg-lime-100">
@@ -108,7 +131,7 @@
                 @endforeach
 
             </div>
-            @foreach ($data['banners'] as $banner)
+            @foreach ($banners as $banner)
                 @if ($banner->index_position == 2 && $banner->path !== '')
                     <div class="w-full border border-gray-300 mt-10 h-52">
                         <img id="top-banner" class="object-fill h-full w-full"
@@ -118,7 +141,7 @@
                 @endif
             @endforeach
 
-            @foreach ($data['banners'] as $banner)
+            @foreach ($banners as $banner)
                 @if ($banner->index_position == 3 && $banner->path !== '')
                     <div class="w-full border border-gray-300 mt-10 h-52">
                         <img id="top-banner" class="object-fill h-full w-full"
@@ -131,11 +154,15 @@
     </div>
     <script>
         var element = $("#faker").children();
+        // var path = window.location.pathname
+
+        // console.log(path, window.location.search);
+        // $("#link-paginate").append(`
+        //     {{ $products->withPath('${path + window.location.search}')->links() }}`
         $("#sort").change(function() {
-            let sort = $("#sort").val();
-            var searchParams = new URLSearchParams(window.location.search)
-            var name_product = searchParams.get('name_product');
+            
             $("#formSearch").submit()
+
         })
     </script>
 </x-app-layout>
