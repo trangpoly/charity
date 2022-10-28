@@ -38,6 +38,9 @@ Route::get('/contact', function () {
 
 Route::get('/contact',[ContactController::class, 'formContact'])->name('web.client.formContact');
 Route::post('/contact',[ContactController::class, 'saveContact'])->name('web.client.saveContact');
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('web.client.about');
 
 Route::get('/my-app', function () {
     return view('pages.my-page.subscribe-receive');
@@ -50,6 +53,8 @@ Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web
 Route::get('/sub-category/{id}', [ProductController::class, 'getProductsBySubCategory'])->name('web.client.subCategory.list');
 Route::any('/search/{id}', [ProductController::class, 'submitSearch'])->name('web.client.product.submitSearch');
 Route::any('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
+Route::any('/filterSearch/{id}', [ProductController::class, 'filterSearch'])->name('web.client.product.filterSearch');
+
 
 Route::post('/add-favourite', [ProductController::class, 'addFavourite'])->name('web.client.product.add-favourite');
 Route::post('/remove-favourite', [ProductController::class, 'removeFavourite'])->name('web.client.product.remove-favourite');

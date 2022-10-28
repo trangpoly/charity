@@ -9,7 +9,7 @@
             <div class="w-6/12">
                 <ul class="list-none mb-0">
                     <li class="my-2">
-                        <a href="#!" class="text-black hover:text-lime-600 underline">Về chúng tôi</a>
+                        <a href="{{ route('web.client.about') }}" class="text-black hover:text-lime-600 underline">Về chúng tôi</a>
                     </li>
                     <li class="my-2">
                         <a href="#!" class="text-black hover:text-lime-600 underline">Chính sách bảo
