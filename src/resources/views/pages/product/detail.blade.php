@@ -59,7 +59,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <p class="mt-5 text-2xl bg-slate-300 w-fit">{{!in_array($product->stock, [-1, 0]) ? '' : 'Hết hàng'}}</p>
+                        <p class="mt-5 text-2xl bg-slate-300 w-fit">{{!in_array($product->stock, [-1, 0]) ? ($product->expire_at >= date('Y-m-d') ? '': 'Hết hạn sử dụng') : 'Hết hàng'}}</p>
                     </div>
                     <div class="w-6/12 ml-10">
                         <div class="w-full flex justify-between">
@@ -179,11 +179,12 @@
                 </div>
                 <div class="flex justify-center mt-5">
                     @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? $product->orders[0]->status == 2 : true))
-                        <button form="amount-received" type="submit" {{in_array($product->stock, [-1,0]) ? 'disabled' : ''}} class=" text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-200 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2">Đăng ký nhận đồ</button>
+                        <button  form="amount-received" type="submit" {{in_array($product->stock, [-1,0]) ? 'disabled' : ($product->expire_at < date('Y-m-d') ? 'disabled' : '') }}
+                            class=" text-white bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:ring-yellow-200 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2">Đăng ký nhận đồ</button>
                     @endif
-
+                    
                     @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? $product->orders[0]->status == 0 : false))
-                            <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-400 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2" data-modal-toggle="popup-modal">Hủy đăng ký</button>
+                        <button type="submit" class=" text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-400 font-medium rounded-lg text-lg px-5 py-2.5 mr-2 mb-2" data-modal-toggle="popup-modal">Hủy đăng ký</button>
                     @endif
 
                     @if ($currentUser->id != $product->owner_id && (!empty($product->orders[0]) ? $product->orders[0]->status == 1 : false))

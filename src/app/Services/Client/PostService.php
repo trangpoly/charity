@@ -3,6 +3,8 @@
 namespace App\Services\Client;
 
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
+use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
 use Exception;
@@ -16,15 +18,20 @@ class PostService
     protected $productRepository;
     protected $categoryRepository;
     protected $productImageRepository;
-
+    protected $notificationRepository;
+    protected $orderRepository;
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository,
         ProductImageRepositoryInterface $productImageRepository,
+        NotificationRepositoryInterface $notificationRepository,
+        OrderRepositoryInterface $orderRepository
     ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productImageRepository = $productImageRepository;
+        $this->notificationRepository = $notificationRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     public function getParentCategories()
@@ -153,6 +160,22 @@ class PostService
             }
 
             DB::commit();
+
+            $product = $this->productRepository->find($id);
+            $orders = $this->orderRepository->getOrderByProductId($id);
+
+            $notification = [
+                'title' => 'đã thay đổi nội dung',
+                'type' => 'product',
+                'relate_id' => $id,
+                'actor_id' => $product->owner_id,
+                'read_at' => null
+            ];
+
+            foreach($orders as $item) {
+                $notification['notifier_id'] = $item->receiver_id;
+                $this->notificationRepository->create($notification);
+            }
 
             return false;
         } catch (Exception $e) {
