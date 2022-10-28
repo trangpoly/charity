@@ -91,6 +91,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->whereNotIn('stock', [-1, 0])
             ->where('expire_at', '>=', Carbon::now()->toDateString())
             ->where('id', '<>', $currentProductId)
+            ->with('favourites', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -102,6 +105,9 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->whereNotIn('stock', [-1, 0])
             ->where('id', '<>', $currentProductId)
             ->whereBetween('expire_at', [Carbon::now()->toDateString(), Carbon::now()->adddays(2)->toDateString()])
+            ->with('favourites', function ($q) {
+                $q->where('user_id', Auth::user()->id);
+            })
             ->inRandomOrder()
             ->limit(4)
             ->get();
@@ -138,5 +144,24 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         })->whereHas("giver", function ($e) use ($userId) {
             $e->where("id", $userId);
         })->with("receivers")->get();
+    }
+
+    public function searchProductByName($data)
+    {
+        if ($data['sort'] == '0') {
+            return $this->model->where('name', 'like', "$data[name_product]%")->paginate(12);
+        }
+
+        if ($data['sort'] == 'sap-het-han') {
+            return $this->model->where('name', 'like', "$data[name_product]%")
+                ->orderBy('expire_at', 'asc')
+                ->paginate(12);
+        }
+
+        if ($data['sort'] == 'ngay-sap-het-han') {
+            return $this->model->where('name', 'like', "$data[name_product]%")
+                ->orderBy('expire_at', 'desc')
+                ->paginate(12);
+        }
     }
 }

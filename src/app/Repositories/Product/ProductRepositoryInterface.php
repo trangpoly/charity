@@ -33,4 +33,6 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
     public function findProductsMarkedSoldOut();
 
     public function findProductsGived($userId);
+
+    public function searchProductByName($data);
 }
