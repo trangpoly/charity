@@ -43,6 +43,8 @@ class ProductController extends BaseController
             'nearExpiryFood' => $nearExpiryFood,
             'currentUser' => $currentUser,
             'parentCategories' => $parentCategories,
+            'categories' => $this->categoryService->getProductsByParentCategory(),
+            'banners' => $this->bannerService->getBanners()
         ];
 
         return view('pages.product.detail', $data);
@@ -111,7 +113,29 @@ class ProductController extends BaseController
 
         $subCategory = $products[0]->subCategory->category->subCategory;
 
-        return view('pages.product.sub-category', ['products' => $products, 'subCategory' => $subCategory]);
+        return view('pages.product.sub-category', [
+            'products' => $products,
+            'subCategory' => $subCategory,
+            'id' => $id
+        ]);
+    }
+
+    public function filter($id)
+    {
+        if ($_GET['sort']) {
+            $sortExpireDate = $_GET['sort'];
+
+            $filterProducts = $this->productService->filter($sortExpireDate, $id);
+        } else {
+            $filterProducts = $this->productService->getProductsBySubCategory($id);
+        }
+        $subCategory = $this->categoryService->getSubCategoriesProduct();
+
+        return view('pages.product.sub-category', [
+            'products' => $filterProducts,
+            'subCategory' => $subCategory,
+            'id' => $id
+        ]);
     }
 
     public function submitSearch(Request $request, $id)
@@ -125,17 +149,31 @@ class ProductController extends BaseController
             'search' => $search,
             'subCategory' => $subCategory,
             'request' => $request
-                ->except(['_token'])
+                ->except(['_token']),
+            'subCt' => $request->subCate  ?? "",
         ]);
     }
 
-    public function filter(Request $request, $id)
+    public function filterSearch($id)
     {
-        $sortExpireDate = $request->expire_at;
+        $subCate = $_GET['subCate'];
 
-        $filterProducts = $this->productService->filter($sortExpireDate, $id);
+        if ($_GET['sort']) {
+            $sortExpireDate = $_GET['sort'];
 
-        return response()->json($filterProducts);
+            $filterProducts = $this->productService->filterSearch($sortExpireDate, $id, $subCate);
+        } else {
+            $filterProducts = $this->productService->search($id);
+        }
+
+        $subCategory = $this->categoryService->getSubCategoriesProduct();
+
+        return view('pages.product.search', [
+            'search' => $filterProducts,
+            'subCategory' => $subCategory,
+            'id' => $id,
+            'subCt' => $subCate
+        ]);
     }
 
     public function addFavourite(Request $request)
@@ -153,12 +191,13 @@ class ProductController extends BaseController
 
     public function searchByNameAndSort(Request $request)
     {
-        $data = [];
-        $data['categories'] = $this->categoryService->getProductsByParentCategory();
-        $data['banners'] = $this->bannerService->getBanners();
-        $data['nameProduct'] = $request->name_product;
-        $data['products'] = $this->productService->searchProductByName($request->all());
-
-        return view("pages.product.search-by-name", ["data" => $data]);
+        $data = [
+            'categories' => $this->categoryService->getProductsByParentCategory(),
+            'banners' => $this->bannerService->getBanners(),
+            'nameProduct' => $request->name_product,
+            'products' => $this->productService->searchProductByName($request->all()),
+            'sort' => $request->sort
+        ];
+        return view("pages.product.search-by-name", $data);
     }
 }

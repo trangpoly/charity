@@ -30,14 +30,12 @@
                                         src="{{ Illuminate\Support\Facades\Storage::url('images/' . $faker->avatar) }}"
                                         style="width:250px; height:220px" alt="">
                                     <h3 class="text-2xl mt-2 h-16">{{ $faker->name }}</h3>
-                                    @if (in_array($faker->stock, [-1, 0]))
-                                        <p>Hết hàng!!!</p>
-                                    @endif
+
                                     <div class="flex py-2 space-x-4 h-18">
                                         <img class="h-fit"
                                             src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                             width="18px" alt="">
-                                        <p class="text-lg">{{ $faker->address }}</p>
+                                        <p class="text-lg">{{ $faker->district }}, {{$faker->city}}</p>
                                     </div>
 
                                     <div class="flex py-2 space-x-4 ">
@@ -51,11 +49,11 @@
                                             <p class="text-orange-400 text-lg">
                                                 {{ $faker->expire_at }}
                                             </p>
-                                        @elseif ($faker->expire_at > $now)
+                                        @elseif ($faker->expire_at < $now)
                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
                                                 class="w-1/12 h-fit" alt="">
                                             <p class="text-orange-400 text-lg">
-                                            <p>Hết hạn sử dụng!!!</p>
+                                                Đã hết hạn
                                             </p>
                                         @else
                                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
@@ -65,6 +63,9 @@
                                             </p>
                                         @endif
                                     </div>
+                                    @if (in_array($faker->stock, [-1, 0]))
+                                        <p class="text-red-600 text-base">Hết hàng!!!</p>
+                                    @endif
                                 </a>
                             </div>
                         @endforeach
@@ -78,8 +79,9 @@
         <div class="w-full border border-gray-300 h-60">
         </div>
         <div class="w-full border border-gray-300 h-fit mt-10">
-            <form action="{{ route('web.client.product.submitSearch', $id) }}" method="POST">
+            <form action="{{ route('web.client.product.submitSearch', $id) }}" method="GET">
                 @csrf
+                <input type="hidden" name="sort" value="">
                 <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
                     <div class="w-full flex items-center text-center py-4">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u36.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
@@ -138,15 +140,17 @@
                 </div>
                 <div class="w-full flex text-2xl px-5  text-gray-800 hover:bg-lime-100">
                     <div class="w-full space-x-4 mt-4 mb-4">
-                        <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thực phẩm sắp hết hạn
+                        <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thực phẩm sắp hết
+                        hạn
 
                     </div>
                 </div>
                 <div class="w-full flex text-2xl px-5  text-with-800 hover:bg-lime-100">
                     <div class="w-full mt-4 mb-4 text-center">
                         <button type="submit"
-                            class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">Tìm kiếm
-                            </button>
+                            class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">Tìm
+                            kiếm
+                        </button>
                     </div>
                 </div>
             </form>
