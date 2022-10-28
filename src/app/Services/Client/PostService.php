@@ -41,8 +41,11 @@ class PostService
     {
         DB::beginTransaction();
         try {
-            $productData = $request->except(['images', '_token']);
-            $productData['avatar'] = $request->images[0]->hashName();
+            $images = $request->images;
+            $removeImgs = json_decode($request->images_remove);
+            $productData = $request->except(['images', '_token', 'images_remove']);
+            $productData['avatar'] = $request->avatar->hashName();
+            Storage::disk('public')->put('images', $request->avatar);
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
@@ -54,14 +57,24 @@ class PostService
 
             $product = $this->productRepository->create($productData);
 
-            foreach ($request->images as $image) {
-                Storage::disk('public')->put('images', $image);
-                $productImage = [
-                    'path' => $image->hashName(),
-                    'product_id' => $product->id,
-                ];
+            foreach ($images as $image) {
+                if ($removeImgs && !in_array($image->getClientOriginalName(), $removeImgs)) {
+                    Storage::disk('public')->put('images', $image);
 
-                $this->productImageRepository->create($productImage);
+                    $productImage = [
+                        'path' => $image->hashName(),
+                        'product_id' => $product->id,
+                    ];
+                    $this->productImageRepository->create($productImage);
+                } elseif ($removeImgs == null) {
+                    Storage::disk('public')->put('images', $image);
+
+                    $productImage = [
+                        'path' => $image->hashName(),
+                        'product_id' => $product->id,
+                    ];
+                    $this->productImageRepository->create($productImage);
+                }
             }
             DB::commit();
 
@@ -120,6 +133,11 @@ class PostService
             $productData['stock'] = $request->quantity;
             $productData['owner_id'] = Auth::id();
 
+            if ($request->avatar != null) {
+                Storage::disk('public')->put('images', $request->avatar);
+                $productData['avatar'] = $request->avatar->hashName();
+            }
+
             if (!$productData['stock'] == 0) {
                 $productData['status'] = 1;
             } else {
@@ -157,7 +175,6 @@ class PostService
             return false;
         } catch (Exception $e) {
             Log::error($e);
-            throw $e;
             DB::rollBack();
 
             return true;

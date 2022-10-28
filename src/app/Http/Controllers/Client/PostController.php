@@ -32,6 +32,15 @@ class PostController extends Controller
 
     public function store(PostFormRequest $request)
     {
+        $images = $request->images != null ? count($request->images) : 0;
+        $removeImgs = $request->images_remove != null ? count(json_decode($request->images_remove)) : 0;
+
+        if ($images - $removeImgs > 10) {
+            return back()->with('imgsLimit', 'Số ảnh sản phẩm không vượt quá 10 ảnh !');
+        } elseif ($images - $removeImgs == 0) {
+            return back()->with('imgsLimit', 'Sản phẩm cần ít nhất 1 ảnh');
+        }
+
         $status = $this->postService->storeProduct($request);
         $msg = $status ? 'Error! Đăng bài thất bại.' : 'Đăng bài thành công !';
 
@@ -55,7 +64,7 @@ class PostController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(PostFormRequest $request, $id)
     {
         $preImageRemove = $request->images_remove ? count(json_decode($request->images_remove)) : 0;
         $newImage = $request->images ? count($request->images) : 0;

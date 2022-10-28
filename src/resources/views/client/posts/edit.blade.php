@@ -78,6 +78,20 @@
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Ảnh đại diện sản phẩm
+                        </label>
+                        <input
+                            class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
+                            name="avatar" id="" type="file" onchange="previewAvatar()" value="{{ $post->avatar }}">
+                        <div class="box-avatar">
+                            <div class="relative">
+                                <img class="avatar_preview my-3 mx-auto w-[360px] h-[240px] rounded-lg shadow-xl"
+                                    src="{{ asset('/storage/images/' . $post->avatar) }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
                             Hình ảnh sản phẩm
                         </label>
                         <input
@@ -390,6 +404,19 @@
         </div>
     </div>
     <script type="text/javascript">
+        function previewAvatar() {
+            $(".avatar_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-avatar").append(`
+                    <div class="relative ">
+                        <img class="avatar_preview my-3 mx-auto w-[360px] h-[240px] rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                    </div>
+                    `);
+            }
+        }
+
         function previewImg() {
             $(".img_preview").remove()
             var arrImgAdd = this.event.target.files;
@@ -410,12 +437,13 @@
                     `);
             }
             var imgRemove = [];
+
             $(".product-image-delete").on("click", function(e) {
                 e.preventDefault();
 
                 $(this).parent('div').remove();
                 var key = $(this).attr("data-key");
-                           
+
                 for (let i = 0; i < arrImgAdd.length; i++) {
                     if (i == key) {
                         imgRemove.push(arrImgAdd[i].name)
@@ -423,8 +451,8 @@
                 }
                 console.log(imgRemove);
                 $("#imgRemove").val(JSON.stringify(imgRemove))
-        })
-    }
+            })
+        }
 
         $(document).ready(function() {
             $('.product-image-delete').click(function(e) {
