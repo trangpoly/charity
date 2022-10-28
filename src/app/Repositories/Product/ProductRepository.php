@@ -170,6 +170,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function searchProductByName($data)
     {
+        if ($data == null) {
+            return $this->model
+                ->with('favourite')->where('expire_at', '>=', Carbon::now()->toDateString())
+                ->orderBy('expire_at', 'asc')
+                ->paginate(8);
+        }
         if ($data['sort'] == '0') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
