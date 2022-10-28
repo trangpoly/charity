@@ -111,7 +111,29 @@ class ProductController extends BaseController
 
         $subCategory = $products[0]->subCategory->category->subCategory;
 
-        return view('pages.product.sub-category', ['products' => $products, 'subCategory' => $subCategory]);
+        return view('pages.product.sub-category', [
+            'products' => $products,
+            'subCategory' => $subCategory,
+            'id' => $id
+        ]);
+    }
+
+    public function filter($id)
+    {
+        if ($_GET['sort']) {
+            $sortExpireDate = $_GET['sort'];
+
+            $filterProducts = $this->productService->filter($sortExpireDate, $id);
+        } else {
+            $filterProducts = $this->productService->getProductsBySubCategory($id);
+        }
+        $subCategory = $this->categoryService->getSubCategoriesProduct();
+
+        return view('pages.product.sub-category', [
+            'products' => $filterProducts,
+            'subCategory' => $subCategory,
+            'id' => $id
+        ]);
     }
 
     public function submitSearch(Request $request, $id)
@@ -125,17 +147,31 @@ class ProductController extends BaseController
             'search' => $search,
             'subCategory' => $subCategory,
             'request' => $request
-                ->except(['_token'])
+                ->except(['_token']),
+            'subCt' => $request->subCate  ?? "",
         ]);
     }
 
-    public function filter(Request $request, $id)
+    public function filterSearch($id)
     {
-        $sortExpireDate = $request->expire_at;
+        $subCate = $_GET['subCate'];
 
-        $filterProducts = $this->productService->filter($sortExpireDate, $id);
+        if ($_GET['sort']) {
+            $sortExpireDate = $_GET['sort'];
 
-        return response()->json($filterProducts);
+            $filterProducts = $this->productService->filterSearch($sortExpireDate, $id, $subCate);
+        } else {
+            $filterProducts = $this->productService->search($id);
+        }
+
+        $subCategory = $this->categoryService->getSubCategoriesProduct();
+
+        return view('pages.product.search', [
+            'search' => $filterProducts,
+            'subCategory' => $subCategory,
+            'id' => $id,
+            'subCt' => $subCate
+        ]);
     }
 
     public function addFavourite(Request $request)

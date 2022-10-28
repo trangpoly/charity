@@ -80,8 +80,30 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function filter($sortExpireDate, $id)
     {
-        return $this->model->whereRelation('subCategory', 'parent_id', $id)
-            ->orderBy('expire_at', $sortExpireDate)->get();
+        if ($sortExpireDate == 'sap-het-han') {
+            return $this->model->where('category_id', $id)
+                ->orderBy('expire_at', 'asc')
+                ->get();
+        }
+
+        if ($sortExpireDate == 'ngay-sap-het-han') {
+            return $this->model->where('category_id', $id)
+                ->orderBy('expire_at', 'desc')
+                ->get();
+        }
+    }
+
+    public function filterSearch($sortExpireDate, $id, $subCate)
+    {
+        if ($sortExpireDate == 'sap-het-han') {
+            return $this->model->whereIn('category_id', $subCate)
+                ->orderBy('expire_at', 'asc')->get();
+        }
+
+        if ($sortExpireDate == 'ngay-sap-het-han') {
+            return $this->model->whereIn('category_id', $subCate)
+                ->orderBy('expire_at', 'desc')->get();
+        }
     }
 
     public function getRecommend($currentProductId, $categoryId)

@@ -18,6 +18,8 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function filter($sortExpireDate, $id);
 
+    public function filterSearch($sortExpireDate, $id, $subCate);
+
     public function delete($id);
 
     public function getRecommend($currentProductId, $categoryId);
