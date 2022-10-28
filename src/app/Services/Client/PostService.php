@@ -172,7 +172,7 @@ class PostService
                 'read_at' => null
             ];
 
-            foreach($orders as $item) {
+            foreach ($orders as $item) {
                 $notification['notifier_id'] = $item->receiver_id;
                 $this->notificationRepository->create($notification);
             }

@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Notification extends BaseModel
 {
     use HasFactory;
-    use uuid;
+    use Uuid;
 
     protected $fillable = [
         'title',
         'type',
-        'relate_id', 
+        'relate_id',
         'actor_id',
         'notifier_id',
         'read_at',
