@@ -19,6 +19,7 @@
 
 <body class="antialiased">
     <div class="min-h-screen bg-gray-100">
+        <!--Page Header-->
         @include('layouts.navigation')
 
         <!-- Page Content -->

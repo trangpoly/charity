@@ -43,6 +43,8 @@ class ProductController extends BaseController
             'nearExpiryFood' => $nearExpiryFood,
             'currentUser' => $currentUser,
             'parentCategories' => $parentCategories,
+            'categories' => $this->categoryService->getProductsByParentCategory(),
+            'banners' => $this->bannerService->getBanners()
         ];
 
         return view('pages.product.detail', $data);
