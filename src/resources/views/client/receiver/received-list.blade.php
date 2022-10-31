@@ -6,7 +6,7 @@
             </h2>
         </div>
     </header>
-    <div class="flex max-w-8xl mx-auto mt-10">
+    <div class="flex max-w-8xl mx-auto mt-10 mb-10">
         <div class="w-4/12  border border-gray-300 h-fit">
             @include('client.partials.account-function-list')
         </div>

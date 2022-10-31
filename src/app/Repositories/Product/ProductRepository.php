@@ -174,26 +174,26 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             return $this->model
                 ->with('favourite')->where('expire_at', '>=', Carbon::now()->toDateString())
                 ->orderBy('expire_at', 'asc')
-                ->paginate(8);
+                ->paginate(12);
         }
         if ($data['sort'] == '0') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
-                ->paginate(8);
+                ->paginate(12);
         }
 
         if ($data['sort'] == 'sap-het-han') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
                 ->orderBy('expire_at', 'asc')
-                ->paginate(8);
+                ->paginate(12);
         }
 
         if ($data['sort'] == 'ngay-sap-het-han') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
                 ->orderBy('expire_at', 'desc')
-                ->paginate(8);
+                ->paginate(12);
         }
     }
 }

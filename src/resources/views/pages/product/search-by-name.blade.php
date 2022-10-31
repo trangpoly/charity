@@ -95,7 +95,7 @@
                     </a>
                 @endforeach
             </div>
-            <div class="w-full mb-2 mr-6">
+            <div class="w-full mb-2 mr-6 mt-5">
                 <p id="link-paginate">
                     {{ $products->withPath("search?name_product=$nameProduct&sort=$sort")->links() }}
                 </p>

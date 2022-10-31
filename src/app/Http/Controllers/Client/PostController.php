@@ -4,23 +4,29 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\PostFormRequest;
+use App\Services\BannerService;
 use App\Services\Client\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public $postService;
+    public $bannerService;
 
-    public function __construct(PostService $postService)
+    public function __construct(PostService $postService, BannerService $bannerService)
     {
         $this->postService = $postService;
+        $this->bannerService = $bannerService;
     }
 
     public function create()
     {
-        $categories = $this->postService->getParentCategories();
+        $data = [
+            'categories' => $this->postService->getParentCategories(),
+            'banners' => $this->bannerService->getBanners()
+        ];
 
-        return view('client.posts.create', ['categories' => $categories]);
+        return view('client.posts.create', $data);
     }
 
     public function showPostForm($id)

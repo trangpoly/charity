@@ -28,7 +28,7 @@
 
         <!-- Menu -->
         <div class="lg:flex w-4/12 ml-10 items-center text-base text-gray-700 sm:hidden">
-            <div class="w-1/4 text-center">
+            <div class="w-1/4 text-center @if (url()->current() == route('home')) text-black @endif text-gray-500 hover:text-black">
                 <a href="{{ route('home') }}">
                     <div class="h-6">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u6.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
@@ -37,7 +37,7 @@
                     <p class="mt-3">Trang chủ</p>
                 </a>
             </div>
-            <div class="w-1/4 text-center text-gray-500 hover:text-black">
+            <div class="w-1/4 text-center @if (url()->current() == route('web.posts.create')) text-black @endif text-gray-500 hover:text-black">
                 <a href="{{ route('web.posts.create') }}">
                     <div class="h-6">
                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u9.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
@@ -301,7 +301,7 @@
                 </div>
             </div>
             @if (Auth::user())
-                <div class="w-1/4 text-center text-gray-500 hover:text-black">
+                <div class="w-1/4 text-center @if (url()->current() == route('web.client.giver-posts')) text-black @endif text-gray-500 hover:text-black">
                     <a href="{{ route('web.client.giver-posts') }}">
                         <div class="h-6">
                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u170.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
@@ -311,7 +311,7 @@
                     </a>
                 </div>
             @else
-                <div class="w-1/4 text-center text-gray-500 hover:text-black">
+                <div class="w-1/4 text-center @if (url()->current() == route('web.login.show')) text-black @endif text-gray-500 hover:text-black">
                     <a href="{{ route('web.login.show') }}">
                         <div class="h-6">
                             <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u8.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
