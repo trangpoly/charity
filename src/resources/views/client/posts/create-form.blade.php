@@ -225,7 +225,7 @@
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
                             Địa chỉ
                         </label>
-                        <select
+                        <select id="select-province"
                             class="form-select appearance-none
                                 w-[350px]
                                 ml-32
@@ -243,11 +243,13 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="city" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
-                            <option value="Hà Nội">Hà Nội</option>
-                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            @foreach ($provinces as $key => $province)
+                            <option id="province-{{ $key }}" value="{{ $province->_name }}" data-districts="{{ $province->districts }}">
+                                {{ $province->_name }}
+                            </option>
+                            @endforeach
                         </select>
-                        <select
+                        <select id="select-district"
                             class="form-select appearance-none
                                 w-[240px]
                                 ml-4
@@ -265,9 +267,6 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="district" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn quận huyện</option>
-                            <option value="Hoàng Mai">Hoàng Mai</option>
-                            <option value="Cầu Giấy">Cầu Giấy</option>
-                            <option value="Thanh Xuân">Thanh Xuân</option>
                         </select>
                         @foreach ($errors->get('city') as $message)
                         <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
@@ -427,5 +426,18 @@
                 $("#imgRemove").val(JSON.stringify(imgRemove))
             })
         }
+
+        $(document).ready(function () {
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
+
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
+                        <option value="`+ districtArr[i]._name +`" class='district-box'>`+ districtArr[i]._name +`</option>
+                    `);
+                }
+            });
+        });
     </script>
 </x-app-layout>
