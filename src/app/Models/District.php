@@ -9,6 +9,6 @@ class District extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'district';
-    protected $primaryKey = 'id';
+    // protected $table = 'districts';
+    // protected $primaryKey = 'id';
 }

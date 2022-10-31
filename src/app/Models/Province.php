@@ -9,8 +9,8 @@ class Province extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'province';
-    protected $primaryKey = 'id';
+    // protected $table = 'provinces';
+    // protected $primaryKey = 'id';
 
     public function districts()
     {
