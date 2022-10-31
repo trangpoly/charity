@@ -32,8 +32,12 @@ class PostController extends Controller
     public function showPostForm($id)
     {
         $subCategories = $this->postService->getSubCategories($id);
+        $provinces = $this->postService->loadProvince();
 
-        return view('client.posts.create-form', ['subCategories' => $subCategories]);
+        return view('client.posts.create-form', [
+            'subCategories' => $subCategories,
+            'provinces' => $provinces,
+        ]);
     }
 
     public function store(PostFormRequest $request)
@@ -59,8 +63,13 @@ class PostController extends Controller
         $subCategory = $this->postService->findSubCategory($subCategoryId);
         $parentCategoryId = $subCategory->parent_id;
         $subCategories = $this->postService->getSubCategories($parentCategoryId);
+        $provinces = $this->postService->loadProvince();
 
-        return view('client.posts.edit', ['post' => $post, 'subCategories' => $subCategories]);
+        return view('client.posts.edit', [
+            'post' => $post,
+            'subCategories' => $subCategories,
+            'provinces' => $provinces,
+        ]);
     }
 
     public function deleteImageProduct(Request $request)
