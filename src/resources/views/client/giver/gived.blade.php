@@ -7,54 +7,9 @@
         </div>
     </header>
 
-    <div class="flex max-w-8xl mx-auto mt-10">
+    <div class="flex max-w-8xl mx-auto mt-10 mb-10">
         <div class="w-4/12  border border-gray-300 h-fit">
-            <a href="{{ route('web.client.giver-posts') }}"
-                class="w-full flex text-xl px-5 font-semibold text-gray-800 bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Danh sách sản phẩm tặng</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </a>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Danh sách sản phẩm nhận</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Danh sách yêu thích</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex  border-b border-lime-500">
-                    <p class="w-11/12 py-10">Hủy tài khoản</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
-            <div class="w-full flex text-xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                <div class="w-full flex">
-                    <p class="w-11/12 py-10">Đăng xuất</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3 fill-lime-500" viewBox="0 0 320 512">
-                        <path
-                            d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z" />
-                    </svg>
-                </div>
-            </div>
+            @include('client.partials.account-function-list')
         </div>
         <div class="w-8/12 ml-10">
             <h2 class="font-semibold text-2xl text-lime-700">Danh sách sản phẩm tặng</h2>
@@ -115,11 +70,21 @@
                                     <p>Hạn sử dụng: {{ $product->expire_at }}</p>
                                 </div>
                             </div>
-                            <div class="mt-5">
+                            <div class="mt-5 relative box-infoUsers">
                                 <p class="font-semibold text-2xl text-slate-700">Thông tin người đăng kí</p>
                                 <div class="mt-2 text-lg">
+                                    <svg class="w-6 absolute top-1 right-0" id="loadInfoUser" style="display: none"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path
+                                            d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z" />
+                                    </svg>
+                                    <svg class="w-6 absolute top-1 right-0" id="hiddenInfoUser" style="display: none"
+                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                        <path
+                                            d="M201.4 137.4c12.5-12.5 32.8-12.5 45.3 0l160 160c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L224 205.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160z" />
+                                    </svg>
                                     @foreach ($product->receivers as $item)
-                                        <div class="flex mt-2 space-x-4">
+                                        <div class="flex mt-2 space-x-4 box-infoUser" style="display: none;">
                                             <div class="w-1/2 flex space-x-2">
                                                 <div class="w-1/4">
                                                     <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_t_ng_1/u54.svg?pageId=8827addf-dd14-4b0e-975e-eb3de1aee1bf"
@@ -161,7 +126,7 @@
             if ($(".box-product").length > 3) {
                 $(".box-products").append(
                     `<a href="#" id="loadMore" class="text-blue-500 hover:text-blue-800 text-xl mt-5 float-right">Xem them...</a>`
-                    );
+                );
             }
             $("#loadMore").on("click", function(e) {
                 e.preventDefault();
@@ -170,7 +135,28 @@
                     $("#loadMore").remove();
                 }
             });
+        })
 
+        $(document).ready(function() {
+            $(".box-infoUser").slice(0, 2).show();
+
+            if ($(".box-infoUser").length > 2) {
+                $("#loadInfoUser").css('display', 'block');
+            }
+
+            $("#loadInfoUser").on("click", function() {
+                $(".box-infoUser:hidden").slice(0, $(".box-infoUser").length).slideDown();
+                if ($(".box-infoUser:hidden").length == 0) {
+                    $("#loadInfoUser").css('display', 'none');
+                    $("#hiddenInfoUser").css('display', 'block');
+                }
+            });
+
+            $("#hiddenInfoUser").on("click", function() {
+                $(".box-infoUser").slice(2, $(".box-infoUser").length).slideUp();
+                $("#hiddenInfoUser").css('display', 'none');
+                $("#loadInfoUser").css('display', 'block');
+            });
         })
     </script>
 </x-app-layout>

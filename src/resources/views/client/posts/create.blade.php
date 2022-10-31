@@ -22,47 +22,6 @@
                 </div>
             </div>
         </div>
-        <div class="w-4/12 h-fit">
-            <div class="bg-white w-full border border-gray-700 h-60"></div>
-            <div class="bg-white w-full border border-gray-700 h-fit mt-10">
-                <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
-                    <div class="w-full flex items-center text-center py-4">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u36.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
-                            class="w-2/12 p-5" alt="">
-                        <p class="text-3xl">Tìm kiếm theo danh mục</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex border-b border-lime-500">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u66.png?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Nông sản</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex border-b border-lime-500">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u35.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Đồ ăn trong ngày</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex border-b border-lime-500">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u36.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Thực phẩm đóng gói</p>
-                    </div>
-                </div>
-                <div class="w-full flex text-2xl px-5 font-semibold text-gray-800 hover:bg-lime-100">
-                    <div class="w-full flex">
-                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/%C4%91%C4%83ng_b%C3%A0i_1/u37.png?pageId=ea4d73f6-8706-4b27-ab47-9214ed88ac69"
-                            class="w-3/12 p-5" alt="">
-                        <p class="w-10/12 py-10">Đồ dùng sinh hoạt</p>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white w-full border border-gray-700 mt-10 h-32"></div>
-            <div class="bg-white w-full border border-gray-700 mt-10 h-32"></div>
-        </div>
+        @include('layouts.banner')
     </div>
 </x-app-layout>

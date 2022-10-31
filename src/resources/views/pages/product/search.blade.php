@@ -12,7 +12,7 @@
                         <option value="ngay-sap-het-han">Ngày hết hạn xa nhất</option>
                     </select>
                     @foreach ($subCt as $item)
-                        <input type="hidden" name="subCate[]" value="{{$item}}">
+                        <input type="hidden" name="subCate[]" value="{{ $item }}">
                     @endforeach
                 </form>
                 <div>
