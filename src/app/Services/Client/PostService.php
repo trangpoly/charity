@@ -3,10 +3,12 @@
 namespace App\Services\Client;
 
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\District\DistrictRepositoryInterface;
 use App\Repositories\Notification\NotificationRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Repositories\Province\ProvinceRepositoryInterface;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -20,18 +22,25 @@ class PostService
     protected $productImageRepository;
     protected $notificationRepository;
     protected $orderRepository;
+    protected $provinceRepository;
+    protected $districtRepository;
+
     public function __construct(
         ProductRepositoryInterface $productRepository,
         CategoryRepositoryInterface $categoryRepository,
         ProductImageRepositoryInterface $productImageRepository,
         NotificationRepositoryInterface $notificationRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
+        ProvinceRepositoryInterface $provinceRepository,
+        DistrictRepositoryInterface $districtRepository,
     ) {
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productImageRepository = $productImageRepository;
         $this->notificationRepository = $notificationRepository;
         $this->orderRepository = $orderRepository;
+        $this->provinceRepository = $provinceRepository;
+        $this->districtRepository = $districtRepository;
     }
 
     public function getParentCategories()
@@ -197,10 +206,16 @@ class PostService
 
             return false;
         } catch (Exception $e) {
+            dd($e);
             Log::error($e);
             DB::rollBack();
 
             return true;
         }
+    }
+
+    public function loadProvince()
+    {
+        return $this->provinceRepository->getProvinces();
     }
 }
