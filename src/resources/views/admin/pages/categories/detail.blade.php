@@ -16,6 +16,8 @@
                 <span class="font-medium">Remove success!</span>
             </div>
         @endif
+
+        <div class="text-green-700 mt-2 col-12 alert-update-cate"></div>
         <form id="formCate" class="w-8/12 ml-24 mt-5" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex">
@@ -188,7 +190,7 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        document.location.href = "{{route('web.admin.category.list')}}";
+                        $(".alert-update-cate").text('Update Category Successfully!')
                     }
                 })
             })
