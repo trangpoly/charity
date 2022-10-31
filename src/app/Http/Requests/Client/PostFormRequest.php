@@ -26,7 +26,6 @@ class PostFormRequest extends FormRequest
         return [
             'category_id' => 'bail|required',
             'name' => 'bail|required',
-            'images' => 'required|max:10',
             'images.*' => 'mimes:jpeg,png,jpg,gif|max:2000',
             'weight' => 'bail|required',
             'quantity' => 'bail|required',
@@ -43,8 +42,6 @@ class PostFormRequest extends FormRequest
         return [
             'category_id.required' => 'Hãy chọn danh mục con cho sản phẩm *',
             'name.required' => 'Tên sản phẩm không được để trống *',
-            'images.required' => 'Nhập ít nhất 1 ảnh mô tả sản phẩm *',
-            'images.max' => 'Chỉ được nhập tối đa 10 ảnh *',
             'images.*.mimes' => 'Định dạng của ảnh không hợp lệ *',
             'images.*.max' => 'Ảnh không được quá 2MB *',
             'weight.required' => 'Nhập trọng lượng của sản phẩm *',

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
@@ -16,14 +17,17 @@ class OrderService extends BaseService
 
     protected $categoryRepository;
 
+    protected $notificationRepository;
     public function __construct(
         OrderRepositoryInterface $orderRepository,
         ProductRepositoryInterface $productRepository,
-        CategoryRepositoryInterface $categoryRepository
+        CategoryRepositoryInterface $categoryRepository,
+        NotificationRepositoryInterface $notificationRepository
     ) {
         $this->orderRepository = $orderRepository;
         $this->productRepository = $productRepository;
         $this->categoryRepository = $categoryRepository;
+        $this->notificationRepository = $notificationRepository;
     }
 
     public function createOrUpdate($product, $request)
@@ -41,12 +45,22 @@ class OrderService extends BaseService
             'status' => 0,
         ];
 
+        $notification = [
+            'title' => 'đã đăng ký nhận sản phẩm',
+            'type' => 'product',
+            'relate_id' => $product->id,
+            'actor_id' => $userId,
+            'notifier_id' => $product->owner_id,
+            'read_at' => null
+        ];
+
         if ($order) {
             $this->orderRepository->update($order->id, $attribute);
+            $this->notificationRepository->create($notification);
 
             return;
         }
-
+        $this->notificationRepository->create($notification);
         $this->orderRepository->create($attribute);
     }
 
@@ -58,6 +72,17 @@ class OrderService extends BaseService
 
         $this->productRepository->update($product->id, ['stock' => $stock]);
         $this->orderRepository->update($order->id, ['status' => 2]);
+
+        $notification = [
+            'title' => 'đã hủy đăng ký nhận sản phẩm',
+            'type' => 'product',
+            'relate_id' => $product->id,
+            'actor_id' => $userId,
+            'notifier_id' => $product->owner_id,
+            'read_at' => null
+        ];
+
+        $this->notificationRepository->create($notification);
     }
 
     public function getOrders()
