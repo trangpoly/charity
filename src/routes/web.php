@@ -13,6 +13,7 @@ use App\Http\Controllers\Client\FavouriteController;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Client\GiverController;
 use App\Http\Controllers\Contact\ContactController;
+use App\Http\Controllers\Notification\NotificationController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +48,8 @@ Route::get('/my-app', function () {
 })->name('my-page.subscribe-receive');
 
 Route::get('search',[ ProductController::class,'searchByNameAndSort'])->name("web.client.product.search");
+Route::get('notify/{notify}',[ NotificationController::class,'getDetailNotify'])->name("web.client.notify.detail");
+Route::any('notify/mark-as-read',[ NotificationController::class,'markAllNotifyAsRead'])->name("web.client.notify.markAsRead");
 
 Route::get('/product/{id}', [ProductController::class, 'getProduct'])->name('web.client.product.detail')->middleware('auth');
 Route::get('/category/{id}', [CategoryController::class, 'category'])->name('web.client.category.list');
