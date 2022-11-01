@@ -23,7 +23,7 @@ class NotificationController extends BaseController
     {
         $this->notifytService->update($notify->id, ['read_at' => Carbon::now()]);
 
-        switch($notify->type) {
+        switch ($notify->type) {
             case 'App\Models\Product::class':
                 return redirect()->route('web.client.product.detail', ['id' => $notify->relate_id]);
         }

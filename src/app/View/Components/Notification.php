@@ -29,6 +29,6 @@ class Notification extends Component
         $notify = $this->notificationRepository->getNotifyByUser(Auth::user()->id);
         $notifyUnread = $this->notificationRepository->getNumberNotifyUnread(Auth::user()->id);
 
-        return view('components.notification', ['notify'=> $notify, 'notifyUnread' => $notifyUnread]);
+        return view('components.notification', ['notify' => $notify, 'notifyUnread' => $notifyUnread]);
     }
 }
