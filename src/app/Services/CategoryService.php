@@ -3,16 +3,19 @@
 namespace App\Services;
 
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Province\ProvinceRepositoryInterface;
 
 class CategoryService extends BaseService
 {
     protected $categoryRepository;
-    private const PAGE_LIMIT = 10;
+    protected $provinceRepository;
 
-
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        ProvinceRepositoryInterface $provinceRepository
+    ) {
         $this->categoryRepository = $categoryRepository;
+        $this->provinceRepository = $provinceRepository;
     }
 
     public function getCategory($id)
@@ -73,5 +76,10 @@ class CategoryService extends BaseService
     public function getSubCategoriesProduct()
     {
         return $this->categoryRepository->getSubCategoriesProduct();
+    }
+
+    public function getProvinces()
+    {
+        return $this->provinceRepository->getProvinces();
     }
 }
