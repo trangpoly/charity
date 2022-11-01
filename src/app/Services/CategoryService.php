@@ -7,14 +7,19 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use App\Repositories\Province\ProvinceRepositoryInterface;
 
 class CategoryService extends BaseService
 {
     protected $categoryRepository;
+    protected $provinceRepository;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
-    {
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepository,
+        ProvinceRepositoryInterface $provinceRepository
+    ) {
         $this->categoryRepository = $categoryRepository;
+        $this->provinceRepository = $provinceRepository;
     }
 
     public function getCategory($id)
@@ -115,5 +120,10 @@ class CategoryService extends BaseService
     public function deleteParentCategory($id)
     {
         return $this->categoryRepository->getSubCategories($id)->count();
+    }
+
+    public function getProvinces()
+    {
+        return $this->provinceRepository->getProvinces();
     }
 }

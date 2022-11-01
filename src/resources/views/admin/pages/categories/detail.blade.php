@@ -81,7 +81,7 @@
                     </div>
                     @foreach ($parentCategory->subCategory as $item)
                         <div class="w-full flex space-x-4 justify-items-center">
-                            <input type="text" data-id="{{ $item->id }}" name="name_sub[]"
+                            <input type="text" data-id="{{ $item->id }}" name="pooooname_sub[]"
                                 value="{{ $item->name }}" class="input-subCate w-10/12 border border-gray-500">
                             <a href="{{ route('web.admin.category.delete-subcate', $item->id) }}" class="w-2/12">
                                 <img class=""

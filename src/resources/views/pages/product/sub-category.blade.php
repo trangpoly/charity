@@ -15,9 +15,6 @@
                         <option value="sap-het-han">Sắp hết hạn</option>
                         <option value="ngay-sap-het-han">Ngày hết hạn xa nhất</option>
                     </select>
-                    {{-- @foreach ($subCategory as $cate)
-                        <input type="hidden" name="subCate[]" value="{{ $cate->id }}">
-                    @endforeach --}}
                 </form>
                 <div class="w-2/12 mt-8">
                     <p id="count" class="font-base text-xl mt-2 text-gray-700 ">Tổng sản phẩm:
@@ -72,9 +69,7 @@
                     @endforeach
                 </div>
                 <div class="w-full mb-2 mr-6">
-                    <p class="">
-                        {{ $products->links() }}
-                    </p>
+
                 </div>
             </div>
         </div>
@@ -111,21 +106,20 @@
                             <div class="w-full pb-8">
                                 <div class="w-full flex mb-5 space-x-8">
                                     <label class="w">Tỉnh thành</label>
-                                    <select class="w-8/12 h-10" name="city" id="">
-                                        <option value="">Select</option>
-                                        <option value="Hà Nội">Hà Nội</option>
-                                        <option value="Ninh Bình">Ninh Bình</option>
-
+                                    <select id="select-province" class="w-8/12 h-10" name="city">
+                                        <option value="" selected disabled hidden>Chọn tỉnh thành</option>
+                                        @foreach ($provinces as $key => $province)
+                                            <option id="province-{{ $key }}" value="{{ $province->_name }}"
+                                                data-districts="{{ $province->districts }}">
+                                                {{ $province->_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="w-full flex space-x-6">
-                                    <label class="w">Quân Huyện</label>
-                                    <select class="w-8/12 h-10" name="district" id="">
-                                        <option value="">Select</option>
-                                        <option value="Cầu Giấy">Cầu Giấy</option>
-                                        <option value="Hà Đông">Hà Đông</option>
-                                        <option value="Kim Sơn">Kim Sơn</option>
-                                        <option value="Yên Khánh">Yên Khánh</option>
+                                <div class="w-full flex space-x-5">
+                                    <label class="w">Quận Huyện</label>
+                                    <select id="select-district" class="w-8/12 h-10" name="district">
+                                        <option value="" selected disabled hidden>Chọn quận huyện</option>
                                     </select>
                                 </div>
                             </div>
@@ -143,7 +137,8 @@
                     </div>
                     <div class="w-full flex text-2xl px-5  text-gray-800 hover:bg-lime-100">
                         <div class="w-full space-x-4 mt-4 mb-4">
-                            <input type="checkbox" class="w-6 h-6 mx-4">Thực phẩm sắp hết hạn
+                            <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thực phẩm sắp
+                            hết hạn
                         </div>
                     </div>
                     <div class="w-full flex text-2xl px-5  text-with-800 hover:bg-lime-100">
@@ -168,5 +163,17 @@
             var searchParams = new URLSearchParams(window.location.search)
             $("#formSearch").submit()
         })
+        $(document).ready(function() {
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
+
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
+                        <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]._name + `</option>
+                    `);
+                }
+            });
+        });
     </script>
 </x-app-layout>

@@ -35,7 +35,7 @@
                                         <img class="h-fit"
                                             src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                             width="18px" alt="">
-                                        <p class="text-lg">{{ $faker->district }}, {{$faker->city}}</p>
+                                        <p class="text-lg">{{ $faker->district }}, {{ $faker->city }}</p>
                                     </div>
 
                                     <div class="flex py-2 space-x-4 ">
@@ -108,21 +108,20 @@
                         <div class="w-full pb-8">
                             <div class="w-full flex mb-5 space-x-8">
                                 <label class="w">Tỉnh thành</label>
-                                <select class="w-8/12 h-10" name="city" id="">
-                                    <option value="">Select</option>
-                                    <option value="Hà Nội">Hà Nội</option>
-                                    <option value="Ninh Bình">Ninh Bình</option>
-
+                                <select id="select-province" class="w-8/12 h-10" name="city">
+                                    <option value="" selected disabled hidden>Chọn tỉnh thành</option>
+                                    @foreach ($provinces as $key => $province)
+                                        <option id="province-{{ $key }}" value="{{ $province->_name }}"
+                                            data-districts="{{ $province->districts }}">
+                                            {{ $province->_name }}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
-                            <div class="w-full flex space-x-6">
+                            <div class="w-full flex space-x-5">
                                 <label class="w">Quận Huyện</label>
-                                <select class="w-8/12 h-10" name="district" id="">
-                                    <option value="">Select</option>
-                                    <option value="Cầu Giấy">Cầu Giấy</option>
-                                    <option value="Hà Đông">Hà Đông</option>
-                                    <option value="Kim Sơn">Kim Sơn</option>
-                                    <option value="Yên Khánh">Yên Khánh</option>
+                                <select id="select-district" class="w-8/12 h-10" name="district">
+                                    <option value="" selected disabled hidden>Chọn quận huyện</option>
                                 </select>
                             </div>
                         </div>
@@ -140,9 +139,9 @@
                 </div>
                 <div class="w-full flex text-2xl px-5  text-gray-800 hover:bg-lime-100">
                     <div class="w-full space-x-4 mt-4 mb-4">
-                        <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thực phẩm sắp hết
+                        <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thực phẩm sắp
+                        hết
                         hạn
-
                     </div>
                 </div>
                 <div class="w-full flex text-2xl px-5  text-with-800 hover:bg-lime-100">
@@ -159,4 +158,18 @@
         <div class="w-full border border-gray-300 mt-10 h-32"></div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#select-province').on('change', function() {
+            $('.district-box').remove();
+            districtArr = $(this).find(":selected").data('districts');
+
+            for (var i = 0; i < districtArr.length; i++) {
+                $('#select-district').append(`
+                        <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]._name + `</option>
+                    `);
+            }
+        });
+    });
+</script>
 </x-app-layout>

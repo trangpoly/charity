@@ -127,7 +127,17 @@ class CategoryController extends BaseController
 
         $subCategory = $this->categoryService->getProductsBySubCategory($id);
 
-        return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory, 'id' => $id]);
+        $provinces = $this->categoryService->getProvinces();
+
+        return view(
+            'pages.product.category',
+            [
+                'category' => $category,
+                'subCategory' => $subCategory,
+                'id' => $id,
+                'provinces' => $provinces
+            ]
+        );
     }
 
     public function deleteCategory($id)
