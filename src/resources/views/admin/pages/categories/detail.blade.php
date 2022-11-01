@@ -7,15 +7,17 @@
         </div>
         @if (session('fail'))
             <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                <span class="font-medium">Cannot remove!</span> This category contained products
+                <span class="font-medium">Cannot delete Sub Category!</span> This category contained products
             </div>
         @endif
         @if (session('success'))
             <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                 role="alert">
-                <span class="font-medium">Remove success!</span>
+                <span class="font-medium">Delete Sub Category success!</span>
             </div>
         @endif
+
+        <div class="text-green-700 mt-2 col-12 alert-update-cate"></div>
         <form id="formCate" class="w-8/12 ml-24 mt-5" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex">
@@ -79,7 +81,7 @@
                     </div>
                     @foreach ($parentCategory->subCategory as $item)
                         <div class="w-full flex space-x-4 justify-items-center">
-                            <input type="text" data-id="{{ $item->id }}" name="name_sub[]"
+                            <input type="text" data-id="{{ $item->id }}" name="pooooname_sub[]"
                                 value="{{ $item->name }}" class="input-subCate w-10/12 border border-gray-500">
                             <a href="{{ route('web.admin.category.delete-subcate', $item->id) }}" class="w-2/12">
                                 <img class=""
@@ -188,7 +190,7 @@
                     processData: false,
                     contentType: false,
                     success: function(data) {
-                        document.location.href = "{{route('web.admin.category.list')}}";
+                        $(".alert-update-cate").text('Update Category Successfully!')
                     }
                 })
             })

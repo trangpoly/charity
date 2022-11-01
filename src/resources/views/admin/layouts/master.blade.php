@@ -245,6 +245,10 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            $('#btn-close-alert').on('click', function() {
+                $('#btn-close-alert').parent().parent().remove();
+            });
         });
     </script>
     @yield('script')

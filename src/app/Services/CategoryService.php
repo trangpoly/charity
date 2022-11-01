@@ -3,6 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\Category\CategoryRepositoryInterface;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\Province\ProvinceRepositoryInterface;
 
 class CategoryService extends BaseService
@@ -23,9 +27,44 @@ class CategoryService extends BaseService
         return $this->categoryRepository->getCategoryDetail($id);
     }
 
-    public function create($attribute)
+    public function create($request)
     {
-        return $this->categoryRepository->create($attribute);
+        DB::beginTransaction();
+        try {
+            $data = $request->only([
+                'name',
+                'status',
+                'expiration_date'
+            ]);
+
+            $data['image'] = $request->file('image')->hashName();
+
+            if ($request->hasFile('image') && $request->file('image')) {
+                Storage::disk('public')->put('images', $request->file('image'));
+            }
+
+            $cateParent = $this->categoryRepository->create($data);
+
+            if ($request->input('name_sub')[0] != null && count($request->input('name_sub')) > 1) {
+                foreach ($request->input('name_sub') as $nameSubCate) {
+                    $data = [
+                        "name" => $nameSubCate,
+                        "status" => $request->input('status'),
+                        "parent_id" => $cateParent->id
+                    ];
+
+                    $this->categoryRepository->create($data);
+                }
+            }
+            DB::commit();
+
+            return false;
+        } catch (Exception $e) {
+            Log::error($e);
+            DB::rollBack();
+
+            return true;
+        }
     }
 
     public function getListParentCategoryWithSub()
@@ -76,6 +115,11 @@ class CategoryService extends BaseService
     public function getSubCategoriesProduct()
     {
         return $this->categoryRepository->getSubCategoriesProduct();
+    }
+
+    public function deleteParentCategory($id)
+    {
+        return $this->categoryRepository->getSubCategories($id)->count();
     }
 
     public function getProvinces()
