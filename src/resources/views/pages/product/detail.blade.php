@@ -309,7 +309,8 @@
                 <div class="w-full mt-10">
                     <div class="flex">
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">Giải cứu thực phẩm sắp hết hạn</h2>
-                        <a href="" class="flex w-2/12 place-content-end relative hover:color-orange-400">
+                        <a href="{{ route("web.client.product.search") }}" class="flex w-2/12 place-content-end relative hover:color-orange-400">
+                            @method('GET', "sort")
                             <span class="font-base text-xl text-gray-700 mr-6">Xem thêm</span>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
                                 class="absolute bottom-4 h-3 mx-2 fill-gray-700">

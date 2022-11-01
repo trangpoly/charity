@@ -77,13 +77,28 @@
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Ảnh đại diện sản phẩm
+                        </label>
+                        <input
+                            class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
+                            name="avatar" id="" type="file" onchange="previewAvatar()" required>
+                        <div class="box-avatar"></div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
                             Hình ảnh sản phẩm
                         </label>
                         <input
                             class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
-                            name="images[]" id="multiple_files" type="file" multiple="">
+                            name="images[]" id="multiple_files" type="file" multiple=""
+                            onchange="previewImg()">
+                        <input type="hidden" name="images_remove" id="imgRemove" value="" hidden>
+                        <div class="flex m-4 box-images"></div>
                         @if ($errors->has('images.*'))
                         <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                        @endif
+                        @if (session('imgsLimit'))
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ session('imgsLimit') }}</p>
                         @endif
                         @foreach ($errors->get('images') as $message)
                         <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
@@ -199,7 +214,7 @@
                             </div>
                             <input datepicker="" type="text" name="expire_at" datepicker
                                 datepicker-format="yyyy/mm/dd"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 datepicker-input"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 datepicker-input"
                                 placeholder="Chọn hạn sử dụng">
                         </div>
                         @foreach ($errors->get('expire_at') as $message)
@@ -210,7 +225,7 @@
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
                             Địa chỉ
                         </label>
-                        <select
+                        <select id="select-province"
                             class="form-select appearance-none
                                 w-[350px]
                                 ml-32
@@ -228,11 +243,13 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="city" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
-                            <option value="Hà Nội">Hà Nội</option>
-                            <option value="Hồ Chí Minh">Hồ Chí Minh</option>
-                            <option value="Đà Nẵng">Đà Nẵng</option>
+                            @foreach ($provinces as $key => $province)
+                            <option id="province-{{ $key }}" value="{{ $province->_name }}" data-districts="{{ $province->districts }}">
+                                {{ $province->_name }}
+                            </option>
+                            @endforeach
                         </select>
-                        <select
+                        <select id="select-district"
                             class="form-select appearance-none
                                 w-[240px]
                                 ml-4
@@ -250,9 +267,6 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="district" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn quận huyện</option>
-                            <option value="Hoàng Mai">Hoàng Mai</option>
-                            <option value="Cầu Giấy">Cầu Giấy</option>
-                            <option value="Thanh Xuân">Thanh Xuân</option>
                         </select>
                         @foreach ($errors->get('city') as $message)
                         <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
@@ -305,7 +319,7 @@
                             ease-in-out
                             m-0
                             focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                            name="phone" id="" placeholder="" />
+                            name="phone" id="" placeholder="" value="{{ Auth::user()->phone_number }}"/>
                         @foreach ($errors->get('phone') as $message)
                         <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                         @endforeach
@@ -362,4 +376,68 @@
             <div class="w-full border border-gray-700 mt-10 h-32"></div>
         </div>
     </div>
+    <script type="text/javascript">
+        function previewAvatar() {
+            $(".avatar_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-avatar").append(`
+                    <div class="relative ">
+                        <img class="avatar_preview my-3 mx-auto w-[360px] h-[240px] rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                    </div>
+                    `);
+            }
+        }
+
+        function previewImg() {
+            $(".img_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-images").append(`
+                    <div class="relative ">
+                        <img class="image_add img_preview mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                        <a href="" data-key = ${i}
+                            class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                    </div>
+                    `);
+            }
+            var imgRemove = [];
+
+            $(".product-image-delete").on("click", function(e) {
+                e.preventDefault();
+
+                $(this).parent('div').remove();
+                var key = $(this).attr("data-key");
+
+                for (let i = 0; i < arrImgAdd.length; i++) {
+                    if (i == key) {
+                        imgRemove.push(arrImgAdd[i].name)
+                    }
+                }
+                console.log(imgRemove);
+                $("#imgRemove").val(JSON.stringify(imgRemove))
+            })
+        }
+
+        $(document).ready(function () {
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
+
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
+                        <option value="`+ districtArr[i]._name +`" class='district-box'>`+ districtArr[i]._name +`</option>
+                    `);
+                }
+            });
+        });
+    </script>
 </x-app-layout>

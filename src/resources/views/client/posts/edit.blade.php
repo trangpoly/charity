@@ -78,6 +78,20 @@
                     </div>
                     <div class="mb-5">
                         <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
+                            Ảnh đại diện sản phẩm
+                        </label>
+                        <input
+                            class="block w-full text-sm text-gray-400 bg-white rounded border border-gray-300 cursor-pointer focus:outline-none "
+                            name="avatar" id="" type="file" onchange="previewAvatar()" value="{{ $post->avatar }}">
+                        <div class="box-avatar">
+                            <div class="relative">
+                                <img class="avatar_preview my-3 mx-auto w-[360px] h-[240px] rounded-lg shadow-xl"
+                                    src="{{ asset('/storage/images/' . $post->avatar) }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="message" class="mb-3 block text-base font-medium text-[#07074D]">
                             Hình ảnh sản phẩm
                         </label>
                         <input
@@ -233,7 +247,7 @@
                         <label for="" class="mb-3 block text-base font-medium text-[#07074D]">
                             Địa chỉ
                         </label>
-                        <select
+                        <select id="select-province"
                             class="form-select appearance-none
                                 w-[350px]
                                 ml-32
@@ -251,12 +265,19 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="city" id="city" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
-                            <option value="Hà Nội" @if ($post->city == 'Hà Nội') selected @endif>Hà Nội</option>
-                            <option value="Hồ Chí Minh" @if ($post->city == 'Hồ Chí Minh') selected @endif>Hồ Chí Minh
+                            @foreach ($provinces as $key => $province)
+                            <option id="province-{{ $key }}"
+                                value="{{ $province->_name }}"
+                                data-districts="{{ $province->districts }}"
+                                @if ($province->_name == $post->city)
+                                    data-current-district = "{{ $post->district }}"
+                                    selected
+                                @endif>
+                                {{ $province->_name }}
                             </option>
-                            <option value="Đà Nẵng" @if ($post->city == 'Đà Nẵng') selected @endif>Đà Nẵng</option>
+                            @endforeach
                         </select>
-                        <select
+                        <select id="select-district"
                             class="form-select appearance-none
                                 w-[240px]
                                 ml-4
@@ -274,12 +295,6 @@
                                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                             name="district" id="district" aria-label="Chọn danh mục con cho sản phẩm">
                             <option value="" selected disabled hidden>Chọn quận huyện</option>
-                            <option value="Hoàng Mai" @if ($post->district == 'Hoàng Mai') selected @endif>Hoàng Mai
-                            </option>
-                            <option value="Cầu Giấy" @if ($post->district == 'Cầu Giấy') selected @endif>Cầu Giấy
-                            </option>
-                            <option value="Thanh Xuân" @if ($post->district == 'Thanh Xuân') selected @endif>Thanh Xuân
-                            </option>
                         </select>
                         @foreach ($errors->get('city') as $message)
                             <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
@@ -390,6 +405,19 @@
         </div>
     </div>
     <script type="text/javascript">
+        function previewAvatar() {
+            $(".avatar_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-avatar").append(`
+                    <div class="relative ">
+                        <img class="avatar_preview my-3 mx-auto w-[360px] h-[240px] rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                    </div>
+                    `);
+            }
+        }
+
         function previewImg() {
             $(".img_preview").remove()
             var arrImgAdd = this.event.target.files;
@@ -410,12 +438,13 @@
                     `);
             }
             var imgRemove = [];
+
             $(".product-image-delete").on("click", function(e) {
                 e.preventDefault();
 
                 $(this).parent('div').remove();
                 var key = $(this).attr("data-key");
-                           
+
                 for (let i = 0; i < arrImgAdd.length; i++) {
                     if (i == key) {
                         imgRemove.push(arrImgAdd[i].name)
@@ -423,8 +452,8 @@
                 }
                 console.log(imgRemove);
                 $("#imgRemove").val(JSON.stringify(imgRemove))
-        })
-    }
+            })
+        }
 
         $(document).ready(function() {
             $('.product-image-delete').click(function(e) {
@@ -440,6 +469,37 @@
                 `);
             });
 
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
+
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
+                        <option value="`+ districtArr[i]._name +`" class='district-box'>`+ districtArr[i]._name +`</option>
+                    `);
+                }
+            });
+
+            $('#select-province option').each(function () {
+                if (this.selected)
+                {
+                    districtArr = $(this).filter(':selected').data('districts');
+                    currentDistrict = $(this).filter(':selected').data('current-district');
+                    console.log(districtArr, currentDistrict);
+
+                    for (var i = 0; i < districtArr.length; i++) {
+                        if (districtArr[i]._name == currentDistrict) {
+                            $('#select-district').append(`
+                                <option value="`+ districtArr[i]._name +`" class='district-box' selected>`+ districtArr[i]._name +`</option>
+                            `);
+                        } else {
+                            $('#select-district').append(`
+                                <option value="`+ districtArr[i]._name +`" class='district-box'>`+ districtArr[i]._name +`</option>
+                            `);
+                        }
+                    }
+                }
+            });
         });
     </script>
 </x-app-layout>

@@ -63,21 +63,38 @@ class ProductController extends BaseController
     {
         $subCategory = $this->productService->getSubCategory();
 
-        return view('admin.product.create', ['subCategory' => $subCategory]);
+        $provinces = $this->productService->getProvince();
+
+        return view('admin.product.create', ['subCategory' => $subCategory, 'provinces' => $provinces]);
     }
 
     public function saveCreate(ProductRequest $request)
     {
         $this->productService->saveCreate($request);
 
+        session(['msg' => 'Thêm thành công!']);
+
+        session(['status' => false]);
+
         return redirect()->route('web.admin.product.list');
     }
 
-    public function update(Product $id)
+    public function update($id)
     {
+        $product = $this->productService->find($id);
+
         $subCategory = $this->productService->getSubCategory();
 
-        return view('admin.product.update', ['subCategory' => $subCategory, 'product' => $id]);
+        $provinces = $this->productService->getProvince();
+
+        return view(
+            'admin.product.update',
+            [
+                'subCategory' => $subCategory,
+                'product' => $product,
+                'provinces' => $provinces
+            ]
+        );
     }
 
     public function saveUpdate($id, ProductRequest $request)
@@ -85,7 +102,8 @@ class ProductController extends BaseController
         $status = $this->productService->updateProduct($id, $request);
 
         if ($status == false) {
-            session(['msg' => 'San pham phai chua toi da 1 anh']);
+            session(['msg' => 'Sản phẩm phải có tối đa 1 ảnh']);
+            session(['status' => true]);
             return back();
         }
 
@@ -95,6 +113,10 @@ class ProductController extends BaseController
 
         $this->productService->updateProduct($id, $request);
 
+        session(['msg' => 'Cập nhật thành công!']);
+
+        session(['status' => false]);
+
         return redirect()->route('web.admin.product.list');
     }
 
@@ -102,7 +124,9 @@ class ProductController extends BaseController
     {
         $this->productService->delete($id);
 
-        session(['msg' => 'Delete successfully !']);
+        session(['msg' => 'Xóa thành công!']);
+
+        session(['status' => false]);
 
         return redirect()->back();
     }
@@ -113,28 +137,35 @@ class ProductController extends BaseController
 
         $subCategory = $products[0]->subCategory->category->subCategory;
 
+        $provinces = $this->productService->getProvince();
+
         return view('pages.product.sub-category', [
             'products' => $products,
             'subCategory' => $subCategory,
-            'id' => $id
+            'id' => $id,
+            'provinces' => $provinces,
         ]);
     }
 
     public function filter($id)
     {
-        if ($_GET['sort']) {
-            $sortExpireDate = $_GET['sort'];
+        if (request('sort')) {
+            $sortExpireDate = request('sort');
 
             $filterProducts = $this->productService->filter($sortExpireDate, $id);
         } else {
             $filterProducts = $this->productService->getProductsBySubCategory($id);
         }
+
         $subCategory = $this->categoryService->getSubCategoriesProduct();
+
+        $provinces = $this->productService->getProvince();
 
         return view('pages.product.sub-category', [
             'products' => $filterProducts,
             'subCategory' => $subCategory,
-            'id' => $id
+            'id' => $id,
+            'provinces' => $provinces,
         ]);
     }
 
@@ -144,35 +175,47 @@ class ProductController extends BaseController
 
         $search = $this->productService->search($request);
 
+        $provinces = $this->productService->getProvince();
+
+        if ($request->subCate) {
+            $subCate = $request->subCate;
+        } else {
+            $subCate[] = $request->subCate ?? "";
+        }
+
         return view('pages.product.search', [
             'id' => $id,
             'search' => $search,
             'subCategory' => $subCategory,
             'request' => $request
                 ->except(['_token']),
-            'subCt' => $request->subCate  ?? "",
+            'subCt' => $subCate,
+            'provinces' => $provinces,
         ]);
     }
 
     public function filterSearch($id)
     {
-        $subCate = $_GET['subCate'];
+        $subCate = request('subCate');
 
-        if ($_GET['sort']) {
-            $sortExpireDate = $_GET['sort'];
+        $sortExpireDate = request('sort');
 
-            $filterProducts = $this->productService->filterSearch($sortExpireDate, $id, $subCate);
+        if ($subCate[0] == null) {
+            $filterProducts = $this->productService->filterSearchAll($sortExpireDate, $id);
         } else {
-            $filterProducts = $this->productService->search($id);
+            $filterProducts = $this->productService->filterSearch($sortExpireDate, $subCate);
         }
 
         $subCategory = $this->categoryService->getSubCategoriesProduct();
+
+        $provinces = $this->productService->getProvince();
 
         return view('pages.product.search', [
             'search' => $filterProducts,
             'subCategory' => $subCategory,
             'id' => $id,
-            'subCt' => $subCate
+            'subCt' => $subCate,
+            'provinces' => $provinces,
         ]);
     }
 

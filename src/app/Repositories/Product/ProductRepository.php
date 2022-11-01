@@ -68,7 +68,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         $query = $request->expired == 1 ?
             $query->whereBetween('expire_at', [Carbon::now()
                 ->toDateString(), Carbon::now()
-                ->adddays(3)
+                ->adddays(4)
                 ->toDateString()]) : $query;
 
         if ($dateStart && $dateEnd) {
@@ -93,7 +93,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         }
     }
 
-    public function filterSearch($sortExpireDate, $id, $subCate)
+    public function filterSearch($sortExpireDate, $subCate)
     {
         if ($sortExpireDate == 'sap-het-han') {
             return $this->model->whereIn('category_id', $subCate)
@@ -102,6 +102,19 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         if ($sortExpireDate == 'ngay-sap-het-han') {
             return $this->model->whereIn('category_id', $subCate)
+                ->orderBy('expire_at', 'desc')->get();
+        }
+    }
+
+    public function filterSearchAll($sortExpireDate, $id)
+    {
+        if ($sortExpireDate == 'sap-het-han') {
+            return $this->model->whereRelation('subCategory', 'parent_id', $id)
+                ->orderBy('expire_at', 'asc')->get();
+        }
+
+        if ($sortExpireDate == 'ngay-sap-het-han') {
+            return $this->model->whereRelation('subCategory', 'parent_id', $id)
                 ->orderBy('expire_at', 'desc')->get();
         }
     }
@@ -170,24 +183,30 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function searchProductByName($data)
     {
+        if ($data == null) {
+            return $this->model
+                ->with('favourite')->where('expire_at', '>=', Carbon::now()->toDateString())
+                ->orderBy('expire_at', 'asc')
+                ->paginate(12);
+        }
         if ($data['sort'] == '0') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
-                ->paginate(8);
+                ->paginate(12);
         }
 
         if ($data['sort'] == 'sap-het-han') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
                 ->orderBy('expire_at', 'asc')
-                ->paginate(8);
+                ->paginate(12);
         }
 
         if ($data['sort'] == 'ngay-sap-het-han') {
             return $this->model->where('name', 'like', "$data[name_product]%")
                 ->with('favourite')
                 ->orderBy('expire_at', 'desc')
-                ->paginate(8);
+                ->paginate(12);
         }
     }
 }

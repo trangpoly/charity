@@ -18,7 +18,9 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function filter($sortExpireDate, $id);
 
-    public function filterSearch($sortExpireDate, $id, $subCate);
+    public function filterSearch($sortExpireDate, $subCate);
+
+    public function filterSearchAll($sortExpireDate, $id);
 
     public function delete($id);
 

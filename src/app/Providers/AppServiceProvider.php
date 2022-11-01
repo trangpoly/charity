@@ -14,6 +14,8 @@ use App\Repositories\Client\RegisterUserRepository;
 use App\Repositories\Client\RegisterUserRepositoryInterface;
 use App\Repositories\Contact\ContactRepository;
 use App\Repositories\Contact\ContactRepositoryInterface;
+use App\Repositories\District\DistrictRepository;
+use App\Repositories\District\DistrictRepositoryInterface;
 use App\Repositories\Favourite\FavouriteRepository;
 use App\Repositories\Favourite\FavouriteRepositoryInterface;
 use App\Repositories\Notification\NotificationRepository;
@@ -22,6 +24,8 @@ use App\Repositories\Order\OrderRepository;
 use App\Repositories\Order\OrderRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepository;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Repositories\Province\ProvinceRepository;
+use App\Repositories\Province\ProvinceRepositoryInterface;
 use App\Repositories\Slide\SlideRepository;
 use App\Repositories\Slide\SlideRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
@@ -59,5 +63,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(AccountRepositoryInterface::class, AccountRepository::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
         $this->app->bind(NotificationRepositoryInterface::class, NotificationRepository::class);
+        $this->app->bind(ProvinceRepositoryInterface::class, ProvinceRepository::class);
+        $this->app->bind(DistrictRepositoryInterface::class, DistrictRepository::class);
     }
 }
