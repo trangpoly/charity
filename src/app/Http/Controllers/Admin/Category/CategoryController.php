@@ -135,14 +135,14 @@ class CategoryController extends BaseController
         $countSubCategory = $this->categoryService->deleteParentCategory($id);
 
         if ($countSubCategory == 0) {
-
             $this->categoryService->delete($id);
             $status = false;
-        }
-        else {
+        } else {
             $status = true;
         }
-        $msg = $status ? 'Not can Delete Category! This Category contain Sub Category' : 'Delete Category Successfully !';
+
+        $msg = $status ? 'Not can Delete Category! This Category contain Sub Category'
+            : 'Delete Category Successfully !';
 
         return redirect()->back()->with(['msg' => $msg, 'status' => $status]);
     }
