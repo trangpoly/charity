@@ -165,8 +165,8 @@ class PostService
             $orders = $this->orderRepository->getOrderByProductId($id);
 
             $notification = [
-                'title' => 'đã thay đổi nội dung',
-                'type' => 'product',
+                'title' => 'đã thay đổi nội dung sản phẩm',
+                'type' => 'App\Models\Product::class',
                 'relate_id' => $id,
                 'actor_id' => $product->owner_id,
                 'read_at' => null

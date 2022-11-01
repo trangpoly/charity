@@ -58,7 +58,7 @@ class AuthSessionController extends BaseController
         $phoneNumber = $phoneNumber->phone_number;
         $user = $this->userpModel->where('phone_number', $phoneNumber)->first();
         if ($user) {
-            $request->session()->regenerate();
+            Auth::login($user);
             $this->verificationOtpModel->where('otp', $request->otp)
                 ->where('phone_number', $phoneNumber)
                 ->delete();

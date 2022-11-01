@@ -33,6 +33,7 @@ class UserController extends BaseController
     {
         $this->userService->create($request);
         session(['msg' => 'Create user successfully !']);
+        session(['status' => false]);
 
         return redirect()->route('web.admin.user.list');
     }
@@ -48,6 +49,7 @@ class UserController extends BaseController
     {
         $this->userService->updateUser($request, $id);
         session(['msg' => 'Update user successfully !']);
+        session(['status' => false]);
 
         return redirect()->route('web.admin.user.list');
     }
@@ -56,6 +58,7 @@ class UserController extends BaseController
     {
         $this->userService->deactivateUser($id);
         session(['msg' => 'Deactivate user successfully !']);
+        session(['status' => true]);
 
         return redirect()->route('web.admin.user.list');
     }
