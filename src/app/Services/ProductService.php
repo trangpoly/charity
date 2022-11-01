@@ -7,6 +7,7 @@ use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Favourite\FavouriteRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\ProductImage\ProductImageRepositoryInterface;
+use App\Repositories\Province\ProvinceRepositoryInterface;
 use App\Repositories\User\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,6 +20,7 @@ class ProductService extends BaseService
     protected $categoryRepository;
     protected $productImagesRepository;
     protected $favouriteRepostitory;
+    protected $provinceRepository;
 
     public function __construct(
         ProductRepositoryInterface $productRepository,
@@ -26,12 +28,14 @@ class ProductService extends BaseService
         CategoryRepositoryInterface $categoryRepository,
         ProductImageRepositoryInterface $productImagesRepository,
         FavouriteRepositoryInterface $favouriteRepostitory,
+        ProvinceRepositoryInterface $provinceRepository,
     ) {
         $this->productRepository = $productRepository;
         $this->userRepository = $userRepository;
         $this->categoryRepository = $categoryRepository;
         $this->productImagesRepository = $productImagesRepository;
         $this->favouriteRepostitory = $favouriteRepostitory;
+        $this->provinceRepository = $provinceRepository;
     }
 
     public function getProduct($id)
@@ -49,17 +53,28 @@ class ProductService extends BaseService
         return $this->productRepository->getProductsBySubCategory($id);
     }
 
+    public function getProvince()
+    {
+        return $this->provinceRepository->getProvinces();
+    }
+
     public function getSubCategory()
     {
         return $this->categoryRepository->getSubCategoriesProduct();
     }
 
+    public function find($id)
+    {
+        return $this->productRepository->find($id);
+    }
+
     public function saveCreate($request)
     {
+        // dd($request->all());
         $product = [
             'name' => $request->name,
             'desc' => $request->desc,
-            'avatar' => $request->avatar[0]->hashName(),
+            'avatar' => $request->avatar->hashName(),
             'unit' => $request->unit,
             'weight' => $request->weight,
             'expire_at' => $request->expire_at,
@@ -74,9 +89,11 @@ class ProductService extends BaseService
             'category_id' => $request->category_id,
         ];
 
+        Storage::disk('public')->put('images/', $request->avatar);
+
         $productId = $this->productRepository->create($product);
 
-        foreach ($request->avatar as $images) {
+        foreach ($request->images as $images) {
             Storage::disk('public')->put('images/', $images);
             $productImage = [
                 'path' => $images->hashName(),
@@ -97,9 +114,14 @@ class ProductService extends BaseService
         return $this->productRepository->filter($sortExpireDate, $id);
     }
 
-    public function filterSearch($sortExpireDate, $id, $subCate)
+    public function filterSearch($sortExpireDate, $subCate)
     {
-        return $this->productRepository->filterSearch($sortExpireDate, $id, $subCate);
+        return $this->productRepository->filterSearch($sortExpireDate, $subCate);
+    }
+
+    public function filterSearchAll($sortExpireDate, $id)
+    {
+        return $this->productRepository->filterSearchAll($sortExpireDate, $id);
     }
 
     public function delete($id)

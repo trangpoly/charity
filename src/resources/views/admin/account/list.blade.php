@@ -156,7 +156,8 @@
                     )
                     .draw();
             });
-            $('#toast-success').fadeOut(5000);
+            $('#toast-notify').fadeOut(5000);
+            $('#toast-danger').fadeOut(5000);
         });
     </script>
 @endsection
