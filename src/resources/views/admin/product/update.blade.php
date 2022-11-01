@@ -40,26 +40,27 @@
             <div class=" mt-5">
                 <div class="flex">
                     <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
+                    <div class="">
                     <input type="file" id="file-input" name="avatar[]" accept="image/png, image/jpeg"
                         onchange="preview()" class=" text-gray-700 text-sm" multiple>
                     <p hidden id="num-of-files"></p>
+                    <div class="flex space-x-4 mt-2" id="images"></div>
                 </div>
-                <div class="flex space-x-4 mt-2" id="images">
                 </div>
+                
+                
             </div>
-            <div class=" mt-5">
-                <div class="flex">
-                    <p class="text-black w-3/12">Update Images<span class="text-red-700 ml-2">*</span></p>
-                </div>
-                <div class="flex m-4">
+            <div class="flex mt-5">
+                <p class="text-black w-3/12">Update Images<span class="text-red-700 ml-2">*</span></p>
+                <div class="w-9/12 flex m-4 box-images">
                     @foreach ($product->images as $item)
-                        <div class="flex ml-20">
-                            <img width="200px" height="150px" class="box-image mr-2 rounded-lg shadow-xl"
-                                src="{{ asset('storage/images/' . $item->path) }}" alt=""> <a href=""
-                                data-product-image-id="{{ $item->id }}"
-                                class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg" onclick="deleteImage('{{ $item->id }}')">
+                        <div class="relative mr-2">
+                            <img class="box-image w-32 h-24 rounded-lg shadow-xl"
+                                src="{{ asset('storage/images/' . $item->path) }}" alt="">
+                            <a href="" data-product-image-id="{{ $item->id }}"
+                                class="absolute w-5 top-0 right-0 rounded-full bg-red-600 product-image-delete">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                         d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -269,8 +270,7 @@
                 reader.onload = () => {
                     let img = document.createElement("img");
                     img.setAttribute("src", reader.result);
-                    img.setAttribute("width", 200);
-                    img.setAttribute("height", 150);
+                    img.setAttribute("class", 'w-32 h-24');
                     figure.insertBefore(img, figCap);
                 }
                 imageContainer.appendChild(figure);

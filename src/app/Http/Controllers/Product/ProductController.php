@@ -139,11 +139,14 @@ class ProductController extends BaseController
 
         $provinces = $this->productService->getProvince();
 
+        $banners = $this->bannerService->getBanners();
+
         return view('pages.product.sub-category', [
             'products' => $products,
             'subCategory' => $subCategory,
             'id' => $id,
             'provinces' => $provinces,
+            'banners' => $banners
         ]);
     }
 

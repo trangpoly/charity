@@ -74,8 +74,16 @@
             </div>
         </div>
         <div class="w-4/12 h-fit">
-            <div class="w-full border border-gray-300 h-60"></div>
-            <div class="w-full border border-gray-300 h-fit mt-10">
+            @foreach ($banners as $banner)
+                @if ($banner->index_position == 1 && $banner->path !== '')
+                    <div class="w-full border border-gray-300 h-72">
+                        <img id="top-banner" class="object-fill h-full w-full"
+                            src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                            alt="">
+                    </div>
+                @endif
+            @endforeach
+            <div class="w-full flex border border-gray-300 rounded-md mt-5 py-4 px-2">
                 <form action="{{ route('web.client.product.submitSearch', $products[0]->subCategory->category->id) }}"
                     method="GET">
                     @csrf
@@ -151,8 +159,23 @@
                     </div>
                 </form>
             </div>
-            <div class="w-full border border-gray-300 mt-10 h-32"></div>
-            <div class="w-full border border-gray-300 mt-10 h-32"></div>
+            @foreach ($banners as $banner)
+        @if ($banner->index_position == 2 && $banner->path !== '')
+            <div class="w-full border border-gray-300 mt-10 h-52">
+                <img id="top-banner" class="object-fill h-full w-full"
+                    src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}" alt="">
+            </div>
+        @endif
+    @endforeach
+            @foreach ($banners as $banner)
+                @if ($banner->index_position == 3 && $banner->path !== '')
+                    <div class="w-full border border-gray-300 mt-10 h-52">
+                        <img id="top-banner" class="object-fill h-full w-full"
+                            src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                            alt="">
+                    </div>
+                @endif
+            @endforeach
         </div>
     </div>
     <script>
