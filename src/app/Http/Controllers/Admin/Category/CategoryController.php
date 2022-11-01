@@ -33,31 +33,11 @@ class CategoryController extends BaseController
 
     public function storeCategory(CategoryRequest $request)
     {
-        $data = $request->only([
-            'name',
-            'status',
-            'expiration_date'
-        ]);
+        $status = $this->categoryService->create($request);
 
-        $data['image'] = $request->file('image')->hashName();
+        $msg = $status ? 'Error! Something went wrong.' : 'Create Category Successfully !';
 
-        if ($request->hasFile('image') && $request->file('image')) {
-            Storage::disk('public')->put('images', $request->file('image'));
-        }
-
-        $cateParent = $this->categoryService->create($data);
-
-        foreach ($request->input('name_sub') as $nameSubCate) {
-            $data = [
-                "name" => $nameSubCate,
-                "status" => $request->input('status'),
-                "parent_id" => $cateParent->id
-            ];
-
-            $this->categoryService->create($data);
-        }
-
-        return redirect()->route('web.admin.category.list');
+        return redirect()->route('web.admin.category.list')->with(['msg' => $msg, 'status' => $status]);
     }
 
     public function detailCategory($id)
@@ -147,6 +127,33 @@ class CategoryController extends BaseController
 
         $subCategory = $this->categoryService->getProductsBySubCategory($id);
 
-        return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory, 'id' => $id]);
+        $provinces = $this->categoryService->getProvinces();
+
+        return view(
+            'pages.product.category',
+            [
+                'category' => $category,
+                'subCategory' => $subCategory,
+                'id' => $id,
+                'provinces' => $provinces
+            ]
+        );
+    }
+
+    public function deleteCategory($id)
+    {
+        $countSubCategory = $this->categoryService->deleteParentCategory($id);
+
+        if ($countSubCategory == 0) {
+            $this->categoryService->delete($id);
+            $status = false;
+        } else {
+            $status = true;
+        }
+
+        $msg = $status ? 'Not can Delete Category! This Category contain Sub Category'
+            : 'Delete Category Successfully !';
+
+        return redirect()->back()->with(['msg' => $msg, 'status' => $status]);
     }
 }

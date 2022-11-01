@@ -55,8 +55,8 @@
                     @foreach ($product->images as $item)
                         <div class="flex ml-20">
                             <img width="200px" height="150px" class="box-image mr-2 rounded-lg shadow-xl"
-                                src="{{ asset('storage/images/' . $item->path) }}" alt=""> <a
-                                href="" data-product-image-id="{{ $item->id }}"
+                                src="{{ asset('storage/images/' . $item->path) }}" alt=""> <a href=""
+                                data-product-image-id="{{ $item->id }}"
                                 class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg" onclick="deleteImage('{{ $item->id }}')">
@@ -126,29 +126,28 @@
                 <div class="w-9/12">
                     <div class="flex">
                         <div class="flex-col w-9/12 h-10">
-                            <select class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6"
-                                name="city" id="">
-                                <option value="">Select City</option>
-                                <option {{ $product->city == 'Hà Nội' ? 'selected' : '' }} value="Hà Nội">Hà Nội
-                                </option>
-                                <option {{ $product->city == 'Ninh Bình' ? 'selected' : '' }} value="Ninh Bình">Ninh Bình</option>
+                            <select id="select-province"
+                                class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6" name="city"
+                                id="city">
+                                <option value="" selected disabled hidden>Chọn tỉnh thành</option>
+                                @foreach ($provinces as $key => $province)
+                                    <option id="province-{{ $key }}" value="{{ $province->_name }}"
+                                        data-districts="{{ $province->districts }}"
+                                        @if ($province->_name == $product->city) data-current-district = "{{ $product->district }}"
+                                    selected @endif>
+                                        {{ $province->_name }}
+                                    </option>
+                                @endforeach
                             </select>
                             @if ($errors->has('city'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('city') }}</span>
                             @endif
                         </div>
                         <div class="flex-col w-9/12">
-                            <select class="bg-white border border-gray-500 text-gray-700 text-sm w-4/12  h-6"
-                                name="district" id="">
-                                <option value="">Select District</option>
-                                <option {{ $product->district == 'Cầu Giấy' ? 'selected' : '' }} value="Cầu Giấy">Cầu Giấy
-                                </option>
-                                <option {{ $product->district == 'Hà Đông' ? 'selected' : '' }} value="Hà Đông">Hà Đông
-                                </option>
-                                <option {{ $product->district == 'Kim Sơn' ? 'selected' : '' }} value="Kim Sơn">Kim Sơn
-                                </option>
-                                <option {{ $product->district == 'Yên Khánh' ? 'selected' : '' }} value="Yên Khánh">Yên Khánh
-                                </option>
+                            <select id="select-district"
+                                class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6" name="district"
+                                id="district" aria-label="Chọn danh mục con cho sản phẩm">
+                                <option value="" selected disabled hidden>Chọn quận huyện</option>
                             </select>
                             @if ($errors->has('district'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('district') }}</span>
@@ -202,11 +201,13 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $(document).ready(function() {
             $('.product-image-delete').click(function(e) {
                 e.preventDefault();
                 $(this).parent().css('display', 'none');
             });
+
             $("#form-editPost").on("submit", function(e) {
                 e.preventDefault();
                 var imageIdHidden = [];
@@ -217,6 +218,39 @@
                 })
                 let formData = new FormData();
                 formData.append("image_id", $('.product-image-delete:hidden').data('product-image-id'));
+            });
+
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
+
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
+                        <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]._name + `</option>
+                    `);
+                }
+            });
+
+            $('#select-province option').each(function() {
+                if (this.selected) {
+                    districtArr = $(this).filter(':selected').data('districts');
+                    currentDistrict = $(this).filter(':selected').data('current-district');
+                    console.log(districtArr, currentDistrict);
+
+                    for (var i = 0; i < districtArr.length; i++) {
+                        if (districtArr[i]._name == currentDistrict) {
+                            $('#select-district').append(`
+                                <option value="` + districtArr[i]._name + `" class='district-box' selected>` +
+                                districtArr[i]._name + `</option>
+                            `);
+                        } else {
+                            $('#select-district').append(`
+                                <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]
+                                ._name + `</option>
+                            `);
+                        }
+                    }
+                }
             });
         });
         let fileInput = document.getElementById("file-input");

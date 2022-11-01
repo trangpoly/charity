@@ -95,6 +95,11 @@
                                         src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
                                         alt="">
                                 </a>
+                                <a href="{{ route('web.admin.category.delete', $parentCategory->id) }}">
+                                    <img width="32px"
+                                    src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/create_category/u45.svg?pageId=fc344ff3-0f48-40b8-905b-b57fafc3e11c"
+                                    alt="">
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -128,6 +133,8 @@
                     )
                     .draw();
             });
+            $('#toast-notify').fadeOut(5000);
+            $('#toast-danger').fadeOut(5000);
         })
     </script>
 @endsection

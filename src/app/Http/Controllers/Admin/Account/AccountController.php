@@ -33,6 +33,10 @@ class AccountController extends BaseController
     {
         $this->accountService->saveCreate($request);
 
+        session(['msg' => 'Thêm thành công!']);
+
+        session(['status' => false]);
+
         return redirect()->route('web.admin.account.list');
     }
 
@@ -46,6 +50,10 @@ class AccountController extends BaseController
     public function saveUpdate($id, AccountRequest $request)
     {
         $this->accountService->saveUpdate($id, $request);
+
+        session(['msg' => 'Cập nhật thành công!']);
+
+        session(['status' => false]);
 
         return redirect()->route('web.admin.account.list');
     }

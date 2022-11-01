@@ -247,11 +247,6 @@
                     )
                     .draw();
             });
-
-            $('#btn-close-alert').on('click', function() {
-                $('#btn-close-alert').parent().parent().remove();
-            });
-
             // $('#products-search').on('click', function() {
             //     $('#table-products')
             //         .DataTable()

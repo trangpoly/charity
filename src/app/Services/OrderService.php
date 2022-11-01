@@ -47,7 +47,7 @@ class OrderService extends BaseService
 
         $notification = [
             'title' => 'đã đăng ký nhận sản phẩm',
-            'type' => 'product',
+            'type' => 'App\Models\Product::class',
             'relate_id' => $product->id,
             'actor_id' => $userId,
             'notifier_id' => $product->owner_id,
@@ -75,7 +75,7 @@ class OrderService extends BaseService
 
         $notification = [
             'title' => 'đã hủy đăng ký nhận sản phẩm',
-            'type' => 'product',
+            'type' => 'App\Models\Product::class',
             'relate_id' => $product->id,
             'actor_id' => $userId,
             'notifier_id' => $product->owner_id,
