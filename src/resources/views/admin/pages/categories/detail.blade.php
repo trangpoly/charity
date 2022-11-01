@@ -7,13 +7,13 @@
         </div>
         @if (session('fail'))
             <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
-                <span class="font-medium">Cannot remove!</span> This category contained products
+                <span class="font-medium">Cannot delete Sub Category!</span> This category contained products
             </div>
         @endif
         @if (session('success'))
             <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                 role="alert">
-                <span class="font-medium">Remove success!</span>
+                <span class="font-medium">Delete Sub Category success!</span>
             </div>
         @endif
 

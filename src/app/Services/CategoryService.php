@@ -111,4 +111,9 @@ class CategoryService extends BaseService
     {
         return $this->categoryRepository->getSubCategoriesProduct();
     }
+
+    public function deleteParentCategory($id)
+    {
+        return $this->categoryRepository->getSubCategories($id)->count();
+    }
 }

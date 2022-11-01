@@ -129,4 +129,21 @@ class CategoryController extends BaseController
 
         return view('pages.product.category', ['category' => $category, 'subCategory' => $subCategory, 'id' => $id]);
     }
+
+    public function deleteCategory($id)
+    {
+        $countSubCategory = $this->categoryService->deleteParentCategory($id);
+
+        if ($countSubCategory == 0) {
+
+            $this->categoryService->delete($id);
+            $status = false;
+        }
+        else {
+            $status = true;
+        }
+        $msg = $status ? 'Not can Delete Category! This Category contain Sub Category' : 'Delete Category Successfully !';
+
+        return redirect()->back()->with(['msg' => $msg, 'status' => $status]);
+    }
 }

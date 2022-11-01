@@ -57,6 +57,8 @@ Route::middleware('check.admin')->prefix('admin')->group(function () {
 
         Route::any('delete-subcate/{id}', [CategoryController::class, 'deleteSubCategory'])->name('web.admin.category.delete-subcate');
 
+        Route::any('delete/{id}', [CategoryController::class, 'deleteCategory'])->name('web.admin.category.delete');
+
         Route::any('search', [CategoryController::class, 'searchCategory'])->name('web.admin.category.search');
         Route::post('pagination', [CategoryController::class, 'paginationCategory'])->name('web.admin.category.pagination');
     });
