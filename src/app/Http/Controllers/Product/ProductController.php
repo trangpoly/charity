@@ -99,13 +99,7 @@ class ProductController extends BaseController
 
     public function saveUpdate($id, ProductRequest $request)
     {
-        $status = $this->productService->updateProduct($id, $request);
-
-        if ($status == false) {
-            session(['msg' => 'Sản phẩm phải có tối đa 1 ảnh']);
-            session(['status' => true]);
-            return back();
-        }
+        $this->productService->updateProduct($id, $request);
 
         if ($request->has('avatar')) {
             $this->productService->createProductImage($id, $request);

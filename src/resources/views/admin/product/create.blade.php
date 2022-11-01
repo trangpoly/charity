@@ -39,9 +39,9 @@
             </div>
             <div class=" mt-5">
                 <div class="flex">
-                    <p class="text-black w-3/12">Ảnh đại diện sản phẩm<span class="text-red-700 ml-2">*</span></p>
-                    <input class="text-sm text-gray-700" type="file" id="file-input" required name="avatar"
-                        accept="image/png, image/jpeg" onchange="preview()">
+                    <p class="text-black w-3/12">Hình ảnh<span class="text-red-700 ml-2">*</span></p>
+                    <input class="text-sm text-gray-700" type="file" id="file-input" required name="avatar[]z"
+                        accept="image/png, image/jpeg" onchange="preview()" multiple>
                     <p hidden id="num-of-files"></p>
                 </div>
                 <div class="flex ml-10 mt-2" id="images"></div>
@@ -51,23 +51,6 @@
                 @foreach ($errors->get('avatar') as $message)
                     <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
                 @endforeach
-            </div>
-            <div class=" mt-5">
-                <div class="flex">
-                    <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
-                    <div class="">
-                    <input type="file" id="file-input-images" name="images[]" accept="image/png, image/jpeg"
-                        onchange="preview()" class=" text-gray-700 text-sm" multiple>
-                    <p hidden id="num-of-files"></p>
-                    <div class="flex space-x-4 mt-2" id="images"></div>
-                </div>
-                @if ($errors->has('avatar.*'))
-                    <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
-                @endif
-                @foreach ($errors->get('avatar') as $message)
-                    <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
-                @endforeach
-            </div>
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Đơn vị<span class="text-red-700 ml-2">*</span></p>
@@ -186,29 +169,29 @@
         </form>
     </div>
     <script>
-        // let fileInput = document.getElementById("file-input");
-        // let imageContainer = document.getElementById("images");
-        // let numOfFiles = document.getElementById("num-of-files");
+        let fileInput = document.getElementById("file-input");
+        let imageContainer = document.getElementById("images");
+        let numOfFiles = document.getElementById("num-of-files");
 
-        // function preview() {
-        //     imageContainer.innerHTML = "";
-        //     numOfFiles.textContent = `${fileInput.files.length} Files Selected`;
+        function preview() {
+            imageContainer.innerHTML = "";
+            numOfFiles.textContent = `${fileInput.files.length} Files Selected`;
 
-        //     for (i of fileInput.files) {
-        //         let reader = new FileReader();
-        //         let figure = document.createElement("figure");
-        //         let figCap = document.createElement("figcaption");
-        //         figure.appendChild(figCap);
-        //         reader.onload = () => {
-        //             let img = document.createElement("img");
-        //             img.setAttribute("src", reader.result);
-        //             img.setAttribute("width", 200);
-        //             figure.insertBefore(img, figCap);
-        //         }
-        //         imageContainer.appendChild(figure);
-        //         reader.readAsDataURL(i);
-        //     }
-        // }
+            for (i of fileInput.files) {
+                let reader = new FileReader();
+                let figure = document.createElement("figure");
+                let figCap = document.createElement("figcaption");
+                figure.appendChild(figCap);
+                reader.onload = () => {
+                    let img = document.createElement("img");
+                    img.setAttribute("src", reader.result);
+                    img.setAttribute("width", 200);
+                    figure.insertBefore(img, figCap);
+                }
+                imageContainer.appendChild(figure);
+                reader.readAsDataURL(i);
+            }
+        }
         $(document).ready(function() {
             $('#select-province').on('change', function() {
                 $('.district-box').remove();
@@ -221,30 +204,5 @@
                 }
             });
         });
-
-        let fileInput = document.getElementById("file-input-images");
-        let imageContainer = document.getElementById("images");
-        let numOfFiles = document.getElementById("num-of-files");
-
-        function preview() {
-            console.log(fileInput.files.length);
-            imageContainer.innerHTML = "";
-            numOfFiles.textContent = `${fileInput.files.length} Files Selected`;
-
-            for (i of fileInput.files) {
-                let reader = new FileReader();
-                let figure = document.createElement("figure");
-                let figCap = document.createElement("figcaption");
-                figure.appendChild(figCap);
-                reader.onload = () => {
-                    let img = document.createElement("img");
-                    img.setAttribute("src", reader.result);
-                    img.setAttribute("class", 'w-32 h-24');
-                    figure.insertBefore(img, figCap);
-                }
-                imageContainer.appendChild(figure);
-                reader.readAsDataURL(i);
-            }
-        }
     </script>
 @endsection

@@ -70,7 +70,6 @@ class ProductService extends BaseService
 
     public function saveCreate($request)
     {
-        // dd($request->all());
         $product = [
             'name' => $request->name,
             'desc' => $request->desc,
@@ -93,14 +92,16 @@ class ProductService extends BaseService
 
         $productId = $this->productRepository->create($product);
 
-        foreach ($request->images as $images) {
-            Storage::disk('public')->put('images/', $images);
-            $productImage = [
-                'path' => $images->hashName(),
-                'product_id' => $productId->id
-            ];
+        if ($request->images) {
+            foreach ($request->images as $images) {
+                Storage::disk('public')->put('images/', $images);
+                $productImage = [
+                    'path' => $images->hashName(),
+                    'product_id' => $productId->id
+                ];
 
-            $this->productImagesRepository->create($productImage);
+                $this->productImagesRepository->create($productImage);
+            }
         }
     }
 
@@ -177,6 +178,18 @@ class ProductService extends BaseService
                 $ids[] = $img;
             }
             $this->productImagesRepository->deleteMultiple($ids);
+        }
+
+        if ($request->images) {
+            foreach ($request->images as $images) {
+                Storage::disk('public')->put('images/', $images);
+                $productImage = [
+                    'path' => $images->hashName(),
+                    'product_id' => $id
+                ];
+
+                $this->productImagesRepository->create($productImage);
+            }
         }
 
         $this->productRepository->update($id, $attribute);
