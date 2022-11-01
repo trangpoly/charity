@@ -27,17 +27,17 @@ SET time_zone = "+00:00";
 -- Cấu trúc bảng cho bảng `provinces`
 --
 
-CREATE TABLE `provinces` (
-  `id` int UNSIGNED NOT NULL,
-  `_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `_code` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+-- CREATE TABLE `provinces` (
+--   `id` int UNSIGNED NOT NULL,
+--   `_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+--   `_code` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `provinces`
 --
 
-INSERT INTO `provinces` (`id`, `_name`, `_code`) VALUES
+INSERT INTO `provinces` (`id`, `name`, `code`) VALUES
 (1, 'Hồ Chí Minh', 'SG'),
 (2, 'Hà Nội', 'HN'),
 (3, 'Đà Nẵng', 'DDN'),
@@ -109,8 +109,8 @@ INSERT INTO `provinces` (`id`, `_name`, `_code`) VALUES
 --
 -- Chỉ mục cho bảng `provinces`
 --
-ALTER TABLE `provinces`
-  ADD PRIMARY KEY (`id`);
+-- ALTER TABLE `provinces`
+--   ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -119,9 +119,9 @@ ALTER TABLE `provinces`
 --
 -- AUTO_INCREMENT cho bảng `provinces`
 --
-ALTER TABLE `provinces`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
-COMMIT;
+-- ALTER TABLE `provinces`
+--   MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+-- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

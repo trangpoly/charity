@@ -267,13 +267,13 @@
                             <option value="" selected disabled hidden>Chọn tỉnh thành</option>
                             @foreach ($provinces as $key => $province)
                             <option id="province-{{ $key }}"
-                                value="{{ $province->_name }}"
+                                value="{{ $province->name }}"
                                 data-districts="{{ $province->districts }}"
-                                @if ($province->_name == $post->city)
+                                @if ($province->name == $post->city)
                                     data-current-district = "{{ $post->district }}"
                                     selected
                                 @endif>
-                                {{ $province->_name }}
+                                {{ $province->name }}
                             </option>
                             @endforeach
                         </select>
@@ -475,7 +475,7 @@
 
                 for (var i = 0; i < districtArr.length; i++) {
                     $('#select-district').append(`
-                        <option value="`+ districtArr[i]._name +`" class='district-box'>`+ districtArr[i]._name +`</option>
+                        <option value="`+ districtArr[i].name +`" class='district-box'>`+ districtArr[i].name +`</option>
                     `);
                 }
             });
@@ -488,13 +488,13 @@
                     console.log(districtArr, currentDistrict);
 
                     for (var i = 0; i < districtArr.length; i++) {
-                        if (districtArr[i]._name == currentDistrict) {
+                        if (districtArr[i].name == currentDistrict) {
                             $('#select-district').append(`
-                                <option value="`+ districtArr[i]._name +`" class='district-box' selected>`+ districtArr[i]._name +`</option>
+                                <option value="`+ districtArr[i].name +`" class='district-box' selected>`+ districtArr[i].name +`</option>
                             `);
                         } else {
                             $('#select-district').append(`
-                                <option value="`+ districtArr[i]._name +`" class='district-box'>`+ districtArr[i]._name +`</option>
+                                <option value="`+ districtArr[i].name +`" class='district-box'>`+ districtArr[i].name +`</option>
                             `);
                         }
                     }

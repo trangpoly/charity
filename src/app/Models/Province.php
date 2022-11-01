@@ -14,6 +14,6 @@ class Province extends BaseModel
 
     public function districts()
     {
-        return $this->hasMany(District::class, '_province_id', 'id');
+        return $this->hasMany(District::class, 'province_id', 'id');
     }
 }

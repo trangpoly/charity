@@ -15,11 +15,12 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::create('provinces', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
-        DB::unprepared(File::get('province.sql'));
+        Schema::create('provinces', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 50)->nullable();
+            $table->string('code', 50)->nullable();
+        });
+        DB::unprepared(File::get('storage/sql/province.sql'));
     }
 
     /**

@@ -15,11 +15,13 @@ return new class extends Migration
      */
     public function up()
     {
-        // Schema::create('districts', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->timestamps();
-        // });
-        DB::unprepared(File::get('district.sql'));
+        Schema::create('districts', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('prefix')->nullable();
+            $table->unsignedBigInteger('province_id')->nullable();
+        });
+        DB::unprepared(File::get('storage/sql/district.sql'));
     }
 
     /**
