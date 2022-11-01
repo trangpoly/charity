@@ -9,11 +9,11 @@ class Province extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'province';
-    protected $primaryKey = 'id';
+    // protected $table = 'provinces';
+    // protected $primaryKey = 'id';
 
     public function districts()
     {
-        return $this->hasMany(District::class, '_province_id', 'id');
+        return $this->hasMany(District::class, 'province_id', 'id');
     }
 }

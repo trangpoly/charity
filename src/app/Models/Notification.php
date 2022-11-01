@@ -18,4 +18,9 @@ class Notification extends BaseModel
         'notifier_id',
         'read_at',
     ];
+
+    public function actor()
+    {
+        return $this->belongsTo(User::class, 'actor_id', 'id');
+    }
 }
