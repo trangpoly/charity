@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Requests\admin\CategoryRequest;
+use App\Services\BannerService;
 use App\Services\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,10 +12,15 @@ use Illuminate\Support\Facades\Storage;
 class CategoryController extends BaseController
 {
     protected $categoryService;
+    protected $bannerService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(
+        CategoryService $categoryService,
+        BannerService $bannerService
+        )
     {
         $this->categoryService = $categoryService;
+        $this->bannerService = $bannerService;
     }
 
     public function listCategory()
@@ -129,13 +135,16 @@ class CategoryController extends BaseController
 
         $provinces = $this->categoryService->getProvinces();
 
+        $banners = $this->bannerService->getBanners();
+
         return view(
             'pages.product.category',
             [
                 'category' => $category,
                 'subCategory' => $subCategory,
                 'id' => $id,
-                'provinces' => $provinces
+                'provinces' => $provinces,
+                'banners' => $banners
             ]
         );
     }

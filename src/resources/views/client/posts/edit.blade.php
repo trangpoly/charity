@@ -106,7 +106,7 @@
                                     <img class="box-image mr-2 w-[120px] h-[80px] rounded-lg shadow-xl"
                                         src="{{ asset('storage/images/' . $item->path) }}" alt="">
                                     <a href="" data-product-image-id="{{ $item->id }}"
-                                        class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                                        class="absolute w-5 top-1 right-2 rounded-full bg-red-600 product-image-delete">
                                         <svg className="w-6 h-6" fill="none" stroke="currentColor"
                                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

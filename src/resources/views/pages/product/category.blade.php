@@ -10,8 +10,15 @@
                         <h2 class="font-semibold text-3xl text-lime-700 w-10/12">{{ $item->name }}</h2>
                         @if ($item->loadCount('products')->products_count != 0)
                             <a href="{{ route('web.client.subCategory.list', $item->id) }}"
-                                class="font-base text-2xl text-gray-700 w-2/12 hover:text-orange-400">Xem
-                                thêm</a>
+                                class="flex w-2/12 place-content-end relative hover:color-orange-400">
+                                <span class="font-base text-xl text-gray-700 mr-6">Xem thêm</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"
+                                    class="absolute bottom-4 h-3 mx-2 fill-gray-700">
+                                    <path
+                                        d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"
+                                        style="text-color: grey" />
+                                </svg>
+                            </a>
                         @endif
                     </div>
                     @if ($item->loadCount('products')->products_count == 0)
@@ -76,8 +83,15 @@
     </div>
 
     <div class="w-4/12 h-fit">
-        <div class="w-full border border-gray-300 h-60">
-        </div>
+        @foreach ($banners as $banner)
+            @if ($banner->index_position == 1 && $banner->path !== '')
+                <div class="w-full border border-gray-300 h-72">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                        alt="">
+                </div>
+            @endif
+        @endforeach
         <div class="w-full border border-gray-300 h-fit mt-10">
             <form action="{{ route('web.client.product.submitSearch', $id) }}" method="GET">
                 @csrf
@@ -154,8 +168,25 @@
                 </div>
             </form>
         </div>
-        <div class="w-full border border-gray-300 mt-10 h-32"></div>
-        <div class="w-full border border-gray-300 mt-10 h-32"></div>
+        @foreach ($banners as $banner)
+            @if ($banner->index_position == 2 && $banner->path !== '')
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                        alt="">
+                </div>
+            @endif
+        @endforeach
+
+        @foreach ($banners as $banner)
+            @if ($banner->index_position == 3 && $banner->path !== '')
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}"
+                        alt="">
+                </div>
+            @endif
+        @endforeach
     </div>
 </div>
 <script>
