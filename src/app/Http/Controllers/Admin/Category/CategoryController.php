@@ -17,8 +17,7 @@ class CategoryController extends BaseController
     public function __construct(
         CategoryService $categoryService,
         BannerService $bannerService
-        )
-    {
+    ) {
         $this->categoryService = $categoryService;
         $this->bannerService = $bannerService;
     }
