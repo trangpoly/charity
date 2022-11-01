@@ -69,11 +69,9 @@ class OrderController extends BaseController
         if (!$status) {
             session(['msg' => 'Delete fail, orders are waiting to be received !']);
             session(['status' => true]);
-
         } else {
             session(['msg' => 'Delete order successfully !']);
             session(['status' => false]);
-
         }
 
         return redirect()->route('web.admin.order.list');
