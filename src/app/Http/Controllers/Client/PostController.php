@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\PostFormRequest;
+use App\Models\Product;
 use App\Services\BannerService;
+use App\Services\CategoryService;
 use App\Services\Client\PostService;
 use Illuminate\Http\Request;
 
@@ -12,11 +14,16 @@ class PostController extends Controller
 {
     public $postService;
     public $bannerService;
+    protected $categoryService;
 
-    public function __construct(PostService $postService, BannerService $bannerService)
-    {
+    public function __construct(
+        PostService $postService,
+        BannerService $bannerService,
+        CategoryService $categoryService
+    ) {
         $this->postService = $postService;
         $this->bannerService = $bannerService;
+        $this->categoryService = $categoryService;
     }
 
     public function create()
@@ -97,6 +104,40 @@ class PostController extends Controller
         }
 
         $status = $this->postService->updateProduct($request, $id);
+        $msg = $status ? 'Error! Cập nhập bài đăng thất bại.' : 'Bài Đăng của bạn đã được cập nhập !';
+
+        return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);
+    }
+
+    public function showDuplicateForm(Product $product)
+    {
+        $post = $this->postService->find($product->id);
+        $subCategory = $this->postService->findSubCategory($product->category_id);
+        $parentCategoryId = $subCategory->parent_id;
+        $subCategories = $this->postService->getSubCategories($parentCategoryId);
+        $provinces = $this->postService->loadProvince();
+
+        return view('client.posts.duplicate', [
+            'post' => $post,
+            'subCategories' => $subCategories,
+            'provinces' => $provinces,
+            'categories' => $this->categoryService->getProductsByParentCategory(),
+            'banners' => $this->bannerService->getBanners()
+        ]);
+    }
+
+    public function storeDuplicate(PostFormRequest $request)
+    {
+        $preImageRemove = $request->images_remove ? count(json_decode($request->images_remove)) : 0;
+        $newImage = $request->images ? count($request->images) : 0;
+        $hiddenImage = $request->images_hidden ? count($request->images_hidden) : 0;
+        $oldImage = $request->images_old ? count(json_decode($request->images_old)) : 0;
+
+        if ($oldImage - $hiddenImage + $newImage - $preImageRemove > 10) {
+            return  redirect()->back()->with(['limitImgMsg' => 'Album tối đa chỉ 10 ảnh']);
+        }
+
+        $status = $this->postService->storeDuplicate($request);
         $msg = $status ? 'Error! Cập nhập bài đăng thất bại.' : 'Bài Đăng của bạn đã được cập nhập !';
 
         return redirect()->route('home')->with(['msg' => $msg, 'status' => $status]);
