@@ -218,4 +218,84 @@ class PostService
     {
         return $this->provinceRepository->getProvinces();
     }
+
+    public function storeDuplicate($request)
+    {
+        DB::beginTransaction();
+        try {
+            $productData = $request->except([
+                'images',
+                '_token',
+                '_method',
+                "images_hidden",
+                "images_old",
+                "images_remove",
+                'avatar_old',
+            ]);
+            $productData['stock'] = $request->quantity;
+            $productData['owner_id'] = Auth::id();
+
+            if ($request->avatar != null) {
+                Storage::disk('public')->put('images', $request->avatar);
+                $productData['avatar'] = $request->avatar->hashName();
+            } else {
+                $productData['avatar'] = $request->avatar_old;
+            }
+
+            if (!$productData['stock'] == 0) {
+                $productData['status'] = 1;
+            } else {
+                $productData['status'] = 0;
+            }
+
+            $newProduct = $this->productRepository->create($productData);
+
+            $images_remove = json_decode($request->images_remove);
+            $images_old = json_decode($request->images_old);
+            $images_hidden = ($request->images_hidden);
+
+            foreach ($images_old as $item) {
+                if (!in_array($item->path, ($images_hidden == null ? [] : $images_hidden))) {
+                    $productImage = [
+                        'path' => $item->path,
+                        'product_id' => $newProduct->id,
+                    ];
+
+                    $this->productImageRepository->create($productImage);
+                }
+            }
+
+            if ($request->images) {
+                foreach ($request->images as $image) {
+                    if ($images_remove && !in_array($image->getClientOriginalName(), $images_remove)) {
+                        Storage::disk('public')->put('images', $image);
+
+                        $productImage = [
+                            'path' => $image->hashName(),
+                            'product_id' => $newProduct->id,
+                        ];
+                        $this->productImageRepository->create($productImage);
+                    } elseif ($images_remove == null) {
+                        Storage::disk('public')->put('images', $image);
+
+                        $productImage = [
+                            'path' => $image->hashName(),
+                            'product_id' => $newProduct->id,
+                        ];
+                        $this->productImageRepository->create($productImage);
+                    }
+                }
+            }
+
+            DB::commit();
+
+            return false;
+        } catch (Exception $e) {
+            dd($e);
+            Log::error($e);
+            DB::rollBack();
+
+            return true;
+        }
+    }
 }

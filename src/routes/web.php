@@ -80,10 +80,12 @@ Route::get('/deactivate', [UserController::class, 'deactivateAccount'])->name('w
 
 Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
 Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
-Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
+Route::post('/posts/create-form', [PostController::class, 'store'])->name('web.posts.store');
 Route::get('/posts/edit/{id}/{subCategoryId}', [PostController::class, 'edit'])->name('web.posts.edit');
 Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct'])->name('web.posts.remove-image');
 Route::post('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
+Route::get('/posts/duplicate/{product}', [PostController::class, 'showDuplicateForm'])->name('web.client.duplicate.form');
+Route::post('/posts/duplicate/{product}', [PostController::class, 'storeDuplicate'])->name('web.client.duplicate.store');
 
 Route::prefix('giver')->group(function () {
     Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');
