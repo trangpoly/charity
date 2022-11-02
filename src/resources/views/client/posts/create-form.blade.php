@@ -9,7 +9,7 @@
     <div class="flex max-w-8xl mx-auto mt-16 space-x-8 mb-10">
         <div class="flex w-8/12 bg-white rounded-lg border border-gray-700">
             <div class="w-full m-4">
-                <form action="{{route('web.posts.store')}}" method="POST" enctype="multipart/form-data">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="mb-5">
