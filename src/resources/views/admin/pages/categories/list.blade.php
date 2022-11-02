@@ -51,9 +51,6 @@
                             Status
                         </th>
                         <th scope="col" class="py-3 px-6">
-                            Sub-Category
-                        </th>
-                        <th scope="col" class="py-3 px-6">
                             Action
                         </th>
                     </tr>
@@ -83,11 +80,6 @@
                                 @if ($parentCategory->status == 2)
                                     Deactive
                                 @endif
-                            </td>
-                            <td class="py-4 px-6">
-                                @foreach ($parentCategory->subCategory as $item)
-                                    <p>{{ $item->name }}</p>
-                                @endforeach
                             </td>
                             <td class="py-10 px-6 flex space-x-6">
                                 <a href="{{ route('web.admin.category.detail', $parentCategory->id) }}">

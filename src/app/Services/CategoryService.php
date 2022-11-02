@@ -27,7 +27,7 @@ class CategoryService extends BaseService
         return $this->categoryRepository->getCategoryDetail($id);
     }
 
-    public function create($request)
+    public function createCate($request)
     {
         DB::beginTransaction();
         try {
@@ -80,6 +80,11 @@ class CategoryService extends BaseService
     public function delete($id)
     {
         return $this->categoryRepository->delete($id);
+    }
+
+    public function create($data)
+    {
+        return $this->categoryRepository->create($data);
     }
 
     public function searchCategory($nameCate, $statusCate)

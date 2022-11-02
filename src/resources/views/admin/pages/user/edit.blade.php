@@ -58,7 +58,7 @@
                 <input type="text" name="google_id" id="" value="{{$user->google_id}}" class="w-9/12 border border-gray-500">
             </div>
             <div class="w-1/3 space-x-2 mt-5 float-right flex justify-end">
-                <a href="" class="bg-white border border-gray-500 px-4 py-1">Back</a>
+                <a href="{{ route('web.admin.user.list') }}" class="bg-white border border-gray-500 px-4 py-1">Back</a>
                 <button type="submit" class="bg-yellow-600 text-white border border-gray-500 px-4 py-1">Submit</button>
             </div>
         </form>

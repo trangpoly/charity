@@ -104,7 +104,7 @@
                                             @endif
                                         @endif
                                     </div>
-                                    <h3 class="text-2xl h-6 mx-2">{{ $item->name }}</h3>
+                                    <h3 class="text-2xl h-6 mx-2 mt-2">{{ $item->name }}</h3>
                                     <div class="flex py-2 space-x-4 h-16 items-center mx-2">
                                         <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
                                             class="w-1/12 h-fit mb-0" alt="">

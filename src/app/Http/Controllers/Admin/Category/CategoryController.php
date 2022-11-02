@@ -38,7 +38,7 @@ class CategoryController extends BaseController
 
     public function storeCategory(CategoryRequest $request)
     {
-        $status = $this->categoryService->create($request);
+        $status = $this->categoryService->createCate($request);
 
         $msg = $status ? 'Error! Something went wrong.' : 'Create Category Successfully !';
 
