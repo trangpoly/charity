@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', ' Products')
 @section('content')
-    <div class="container ml-8 mt-5">
+    <div class="container mt-5">
         <form action="" method="" class="w-full h-fix">
             <div class="input flex mb-5 space-x-4">
                 <div class="">
