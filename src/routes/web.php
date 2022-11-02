@@ -75,35 +75,37 @@ Route::post('/login', [AuthSessionController::class, 'generateOtp'])->name('web.
 Route::get('/login/otp-verify', [AuthSessionController::class, 'otpVerify'])->name('web.login.otp-verify');
 Route::post('/login/otp-verify', [AuthSessionController::class, 'login'])->name('web.login.store');
 
-Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
-Route::get('/deactivate', [UserController::class, 'deactivateAccount'])->name('web.client.user.deactivate');
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', [AuthSessionController::class, 'logout'])->name('web.logout');
+    Route::get('/deactivate', [UserController::class, 'deactivateAccount'])->name('web.client.user.deactivate');
 
-Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
-Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
-Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
-Route::get('/posts/edit/{id}/{subCategoryId}', [PostController::class, 'edit'])->name('web.posts.edit');
-Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct'])->name('web.posts.remove-image');
-Route::post('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('web.posts.create');
+    Route::get('/posts/create-form/{id}', [PostController::class, 'showPostForm'])->name('web.posts.create-form');
+    Route::post('/posts/create-form/{id}', [PostController::class, 'store'])->name('web.posts.store');
+    Route::get('/posts/edit/{id}/{subCategoryId}', [PostController::class, 'edit'])->name('web.posts.edit');
+    Route::post('/posts/remove-image', [PostController::class, 'deleteImageProduct'])->name('web.posts.remove-image');
+    Route::post('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
 
-Route::prefix('giver')->group(function () {
-    Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');
-    Route::get('not-subscribe-giver', [GiverController::class, 'showGiverPostsNotRegistered'])->name('web.client.giver-posts.not-registered');
-    Route::post('mark-soldout/{id}', [GiverController::class, 'markSoldOut'])->name('web.client.giver-posts.mark-soldout');
-    Route::get('marked-soldout', [GiverController::class, 'showGiverPostsMarkedSoldOut'])->name('web.client.giver-posts.marked-soldout');
-    Route::get('gived', [GiverController::class, 'showGiverPostsGived'])->name('web.client.giver-posts.gived');
-});
+    Route::prefix('giver')->group(function () {
+        Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');
+        Route::get('not-subscribe-giver', [GiverController::class, 'showGiverPostsNotRegistered'])->name('web.client.giver-posts.not-registered');
+        Route::post('mark-soldout/{id}', [GiverController::class, 'markSoldOut'])->name('web.client.giver-posts.mark-soldout');
+        Route::get('marked-soldout', [GiverController::class, 'showGiverPostsMarkedSoldOut'])->name('web.client.giver-posts.marked-soldout');
+        Route::get('gived', [GiverController::class, 'showGiverPostsGived'])->name('web.client.giver-posts.gived');
+    });
 
-Route::prefix('receiver')->group(function () {
-    Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.client.registered');
-    Route::post('registered/undo', [ReceiverController::class, 'undoRegisted'])->name('web.client.undo-registered');
-    Route::post('registered/confirm-received', [ReceiverController::class, 'confirmReceived'])->name('web.client.confirm-received');
-    Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
-    Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
-    Route::post('registered/re', [ReceiverController::class, 'reRegistered'])->name('web.client.re-registered');
-});
+    Route::prefix('receiver')->group(function () {
+        Route::get('registered', [ReceiverController::class, 'registeredList'])->name('web.client.registered');
+        Route::post('registered/undo', [ReceiverController::class, 'undoRegisted'])->name('web.client.undo-registered');
+        Route::post('registered/confirm-received', [ReceiverController::class, 'confirmReceived'])->name('web.client.confirm-received');
+        Route::get('received', [ReceiverController::class, 'receivedList'])->name('web.client.received');
+        Route::get('canceled', [ReceiverController::class, 'canceledList'])->name('web.client.canceled');
+        Route::post('registered/re', [ReceiverController::class, 'reRegistered'])->name('web.client.re-registered');
+    });
 
-Route::prefix('favourite')->group(function () {
-    Route::get('list', [FavouriteController::class, 'list'])->name('web.client.favourite-list');
+    Route::prefix('favourite')->group(function () {
+        Route::get('list', [FavouriteController::class, 'list'])->name('web.client.favourite-list');
+    });
 });
 
 Route::prefix('admin')->group(function () {

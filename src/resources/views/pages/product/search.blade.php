@@ -113,9 +113,9 @@
                                     <select id="select-province" class="w-8/12 h-10" name="city">
                                         <option value="" selected disabled hidden>Chọn tỉnh thành</option>
                                         @foreach ($provinces as $key => $province)
-                                            <option id="province-{{ $key }}" value="{{ $province->_name }}"
+                                            <option id="province-{{ $key }}" value="{{ $province->name }}"
                                                 data-districts="{{ $province->districts }}">
-                                                {{ $province->_name }}
+                                                {{ $province->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -172,7 +172,7 @@
 
                     for (var i = 0; i < districtArr.length; i++) {
                         $('#select-district').append(`
-                        <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]._name + `</option>
+                        <option value="` + districtArr[i].name + `" class='district-box'>` + districtArr[i].name + `</option>
                     `);
                     }
                 });

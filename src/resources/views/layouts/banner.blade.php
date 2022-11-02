@@ -1,12 +1,15 @@
 <div class="w-4/12 h-fit">
-    @foreach ($banners as $banner)
-        @if ($banner->index_position == 1 && $banner->path !== '')
+        @if ($banners[0]->path !== '')
             <div class="w-full border border-gray-300 h-72">
                 <img id="top-banner" class="object-fill h-full w-full"
-                    src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}" alt="">
+                    src="{{ asset('storage/banners/' . $banners[0]->path) }}" alt="">
+            </div>
+        @else
+            <div class="w-full border border-gray-300 h-72">
+                <img id="top-banner" class="object-fill h-full w-full"
+                    src="https://scontent.fhan5-8.fna.fbcdn.net/v/t1.15752-9/311022761_426481996345482_418573754572453898_n.png?_nc_cat=106&ccb=1-7&_nc_sid=ae9488&_nc_ohc=ADIb973_k_EAX9sd3om&_nc_ht=scontent.fhan5-8.fna&oh=03_AdQ-jWHdqKA2dViblQUBv65XJVmGYUMIqJuIAtI7LArJ9g&oe=63897D81" alt="">
             </div>
         @endif
-    @endforeach
     <div class="w-full border border-gray-300 h-fit mt-10">
         <div class="w-full flex text-xl px-2 font-semibold text-gray-800">
             <div class="w-full flex items-center text-center py-2 px-4 space-x-4">
@@ -34,21 +37,26 @@
         @endforeach
 
     </div>
-    @foreach ($banners as $banner)
-        @if ($banner->index_position == 2 && $banner->path !== '')
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}" alt="">
-            </div>
-        @endif
-    @endforeach
-
-    @foreach ($banners as $banner)
-        @if ($banner->index_position == 3 && $banner->path !== '')
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}" alt="">
-            </div>
-        @endif
-    @endforeach
+    @if ($banners[1]->path !== '')
+        <div class="w-full border border-gray-300 mt-10 h-52">
+            <img id="top-banner" class="object-fill h-full w-full"
+                src="{{ asset('storage/banners/' . $banners[1]->path) }}" alt="">
+        </div>
+    @else
+    <div class="w-full border border-gray-300 mt-10 h-52">
+        <img id="top-banner" class="object-fill h-full w-full"
+            src="https://scontent.fhan5-9.fna.fbcdn.net/v/t1.15752-9/310035386_660055872134246_4333915890457524466_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=ND_KlGz5dIgAX-BtszS&_nc_ht=scontent.fhan5-9.fna&oh=03_AdQEU0WFEbMrTiPKu2YSDpo3W_QCtVSajRltgPkbpxm0Ow&oe=6389984B" alt="">
+    </div>
+    @endif
+    @if ($banners[2]->path !== '')
+        <div class="w-full border border-gray-300 mt-10 h-52">
+            <img id="top-banner" class="object-fill h-full w-full"
+                src="{{ asset('storage/banners/' . $banners[2]->path) }}" alt="">
+        </div>
+    @else
+        <div class="w-full border border-gray-300 mt-10 h-52">
+            <img id="top-banner" class="object-fill h-full w-full"
+                src="https://scontent.fhan5-11.fna.fbcdn.net/v/t1.15752-9/312914303_650559186602113_2420267589155946055_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=tYlUsLXNrH8AX-79ggy&_nc_ht=scontent.fhan5-11.fna&oh=03_AdSxM0SEQDA_GbSLZWVIyjz8GzuHARzwjO_4z_YbH9otOw&oe=6389997B" alt="">
+        </div>
+    @endif
 </div>
