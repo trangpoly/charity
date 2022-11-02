@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 @section('title', ' Contents')
 @section('content')
-    <div class="container ml-8 mt-5 shadow-xl">
+    <div class="container mt-5 shadow-xl">
         <form action="" method="" class="w-full h-fix">
             <div class="input flex mb-5 space-x-4">
                 <div class="">
@@ -37,7 +37,7 @@
                         <th scope="col" class="py-3 px-6">
                             Content
                         </th>
-                        <th scope="col" class="py-3 px-6">
+                        <th scope="col" class="py-2 px-6">
                             Action
                         </th>
                     </tr>
@@ -49,7 +49,6 @@
                             <td class="py-4 px-6 text-black">
                                 {{ $loop->iteration }}
                             </td>
-
                             <td scope="row"
                                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $item->name }}
@@ -61,11 +60,6 @@
                                 {{ $item->content }}
                             </td>
                             <td class="py-4 px-6 flex space-x-6">
-                                <a href="">
-                                    <img width="32px"
-                                        src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/category_management/u109.svg?pageId=c661d48f-a126-4bc4-b446-306b40de5021"
-                                        alt="">
-                                </a>
                                 <a href="{{ route('web.admin.contact.detele', $item->id) }}"
                                     onclick="return confirm('Xác nhận xóa ?')">
                                     <img width="30px"
@@ -103,7 +97,8 @@
                     )
                     .draw();
             });
-            $('#toast-success').fadeOut(5000);
+            $('#toast-notify').fadeOut(5000);
+            $('#toast-danger').fadeOut(5000);
         });
     </script>
 @endsection

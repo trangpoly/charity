@@ -25,7 +25,8 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|bail',
-            // 'avatar' => 'max:10',
+            'images' => 'max:10',
+            'images.*' => 'mimes:jpeg,png,jpg,gif|max:2000',
             'avatar.*' => 'mimes:jpeg,png,jpg,gif|max:2000',
             'unit' => 'required|bail',
             'weight' => 'required|bail',
@@ -44,9 +45,10 @@ class ProductRequest extends FormRequest
         return [
             'category_id.required' => 'Hãy chọn danh mục con cho sản phẩm *',
             'name.required' => 'Tên sản phẩm không được để trống *',
-            'avatar.required' => 'Nhập ít nhất 1 ảnh mô tả sản phẩm *',
-            // 'avatar.max' => 'Chỉ được nhập tối đa 10 ảnh *',
+            'images.max' => 'Chỉ được nhập tối đa 10 ảnh *',
+            'images.*.mimes' => 'Định dạng của ảnh không hợp lệ *',
             'avatar.*.mimes' => 'Định dạng của ảnh không hợp lệ *',
+            'images.*.max' => 'Ảnh không được quá 2MB *',
             'avatar.*.max' => 'Ảnh không được quá 2MB *',
             'weight.required' => 'Nhập trọng lượng của sản phẩm *',
             'quantity.required' => 'Nhập số lượng của sản phẩm *',

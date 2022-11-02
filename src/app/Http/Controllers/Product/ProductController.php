@@ -99,15 +99,7 @@ class ProductController extends BaseController
 
     public function saveUpdate($id, ProductRequest $request)
     {
-        $status = $this->productService->updateProduct($id, $request);
-
-        if ($status == false) {
-            session(['msg' => 'Sản phẩm phải có tối đa 1 ảnh']);
-            session(['status' => true]);
-            return back();
-        }
-
-        if ($request->has('avatar')) {
+        if ($request->has('images')) {
             $this->productService->createProductImage($id, $request);
         }
 
@@ -164,11 +156,15 @@ class ProductController extends BaseController
 
         $provinces = $this->productService->getProvince();
 
+        $banners = $this->bannerService->getBanners();
+
         return view('pages.product.sub-category', [
             'products' => $filterProducts,
             'subCategory' => $subCategory,
             'id' => $id,
             'provinces' => $provinces,
+            'banners' => $banners
+
         ]);
     }
 
@@ -179,6 +175,8 @@ class ProductController extends BaseController
         $search = $this->productService->search($request);
 
         $provinces = $this->productService->getProvince();
+
+        $banners = $this->bannerService->getBanners();
 
         if ($request->subCate) {
             $subCate = $request->subCate;
@@ -194,6 +192,8 @@ class ProductController extends BaseController
                 ->except(['_token']),
             'subCt' => $subCate,
             'provinces' => $provinces,
+            'banners' => $banners
+
         ]);
     }
 
@@ -213,12 +213,15 @@ class ProductController extends BaseController
 
         $provinces = $this->productService->getProvince();
 
+        $banners = $this->bannerService->getBanners();
+
         return view('pages.product.search', [
             'search' => $filterProducts,
             'subCategory' => $subCategory,
             'id' => $id,
             'subCt' => $subCate,
             'provinces' => $provinces,
+            'banners' => $banners
         ]);
     }
 
