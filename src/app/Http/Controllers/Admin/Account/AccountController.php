@@ -62,7 +62,9 @@ class AccountController extends BaseController
     {
         $this->accountService->delete($id);
 
-        session(['msg' => 'Delete successfully !']);
+        session(['msg' => 'Xóa thành công!']);
+
+        session(['status' => false]);
 
         return redirect()->back();
     }

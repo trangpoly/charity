@@ -22,10 +22,9 @@
                 </div>
             </div>
             <div class="w-full border rounded-xl border-gray-300 mt-4">
-                <div id="faker" class="w-full flex flex-wrap rounded-md p-5 ">
+                <div id="faker" class="w-full flex flex-wrap rounded-md p-5">
                     @foreach ($products as $item)
-                        <div class="w-3/12 relative p-2">
-                            <a href="{{ route('web.client.product.detail', $item->id) }}">
+                            {{-- <a href="{{ route('web.client.product.detail', $item->id) }}">
                                 <img class="h-fit"
                                     src="{{ Illuminate\Support\Facades\Storage::url('images/' . $item->avatar) }}"
                                     style="width:250px; height:250px" alt="">
@@ -64,8 +63,75 @@
                                 @if (in_array($item->stock, [-1, 0]))
                                     <p class="text-red-600 text-base">Hết hàng!!!</p>
                                 @endif
+                            </a> --}}
+                            <a href="{{ route('web.client.product.detail', $item->id) }}" class="w-3/12">
+                                <div class="h-48 relative mx-2">
+                                    <img src="{{ Illuminate\Support\Facades\Storage::url("images/$item->avatar") }}"
+                                        class="object-fill h-full w-full" alt="">
+                                    @if (!Auth::user())
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-8 absolute bottom-2 right-2 fill-white" viewBox="0 0 512 512">
+                                            <path
+                                                d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                                        </svg>
+                                    @endif
+
+                                    @if (Auth::user())
+                                        @if ($item->favourite && $item->favourite->user_id == Auth::user()->id)
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="w-8 absolute bottom-2 right-2 fill-orange-400"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                                            </svg>
+                                        @else
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="w-8 absolute bottom-2 right-2 fill-white"
+                                                viewBox="0 0 512 512">
+                                                <path
+                                                    d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+                                            </svg>
+                                        @endif
+                                    @endif
+                                </div>
+                                <h3 class="text-2xl h-6 mx-2">{{ $item->name }}</h3>
+                                <div class="flex py-2 space-x-4 h-16 items-center mx-2">
+                                    <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/my_page_-_danh_s_ch_nh_n/u48.svg?pageId=f31a1a14-4dae-44bb-8425-5e21d392a7ee"
+                                        class="w-1/12 h-fit mb-0" alt="">
+                                    <p class="text-lg">{{ $item->district . ', ' . $item->city }}</p>
+                                </div>
+                                <div class="flex space-x-4 h-10 items-center mx-2">
+                                    @php
+                                        $expireDate = mktime(0, 0, 0, date('m'), date('d'), date('Y'));
+                                        $expireDate = date('Y-m-d', $expireDate);
+                                        $now = date('Y-m-d');
+                                    @endphp
+                                    @if ($item->expire_at == $now)
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            class="w-1/12 h-fit" alt="">
+                                        <p class="text-orange-400 text-lg">
+                                            {{ $item->expire_at }}
+                                        </p>
+                                    @elseif($item->expire_at < $now)
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home_____login_/u137.svg?pageId=5737196c-eb35-4ecc-99fa-f985d8ba40d5"
+                                            class="w-1/12 h-fit" alt="">
+                                        <p class="text-orange-400 text-lg">
+                                            Đã hết hạn
+                                        </p>
+                                    @else($item->expire_at > $now)
+                                        <img src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u144.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                            class="w-1/12 h-fit" alt="">
+                                        <p class="text-black text-lg">
+                                            {{ $item->expire_at }}
+                                        </p>
+                                    @endif
+                                </div>
+                                @if ($item->stock == 0 || $item->stock == -1)
+                                    <div class="flex py-2 space-x-4 h-8 items-center mx-2">
+                                        <p class="text-base">Hết hàng!</p>
+                                    </div>
+                                @endif
                             </a>
-                        </div>
                     @endforeach
                 </div>
                 <div class="w-full mb-2 mr-6">
@@ -160,13 +226,13 @@
                 </form>
             </div>
             @foreach ($banners as $banner)
-        @if ($banner->index_position == 2 && $banner->path !== '')
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}" alt="">
-            </div>
-        @endif
-    @endforeach
+                @if ($banner->index_position == 2 && $banner->path !== '')
+                    <div class="w-full border border-gray-300 mt-10 h-52">
+                        <img id="top-banner" class="object-fill h-full w-full"
+                            src="{{ Illuminate\Support\Facades\Storage::url("banners/$banner->path") }}" alt="">
+                    </div>
+                @endif
+            @endforeach
             @foreach ($banners as $banner)
                 @if ($banner->index_position == 3 && $banner->path !== '')
                     <div class="w-full border border-gray-300 mt-10 h-52">
