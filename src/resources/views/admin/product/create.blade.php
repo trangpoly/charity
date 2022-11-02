@@ -37,20 +37,33 @@
                 <p class="text-black w-3/12">Mô tả</p>
                 <textarea type="text" name="desc" id="" class="w-9/12 h-20 border border-gray-500">{{ old('desc') ?? '' }} </textarea>
             </div>
-            <div class=" mt-5">
+            <div class="mt-5">
                 <div class="flex">
-                    <p class="text-black w-3/12">Hình ảnh<span class="text-red-700 ml-2">*</span></p>
-                    <input class="text-sm text-gray-700" type="file" id="file-input" required name="avatar[]z"
-                        accept="image/png, image/jpeg" onchange="preview()" multiple>
+                    <p class="text-black w-3/12">Ảnh đại diện sản phẩm<span class="text-red-700 ml-2">*</span></p>
+                    <input class="text-sm text-gray-700" type="file" required id="file-input" name="avatar"
+                        accept="image/png, image/jpeg" onchange="preview()">
                     <p hidden id="num-of-files"></p>
+                    <div class="mt-2 shadow-xl rounded-full" id="avatar"></div>
                 </div>
-                <div class="flex ml-10 mt-2" id="images"></div>
                 @if ($errors->has('avatar.*'))
-                    <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                    <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('avatar.*') }}</p>
                 @endif
-                @foreach ($errors->get('avatar') as $message)
-                    <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
-                @endforeach
+            </div>
+            <div class="mt-5">
+                <div class="flex">
+                    <p class="text-black w-3/12">Hình ảnh sản phẩm</p>
+                    <input class="text-sm text-gray-700" name="images[]" id="multiple_files" type="file" multiple=""
+                        onchange="previewImg()">
+                    <input type="hidden" name="images_remove" id="imgRemove" value="" hidden>
+                    @if ($errors->has('images.*'))
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                    @endif
+                    @foreach ($errors->get('images') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                    @endforeach
+                </div>
+                <div class="flex m-4 box-images"></div>
+
             </div>
             <div class="flex mt-5">
                 <p class="text-black w-3/12">Đơn vị<span class="text-red-700 ml-2">*</span></p>
@@ -109,9 +122,9 @@
                                 class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6" name="city">
                                 <option value="" selected disabled hidden>Chọn tỉnh thành</option>
                                 @foreach ($provinces as $key => $province)
-                                    <option id="province-{{ $key }}" value="{{ $province->_name }}"
+                                    <option id="province-{{ $key }}" value="{{ $province->name }}"
                                         data-districts="{{ $province->districts }}">
-                                        {{ $province->_name }}
+                                        {{ $province->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -170,7 +183,7 @@
     </div>
     <script>
         let fileInput = document.getElementById("file-input");
-        let imageContainer = document.getElementById("images");
+        let imageContainer = document.getElementById("avatar");
         let numOfFiles = document.getElementById("num-of-files");
 
         function preview() {
@@ -192,6 +205,44 @@
                 reader.readAsDataURL(i);
             }
         }
+
+        function previewImg() {
+            $(".img_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-images").append(`
+                    <div class="relative flex m-2 ">
+                        <img style="height: 150px; width: 150px;" class="image_add img_preview mr-2 rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                        <a href="" data-key = ${i}
+                            class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                    </div>
+                    `);
+            }
+            var imgRemove = [];
+
+            $(".product-image-delete").on("click", function(e) {
+                e.preventDefault();
+
+                $(this).parent('div').remove();
+                var key = $(this).attr("data-key");
+
+                for (let i = 0; i < arrImgAdd.length; i++) {
+                    if (i == key) {
+                        imgRemove.push(arrImgAdd[i].name)
+                    }
+                }
+                console.log(imgRemove);
+                $("#imgRemove").val(JSON.stringify(imgRemove))
+            })
+        }
+
         $(document).ready(function() {
             $('#select-province').on('change', function() {
                 $('.district-box').remove();
@@ -199,7 +250,7 @@
 
                 for (var i = 0; i < districtArr.length; i++) {
                     $('#select-district').append(`
-                        <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]._name + `</option>
+                        <option value="` + districtArr[i].name + `" class='district-box'>` + districtArr[i].name + `</option>
                     `);
                 }
             });

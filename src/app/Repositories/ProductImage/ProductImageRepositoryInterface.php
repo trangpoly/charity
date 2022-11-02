@@ -9,6 +9,4 @@ interface ProductImageRepositoryInterface extends BaseRepositoryInterface
     public function delImage($id);
 
     public function deleteMultiple($ids);
-
-    public function countImages($id);
 }

@@ -3,13 +3,13 @@
 @section('content')
     <div class="container">
         <div class="bg-blue-700 px-5 py-2">
-            <p class="text-white font-semibold">Product Update</p>
+            <p class="text-white font-semibold">Cập nhật sản phẩm</p>
         </div>
         <form action="{{ route('web.admin.product.saveUpdate', $product->id) }}" method="POST" id="form-request"
             class="w-8/12 ml-24 mt-5" enctype="multipart/form-data">
             @csrf
             <div class="flex mb-5">
-                <p class="text-black text-sm w-3/12">Sub-Category<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black text-sm w-3/12">Danh mục phụ<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <select class="w-full h-7 text-gray-700 text-sm bg-white border border-gray-500" name="category_id"
                         id="">
@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="flex">
-                <p class="text-black w-3/12">Product Name<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Tên sản phẩm<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <input type="text" name="name" id="" value="{{ $product->name }}"
                         class="w-full border text-sm text-gray-700 border-gray-500">
@@ -34,32 +34,45 @@
                 </div>
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Description</p>
+                <p class="text-black w-3/12">Mô tả</p>
                 <textarea type="text" name="desc" id="" class="w-9/12 h-20 border text-sm text-gray-700 border-gray-500">{{ $product->desc }}</textarea>
             </div>
-            <div class=" mt-5">
+            <div class="mt-5">
                 <div class="flex">
-                    <p class="text-black w-3/12">Images<span class="text-red-700 ml-2">*</span></p>
-                    <input type="file" id="file-input" name="avatar[]" accept="image/png, image/jpeg"
-                        onchange="preview()" class=" text-gray-700 text-sm" multiple>
-                    <p hidden id="num-of-files"></p>
-                </div>
-                <div class="flex space-x-4 mt-2" id="images">
+                    <p class="text-black w-3/12">Hình ảnh đại diện<span class="text-red-700 ml-2">*</span></p>
+                    <input class=" text-gray-700 text-sm" name="avatar" id="" type="file"
+                        onchange="previewAvatar()" value="{{ $product->avatar }}">
+                    <div class="box-avatar">
+                        <div class="relative">
+                            <img class="avatar_preview my-3 mx-auto rounded-lg shadow-xl"
+                                style="width: 250px; height: 250px;"
+                                src="{{ asset('/storage/images/' . $product->avatar) }}" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class=" mt-5">
                 <div class="flex">
-                    <p class="text-black w-3/12">Update Images<span class="text-red-700 ml-2">*</span></p>
+                    <p class="text-black w-3/12">Hình ảnh sản phẩm<span class="text-red-700 ml-2">*</span></p>
+                    <input class=" text-gray-700 text-sm" name="images[]" id="multiple_files" type="file"
+                        value="{{ $product->images }}" multiple onchange="previewImg()">
+                    @if ($errors->has('images.*'))
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
+                    @endif
+                    @foreach ($errors->get('images') as $message)
+                        <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
+                    @endforeach
                 </div>
-                <div class="flex m-4">
+                <div class="flex m-4 box-images">
                     @foreach ($product->images as $item)
-                        <div class="flex ml-20">
-                            <img width="200px" height="150px" class="box-image mr-2 rounded-lg shadow-xl"
-                                src="{{ asset('storage/images/' . $item->path) }}" alt=""> <a
-                                href="" data-product-image-id="{{ $item->id }}"
+                        <div class="flex m-4">
+                            <img style="height: 150px;width: 150px;" class="box-image mr-2 rounded-lg shadow-xl"
+                                src="{{ asset('storage/images/' . $item->path) }}" alt=""> <a href=""
+                                data-product-image-id="{{ $item->id }}"
                                 class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg" onclick="deleteImage('{{ $item->id }}')">
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                    onclick="deleteImage('{{ $item->id }}')" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                                         d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -67,19 +80,12 @@
                         </div>
                     @endforeach
                 </div>
-                <p class="ml-2 text-red-600 text-md mt-3">{{ session()->pull('msg') }}</p>
-                @if ($errors->has('avatar.*'))
-                    <p class="ml-2 text-red-600 text-md mt-3">{{ $errors->first('images.*') }}</p>
-                @endif
-                @foreach ($errors->get('avatar') as $message)
-                    <p class="ml-2 text-red-600 text-md mt-3">{{ $message }}</p>
-                @endforeach
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Unit<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Đơn vị<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <input type="text" name="unit" value="{{ $product->unit }}" id=""
-                        class="w-5/12 text-sm text-gray-700 border border-gray-500">
+                        class="w-3/12 text-sm text-gray-700 border border-gray-500">
                     @if ($errors->has('unit'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('unit') }}</span>
                     @endif
@@ -87,10 +93,10 @@
 
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Weight / Unit<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Trọng lượng / Đơn vị<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <input type="number" name="weight" value="{{ $product->weight }}" id=""
-                        class="w-2/12 border border-gray-500">
+                        class="w-2/12 border text-sm border-gray-500  text-gray-700">
                     @if ($errors->has('weight'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('weight') }}</span>
                     @endif
@@ -102,17 +108,17 @@
                 </div>
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Quantity<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Số lượng<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <input type="number" name="quantity" value="{{ $product->quantity }}" id=""
-                        class="w-2/12 border border-gray-500">
+                        class="w-2/12 text-sm border border-gray-500 text-gray-700">
                     @if ($errors->has('quantity'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('quantity') }}</span>
                     @endif
                 </div>
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Expiration date<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Ngày hết hạn<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <input type="date" name="expire_at" id="" value="{{ $product->expire_at }}"
                         class="w-2/12 h-7 border border-gray-500 text-sm text-gray-700">
@@ -122,33 +128,32 @@
                 </div>
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Address<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Địa chỉ<span class="text-red-700 ml-2">*</span></p>
                 <div class="w-9/12">
                     <div class="flex">
                         <div class="flex-col w-9/12 h-10">
-                            <select class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6"
-                                name="city" id="">
-                                <option value="">Select City</option>
-                                <option {{ $product->city == 'Hà Nội' ? 'selected' : '' }} value="Hà Nội">Hà Nội
-                                </option>
-                                <option {{ $product->city == 'Ninh Bình' ? 'selected' : '' }} value="Ninh Bình">Ninh Bình</option>
+                            <select id="select-province"
+                                class="bg-white border border-gray-500 text-gray-700 text-sm w-5/12 h-6" name="city"
+                                id="city" aria-label="Chọn danh mục con cho sản phẩm">
+                                <option value="" selected disabled hidden>Chọn tỉnh thành</option>
+                                @foreach ($provinces as $key => $province)
+                                    <option id="province-{{ $key }}" value="{{ $province->name }}"
+                                        data-districts="{{ $province->districts }}"
+                                        @if ($province->name == $product->city) data-current-district = "{{ $product->district }}"
+                                    selected @endif>
+                                        {{ $province->name }}
+                                    </option>
+                                @endforeach
                             </select>
                             @if ($errors->has('city'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('city') }}</span>
                             @endif
                         </div>
                         <div class="flex-col w-9/12">
-                            <select class="bg-white border border-gray-500 text-gray-700 text-sm w-4/12  h-6"
-                                name="district" id="">
-                                <option value="">Select District</option>
-                                <option {{ $product->district == 'Cầu Giấy' ? 'selected' : '' }} value="Cầu Giấy">Cầu Giấy
-                                </option>
-                                <option {{ $product->district == 'Hà Đông' ? 'selected' : '' }} value="Hà Đông">Hà Đông
-                                </option>
-                                <option {{ $product->district == 'Kim Sơn' ? 'selected' : '' }} value="Kim Sơn">Kim Sơn
-                                </option>
-                                <option {{ $product->district == 'Yên Khánh' ? 'selected' : '' }} value="Yên Khánh">Yên Khánh
-                                </option>
+                            <select id="select-district"
+                                class="bg-white border border-gray-500 text-gray-700 text-sm w-4/12  h-6" name="district"
+                                id="district" aria-label="Chọn danh mục con cho sản phẩm">
+                                <option value="" selected disabled hidden>Chọn quận huyện</option>
                             </select>
                             @if ($errors->has('district'))
                                 <span class="text-red-700 text-sm"> {{ $errors->first('district') }}</span>
@@ -157,32 +162,32 @@
                     </div>
                     <input type="text" name="address" id="" value="{{ $product->address }}"
                         class="h-7 w-9/12 mt-5 border border-gray-500 text-sm text-gray-700"
-                        placeholder="Enter detailed address infomation">
+                        placeholder="Nhập chi tiết thông tin địa chỉ">
                 </div>
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Phone Number<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Số điện thoại<span class="text-red-700 ml-2">*</span></p>
                 <div class="flex-col w-9/12">
                     <input type="text" name="phone" id="" value="{{ $product->phone }}"
-                        class="h-7 border border-gray-500 text-sm w-5/12">
+                        class="h-7 border border-gray-500 text-sm w-5/12 text-gray-700">
                     @if ($errors->has('phone'))
                         <span class="text-red-700 text-sm"> {{ $errors->first('phone') }}</span>
                     @endif
                 </div>
             </div>
             <div class="flex mt-5">
-                <p class="text-black w-3/12">Status<span class="text-red-700 ml-2">*</span></p>
+                <p class="text-black w-3/12">Trạng thái<span class="text-red-700 ml-2">*</span></p>
                 <div class="w-9/12 flex space-x-8 text-gray-700">
                     <div class="flex-col">
                         <div class="space-x-2">
                             <input type="radio" id="1" name="status"
                                 {{ $product->status == 0 ? 'checked' : '' }} value="0">
-                            <label>Active</label><br>
+                            <label>Hoạt động</label><br>
                         </div>
                         <div class="space-x-2">
                             <input type="radio" id="2" name="status"
                                 {{ $product->status == 1 ? 'checked' : '' }} value="1">
-                            <label>Deactive</label><br>
+                            <label>Không hoạt động</label><br>
                         </div>
                         @if ($errors->has('status'))
                             <span class="text-red-700 text-sm"> {{ $errors->first('status') }}</span>
@@ -190,9 +195,9 @@
                     </div>
                 </div>
             </div>
-            <div class="w-2/12 space-x-2 mt-5 float-right flex justify-end">
-                <a href="" class="bg-white border border-gray-500 rounded-md px-4 py-1">Back</a>
-                <button type="submit" class="bg-yellow-600 text-white rounded-md border-gray-500 px-4 py-1">Save</button>
+            <div class="w-3/12 space-x-2 mt-5 float-right flex justify-end">
+                <a href="" class="bg-white border border-gray-500 rounded-md px-4 py-1">Nhập lại</a>
+                <button type="submit" class="bg-yellow-600 text-white rounded-md border-gray-500 px-4 py-1">Lưu</button>
             </div>
         </form>
     </div>
@@ -202,6 +207,41 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        function previewAvatar() {
+            $(".avatar_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-avatar").append(`
+                    <div class="relative flex ">
+                        <img class="avatar_preview my-3 mx-auto w-[250px] h-[240px] rounded-lg shadow-xl" style="width: 250px; height: 250px;"
+                            src="${URL.createObjectURL(arrImgAdd[i])}" alt="">
+                    </div>
+                    `);
+            }
+        }
+
+        function previewImg() {
+            $(".img_preview").remove()
+            var arrImgAdd = this.event.target.files;
+            for (var i = 0; i < arrImgAdd.length; i++) {
+                $(".box-images").append(`
+                    <div class="relative flex  m-4">
+                        <img  class="image_add img_preview mr-2 rounded-lg shadow-xl"
+                            src="${URL.createObjectURL(arrImgAdd[i])}"  style="height: 150px;width: 150px;" alt="">
+                        <a href="" data-key = ${i}
+                            class="absolute w-5 top-1 right-3 rounded-full bg-red-600 product-image-delete">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </a>
+                    </div>
+                    `);
+            }
+        }
+
         $(document).ready(function() {
             $('.product-image-delete').click(function(e) {
                 e.preventDefault();
@@ -218,34 +258,40 @@
                 let formData = new FormData();
                 formData.append("image_id", $('.product-image-delete:hidden').data('product-image-id'));
             });
-        });
-        let fileInput = document.getElementById("file-input");
-        let imageContainer = document.getElementById("images");
-        let numOfFiles = document.getElementById("num-of-files");
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
 
-        function preview() {
-            imageContainer.innerHTML = "";
-            numOfFiles.textContent = `${fileInput.files.length} Files Selected`;
-
-            for (i of fileInput.files) {
-                let reader = new FileReader();
-                let figure = document.createElement("figure");
-                let figCap = document.createElement("figcaption");
-                figure.appendChild(figCap);
-                reader.onload = () => {
-                    let img = document.createElement("img");
-                    img.setAttribute("src", reader.result);
-                    img.setAttribute("width", 200);
-                    img.setAttribute("height", 150);
-                    figure.insertBefore(img, figCap);
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
+                        <option value="` + districtArr[i].name + `" class='district-box'>` + districtArr[i].name + `</option>
+                    `);
                 }
-                imageContainer.appendChild(figure);
-                reader.readAsDataURL(i);
-            }
-        }
+            });
+
+            $('#select-province option').each(function() {
+                if (this.selected) {
+                    districtArr = $(this).filter(':selected').data('districts');
+                    currentDistrict = $(this).filter(':selected').data('current-district');
+                    for (var i = 0; i < districtArr.length; i++) {
+                        if (districtArr[i].name == currentDistrict) {
+                            $('#select-district').append(`
+                                <option value="` + districtArr[i].name + `" class='district-box' selected>` +
+                                districtArr[i].name + `</option>
+                            `);
+                        } else {
+                            $('#select-district').append(`
+                                <option value="` + districtArr[i].name + `" class='district-box'>` + districtArr[i]
+                                .name + `</option>
+                            `);
+                        }
+                    }
+                }
+            });
+        });
 
         function deleteImage(id) {
-
+            console.log(id);
             var input = document.createElement("input");
 
             input.setAttribute("type", "hidden");

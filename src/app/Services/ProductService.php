@@ -147,7 +147,7 @@ class ProductService extends BaseService
 
     public function createProductImage($id, $request)
     {
-        foreach ($request->avatar as $images) {
+        foreach ($request->images as $images) {
             Storage::disk('public')->put('images/', $images);
             $productImage = [
                 'path' => $images->hashName(),
@@ -160,41 +160,25 @@ class ProductService extends BaseService
 
     public function updateProduct($id, $request)
     {
-        $attribute = $request->except('_token', 'idImage');
+        $attribute = $request->except('_token', 'idImage', 'images');
 
-        $arrayImages = $request->idImage;
+        if ($request->avatar) {
+            Storage::disk('public')->put('images', $request->avatar);
 
-        $count = $this->productImagesRepository->countImages($request->id);
+            $attribute['avatar'] = $request->avatar->hashName();
 
-        if (
-            $count == ($arrayImages == null ? -1 : count($arrayImages))
-            && ($request->avatar == null ? true : count($request->avatar) == 0)
-        ) {
-            return false;
+            $this->productRepository->update($id, $attribute);
         }
 
         if ($request->has('idImage')) {
             foreach ($request->idImage as $img) {
                 $ids[] = $img;
             }
+
             $this->productImagesRepository->deleteMultiple($ids);
         }
 
-        if ($request->images) {
-            foreach ($request->images as $images) {
-                Storage::disk('public')->put('images/', $images);
-                $productImage = [
-                    'path' => $images->hashName(),
-                    'product_id' => $id
-                ];
-
-                $this->productImagesRepository->create($productImage);
-            }
-        }
-
         $this->productRepository->update($id, $attribute);
-
-        return true;
     }
 
     public function getParentCategories()

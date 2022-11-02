@@ -99,9 +99,7 @@ class ProductController extends BaseController
 
     public function saveUpdate($id, ProductRequest $request)
     {
-        $this->productService->updateProduct($id, $request);
-
-        if ($request->has('avatar')) {
+        if ($request->has('images')) {
             $this->productService->createProductImage($id, $request);
         }
 
