@@ -48,7 +48,7 @@ class PostController extends Controller
     }
 
     public function store(PostFormRequest $request)
-    {dd($request->all());
+    {
         $images = $request->images != null ? count($request->images) : 0;
         $removeImgs = $request->images_remove != null ? count(json_decode($request->images_remove)) : 0;
 
