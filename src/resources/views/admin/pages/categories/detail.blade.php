@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="bg-blue-700 px-5 py-2">
-            <p class="text-white font-semibold">Create Category</p>
+            <p class="text-white font-semibold">Detail Category</p>
         </div>
         @if (session('fail'))
             <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
@@ -93,7 +93,7 @@
                 </div>
             </div>
             <div class="w-1/3 space-x-2 mt-5 float-right flex justify-end">
-                <a href="" class="bg-white border border-gray-500 px-4 py-1">Back</a>
+                <a href="{{ route("web.admin.category.list") }}" class="bg-white border border-gray-500 px-4 py-1">Back</a>
                 <button type="submit" id="btnCate" value="{{ $parentCategory->id }}"
                     class="bg-yellow-600 text-white border border-gray-500 px-4 py-1">Submit</button>
             </div>
