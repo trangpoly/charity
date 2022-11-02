@@ -138,6 +138,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                     <div class="w-full flex text-lg px-5  text-gray-800 hover:bg-lime-100">
                         <div class="w-full  border-b border-lime-500">
                             <p class="w-full text-2xl py-5 font-semibold">Chọn khu vực</p>
@@ -147,9 +148,9 @@
                                     <select id="select-province" class="w-8/12 h-10" name="city">
                                         <option value="" selected disabled hidden>Chọn tỉnh thành</option>
                                         @foreach ($provinces as $key => $province)
-                                            <option id="province-{{ $key }}" value="{{ $province->_name }}"
+                                            <option id="province-{{ $key }}" value="{{ $province->name }}"
                                                 data-districts="{{ $province->districts }}">
-                                                {{ $province->_name }}
+                                                {{ $province->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -162,30 +163,29 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="w-full flex  px-5  text-gray-800 hover:bg-lime-100">
-                        <div class="w-full  border-b border-lime-500">
-                            <p class="w-10/12 py-5 font-semibold text-2xl">Hạn sử dụng</p>
-                            <div class="w-full pb-6 flex ">
-                                <input class="mx-4 w-6/12" type="date" name="dateStart">
-                                <p class="font-semibold text-2xl mt-2">~</p>
-                                <input class="mx-4 w-6/12" type="date" name="dateEnd">
+                        <div class="w-full flex  px-5  text-gray-800 hover:bg-lime-100">
+                            <div class="w-full  border-b border-lime-500">
+                                <p class="w-10/12 py-5 font-semibold text-2xl">Hạn sử dụng</p>
+                                <div class="w-full pb-6 flex ">
+                                    <input class="mx-4 w-6/12" type="date" name="dateStart">
+                                    <p class="font-semibold text-2xl mt-2">~</p>
+                                    <input class="mx-4 w-6/12" type="date" name="dateEnd">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="w-full flex text-2xl px-5  text-gray-800 hover:bg-lime-100">
-                        <div class="w-full space-x-4 mt-4 mb-4">
-                            <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">Thực phẩm sắp
-                            hết
-                            hạn
+                        <div class="w-full flex text-2xl px-5  text-gray-800 hover:bg-lime-100">
+                            <div class="w-full space-x-4 mt-4 mb-4">
+                                <input type="checkbox" name="expired" value="1" class="w-6 h-6 mx-4">
+                                Thực phẩm sắp hết hạn
+                            </div>
                         </div>
-                    </div>
-                    <div class="w-full flex text-2xl px-5  text-with-800 hover:bg-lime-100">
-                        <div class="w-full mt-4 mb-4 text-center">
-                            <button type="submit"
-                                class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">Tìm
-                                kiếm
-                            </button>
+                        <div class="w-full flex text-2xl px-5  text-with-800 hover:bg-lime-100">
+                            <div class="w-full mt-4 mb-4 text-center">
+                                <button type="submit"
+                                    class="rounded-md py-2 px-8 bg-yellow-600 text-white font-semibold text-2xl hover:bg-lime-500">Tìm
+                                    kiếm
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -217,12 +217,20 @@
                 $('.district-box').remove();
                 districtArr = $(this).find(":selected").data('districts');
 
+<<<<<<< HEAD
+            for (var i = 0; i < districtArr.length; i++) {
+                $('#select-district').append(`
+                        <option value="` + districtArr[i].name + `" class='district-box'>` + districtArr[i].name + `</option>
+                    `);
+            }
+=======
                 for (var i = 0; i < districtArr.length; i++) {
                     $('#select-district').append(`
                             <option value="` + districtArr[i]._name + `" class='district-box'>` + districtArr[i]._name + `</option>
                         `);
                 }
             });
+>>>>>>> 0475d261510c37f96943006228225e4b0a23c074
         });
     </script>
 </x-app-layout>

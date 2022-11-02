@@ -31,7 +31,7 @@ class ClientController extends Controller
     public function home()
     {
         $data = [
-            'slides' => $this->slideService->getSlides(),
+            'slides' => $this->slideService->getSlidesActive(),
             'categories' => $this->categoryService->getProductsByParentCategory(),
             'banners' => $this->bannerService->getBanners()
         ];

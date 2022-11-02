@@ -21,9 +21,4 @@ class SlideRepository extends BaseRepository implements SlideRepositoryInterface
     {
         return $this->model->where('status', 0)->get();
     }
-
-    public function getSlides()
-    {
-        return $this->model->all();
-    }
 }

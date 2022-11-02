@@ -43,9 +43,9 @@ class SlideService extends BaseService
         return $this->slideRepository->update($id, $attribute);
     }
 
-    public function getSlides()
+    public function getSlidesActive()
     {
-        return $this->slideRepository->getSlides();
+        return $this->slideRepository->getSlidesActive();
     }
 
     public function storeSlide($request)
