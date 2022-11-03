@@ -5,6 +5,7 @@ namespace App\Services\Client;
 use App\Repositories\Favourite\FavouriteRepositoryInterface;
 use App\Repositories\Product\ProductRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+
 class FavouriteService
 {
     protected $favouriteRepository;
