@@ -13,9 +13,9 @@ class GiverService
         $this->productRepository = $productRepository;
     }
 
-    public function findProductsRegistered($userId)
+    public function findProductsRegistered()
     {
-        return $this->productRepository->findProductsRegistered($userId);
+        return $this->productRepository->findProductsRegistered();
     }
 
     public function findProductsNotRegistered()
