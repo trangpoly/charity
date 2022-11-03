@@ -12,6 +12,7 @@
         </div>
         <div class="w-8/12 ml-10">
             <h2 class="font-semibold text-2xl text-lime-700">Danh sách yêu thích</h2>
+            @if ($favouriteList->count() > 0)
             <div class="w-full mt-10 box-orders">
                 @foreach ($favouriteList as $key => $item)
                     <div class="w-full flex border border-gray-300 rounded-md p-10 my-5 order-element" style="display: none">
@@ -121,6 +122,11 @@
                     </div>
                 @endforeach
             </div>
+            @else
+            <h1 class="flex justify-center items-center mt-20 text-4xl text-gray-600">
+                Bạn Chưa Yêu Thích Sản Phẩm Nào.
+            </h1>
+            @endif
         </div>
     </div>
     @section('script')
@@ -144,7 +150,7 @@
                                 <p class="text-xl mb-4">ĐÃ HỦY ĐĂNG KÝ NHẬN SẢN PHẨM !</p>
                                 <button id="#re-register-`+ index +`" type="button"
                                     onclick="reRegister('`+ order_id +`', '`+ index +`')"
-                                    class="rounded-md py-2 px-8 bg-orange-400 text-white font-semibold text-2xl hover:bg-orange-600 re-registered-{{ $key }}">
+                                    class="rounded-md py-2 px-8 bg-orange-400 text-white font-semibold text-2xl hover:bg-orange-600 re-registered-`+ index +`">
                                     ĐĂNG KÍ LẠI
                                 </button>
                             </div>`
@@ -176,7 +182,7 @@
                                 <p class="text-xl mb-4">ĐÃ ĐĂNG KÝ NHẬN SẢN PHẨM !</p>
                                 <button id="#undo-register-`+ index +`" type="button"
                                     onclick="undoRegister('`+ order_id +`', '`+ index +`')"
-                                    class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800 undo-registed-{{ $key }}">
+                                    class="rounded-md py-2 px-8 bg-sky-600 text-white font-semibold text-2xl hover:bg-sky-800 undo-registed-`+ index +`">
                                     HỦY ĐĂNG KÍ
                                 </button>
                             </div>`
