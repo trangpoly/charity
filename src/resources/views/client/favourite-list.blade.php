@@ -15,6 +15,7 @@
             <div class="w-full mt-10 box-orders">
                 @foreach ($favouriteList as $key => $item)
                     <div class="w-full flex border border-gray-300 rounded-md p-10 my-5 order-element" style="display: none">
+                        @if ($item->product != null)
                         <div class="w-6/12">
                             <img src="{{ asset('storage/images/' . $item->product->avatar) }}" alt="">
                         </div>
@@ -105,6 +106,18 @@
                                 width="30px" alt="">
                             </button>
                         </div>
+                        @else
+                        <p class="text-red-500 text-2xl">
+                            Sản phẩm này đã bị xóa khỏi hệ thống! Hãy xóa bỏ sản phẩm này khỏi danh sách yêu thích của bạn.
+                        </p>
+                        <div id="box-item-{{ $key }}" class="w-6/12 ml-10 relative">
+                            <button id="remove-favourite-{{ $key }}" type="button"
+                                onclick="removeFavourite('{{ $item->id }}', '{{ $key }}')">
+                                <img class="absolute top-0 right-0" src="https://d1icd6shlvmxi6.cloudfront.net/gsc/YX3NNB/b6/de/a7/b6dea7057dc849ddb4efc5c7ac6a3af3/images/home__ch_a_login_/u124.svg?pageId=f1b2389f-3a56-4508-9aba-e73a9fffd1f1"
+                                width="30px" alt="">
+                            </button>
+                        </div>
+                        @endif
                     </div>
                 @endforeach
             </div>
