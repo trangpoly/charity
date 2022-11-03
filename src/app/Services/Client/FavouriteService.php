@@ -24,19 +24,23 @@ class FavouriteService
         $favouriteList = $this->favouriteRepository->getFavouriteList();
 
         foreach ($favouriteList as $favourite) {
-            $checkOrderIsset = $favourite->product
-                ->orders()
-                ->where('receiver_id', Auth::user()->id)
-                ->count();
-            $favourite['order_isset'] = $checkOrderIsset;
-
-            if ($checkOrderIsset == 1) {
-                $checkOrderStatus = $favourite->product
+            if (isset($favourite->product->orders)) {
+                $checkOrderIsset = $favourite->product
                     ->orders()
                     ->where('receiver_id', Auth::user()->id)
-                    ->first(['status', 'id']);
-                $favourite['order_status'] = $checkOrderStatus->status;
-                $favourite['order_id'] = $checkOrderStatus->id;
+                    ->count();
+                $favourite['order_isset'] = $checkOrderIsset;
+
+                if ($checkOrderIsset == 1) {
+                    $checkOrderStatus = $favourite->product
+                        ->orders()
+                        ->where('receiver_id', Auth::user()->id)
+                        ->first(['status', 'id']);
+                    $favourite['order_status'] = $checkOrderStatus->status;
+                    $favourite['order_id'] = $checkOrderStatus->id;
+                }
+            } else {
+                $favourite['order_isset'] = 0;
             }
         };
 

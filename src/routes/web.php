@@ -58,7 +58,6 @@ Route::any('/search/{id}', [ProductController::class, 'submitSearch'])->name('we
 Route::any('/filter/{id}', [ProductController::class, 'filter'])->name('web.client.product.filter');
 Route::any('/filterSearch/{id}', [ProductController::class, 'filterSearch'])->name('web.client.product.filterSearch');
 
-
 Route::post('/add-favourite', [ProductController::class, 'addFavourite'])->name('web.client.product.add-favourite');
 Route::post('/remove-favourite', [ProductController::class, 'removeFavourite'])->name('web.client.product.remove-favourite');
 
@@ -87,7 +86,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/posts/edit/{id}', [PostController::class, 'update'])->name('web.posts.update');
     Route::get('/posts/duplicate/{product}', [PostController::class, 'showDuplicateForm'])->name('web.client.duplicate.form');
     Route::post('/posts/duplicate/{product}', [PostController::class, 'storeDuplicate'])->name('web.client.duplicate.store');
-
 
     Route::prefix('giver')->group(function () {
         Route::get('subscribe-giver', [GiverController::class, 'showGiverPostsRegistered'])->name('web.client.giver-posts');

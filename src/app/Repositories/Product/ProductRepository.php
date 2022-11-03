@@ -149,10 +149,10 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     }
 
     public function findProductsRegistered()
-    {        
+    {
         return $this->model->whereHas("orders", function ($e) {
             $e->where('status', 0);
-        })->with("giver","receivers")->get();
+        })->with("giver", "receivers")->get();
     }
 
     public function findPostWithImages($id)
@@ -174,7 +174,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
     {
         return $this->model->whereHas("orders", function ($e) {
             $e->where('status', 1);
-        })->with("receivers","giver")->get();
+        })->with("receivers", "giver")->get();
     }
 
     public function searchProductByName($data)
