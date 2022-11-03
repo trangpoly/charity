@@ -23,9 +23,7 @@ class GiverController extends Controller
 
     public function showGiverPostsRegistered()
     {
-        $idUser = Auth::id();
-
-        $productsRegistered = $this->giverService->findProductsRegistered($idUser);
+        $productsRegistered = $this->giverService->findProductsRegistered();
 
         return view('client.giver.subscribe-giver', [
             'productsRegistered' => $productsRegistered
