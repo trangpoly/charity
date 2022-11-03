@@ -28,7 +28,7 @@ interface ProductRepositoryInterface extends BaseRepositoryInterface
 
     public function getNearExpiryFood($currentProductId);
 
-    public function findProductsRegistered($userId);
+    public function findProductsRegistered();
 
     public function findPostWithImages($id);
 

@@ -148,13 +148,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
             ->get();
     }
 
-    public function findProductsRegistered($userId)
-    {
+    public function findProductsRegistered()
+    {        
         return $this->model->whereHas("orders", function ($e) {
             $e->where('status', 0);
-        })->whereHas("giver", function ($e) use ($userId) {
-            $e->where("id", $userId);
-        })->with("receivers")->get();
+        })->with("giver","receivers")->get();
     }
 
     public function findPostWithImages($id)
@@ -164,21 +162,19 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
     public function findProductsNotRegistered()
     {
-        return $this->model->with("orders")->whereNot('stock', -1)->get();
+        return $this->model->with("orders")->whereNot('stock', -1)->where('owner_id', Auth::user()->id)->get();
     }
 
     public function findProductsMarkedSoldOut()
     {
-        return $this->model->with("orders")->where('stock', -1)->get();
+        return $this->model->with("orders")->where('stock', -1)->where('owner_id', Auth::user()->id)->get();
     }
 
     public function findProductsGived($userId)
     {
         return $this->model->whereHas("orders", function ($e) {
             $e->where('status', 1);
-        })->whereHas("giver", function ($e) use ($userId) {
-            $e->where("id", $userId);
-        })->with("receivers")->get();
+        })->with("receivers","giver")->get();
     }
 
     public function searchProductByName($data)
