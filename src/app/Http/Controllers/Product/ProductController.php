@@ -152,7 +152,7 @@ class ProductController extends BaseController
             $filterProducts = $this->productService->getProductsBySubCategory($id);
         }
 
-        $subCategory = $this->categoryService->getSubCategoriesProduct();
+        $subCategory = $filterProducts[0]->subCategory->category->subCategory;
 
         $provinces = $this->productService->getProvince();
 
@@ -209,7 +209,7 @@ class ProductController extends BaseController
             $filterProducts = $this->productService->filterSearch($sortExpireDate, $subCate);
         }
 
-        $subCategory = $this->categoryService->getSubCategoriesProduct();
+        $subCategory = $filterProducts[0]->subCategory->category->subCategory;
 
         $provinces = $this->productService->getProvince();
 

@@ -42,9 +42,8 @@
                                                 d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
                                         </svg>
                                     @endif
-
-                                    @if (Auth::user())
-                                        @if ($faker->favourite && $faker->favourite->user_id == Auth::user()->id)
+                                    @if (Auth::user() && $faker->owner_id != Auth::user()->id)
+                                        @if ($faker->favourite && $faker->favourite->user_id == Auth::user()->id && $faker->owner_id != Auth::user()->id)
                                             <svg xmlns="http://www.w3.org/2000/svg"
                                                 class="w-8 absolute bottom-2 right-2 fill-orange-400"
                                                 viewBox="0 0 512 512">
@@ -191,47 +190,47 @@
                         </div>
                     </div>
                 </div>
-        </form>
+            </form>
 
-        @if ($banners[1]->path !== '')
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="{{ asset('storage/banners/' . $banners[1]->path) }}" alt="">
-            </div>
-        @else
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="https://scontent.fhan5-9.fna.fbcdn.net/v/t1.15752-9/310035386_660055872134246_4333915890457524466_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=ND_KlGz5dIgAX-BtszS&_nc_ht=scontent.fhan5-9.fna&oh=03_AdQEU0WFEbMrTiPKu2YSDpo3W_QCtVSajRltgPkbpxm0Ow&oe=6389984B"
-                    alt="">
-            </div>
-        @endif
-        @if ($banners[2]->path !== '')
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="{{ asset('storage/banners/' . $banners[2]->path) }}" alt="">
-            </div>
-        @else
-            <div class="w-full border border-gray-300 mt-10 h-52">
-                <img id="top-banner" class="object-fill h-full w-full"
-                    src="https://scontent.fhan5-11.fna.fbcdn.net/v/t1.15752-9/312914303_650559186602113_2420267589155946055_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=tYlUsLXNrH8AX-79ggy&_nc_ht=scontent.fhan5-11.fna&oh=03_AdSxM0SEQDA_GbSLZWVIyjz8GzuHARzwjO_4z_YbH9otOw&oe=6389997B"
-                    alt="">
-            </div>
-        @endif
+            @if ($banners[1]->path !== '')
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="{{ asset('storage/banners/' . $banners[1]->path) }}" alt="">
+                </div>
+            @else
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="https://scontent.fhan5-9.fna.fbcdn.net/v/t1.15752-9/310035386_660055872134246_4333915890457524466_n.png?_nc_cat=109&ccb=1-7&_nc_sid=ae9488&_nc_ohc=ND_KlGz5dIgAX-BtszS&_nc_ht=scontent.fhan5-9.fna&oh=03_AdQEU0WFEbMrTiPKu2YSDpo3W_QCtVSajRltgPkbpxm0Ow&oe=6389984B"
+                        alt="">
+                </div>
+            @endif
+            @if ($banners[2]->path !== '')
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="{{ asset('storage/banners/' . $banners[2]->path) }}" alt="">
+                </div>
+            @else
+                <div class="w-full border border-gray-300 mt-10 h-52">
+                    <img id="top-banner" class="object-fill h-full w-full"
+                        src="https://scontent.fhan5-11.fna.fbcdn.net/v/t1.15752-9/312914303_650559186602113_2420267589155946055_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=tYlUsLXNrH8AX-79ggy&_nc_ht=scontent.fhan5-11.fna&oh=03_AdSxM0SEQDA_GbSLZWVIyjz8GzuHARzwjO_4z_YbH9otOw&oe=6389997B"
+                        alt="">
+                </div>
+            @endif
+        </div>
     </div>
-</div>
-<script>
-    $(document).ready(function() {
-        $('#select-province').on('change', function() {
-            $('.district-box').remove();
-            districtArr = $(this).find(":selected").data('districts');
+    <script>
+        $(document).ready(function() {
+            $('#select-province').on('change', function() {
+                $('.district-box').remove();
+                districtArr = $(this).find(":selected").data('districts');
 
-            for (var i = 0; i < districtArr.length; i++) {
-                $('#select-district').append(`
+                for (var i = 0; i < districtArr.length; i++) {
+                    $('#select-district').append(`
                             <option value="` + districtArr[i].name + `" class='district-box'>` + districtArr[i]
-                    .name + `</option>
+                        .name + `</option>
                         `);
-            }
+                }
+            });
         });
-    });
-</script>
+    </script>
 </x-app-layout>
